@@ -1,0 +1,139 @@
+---
+title: "Byte | Data Type"
+description: "The article discusses bytes in Python, explaining that a byte is made up of 8 bits and can represent 256 different values. It describes how to use the bytes and bytearray types to handle bytes, including methods to create, access, and modify byte data. The text emphasizes the importance of bytes for tasks like network communication and file handling and sets the stage for a discussion on Unicode."
+---
+
+## 引子
+
+在[《5.3 节 - 字符串类型》](https://pythod.com/05-data-type/0503-data-type-string)中，我们学习了字符串的基本概念和简单操作；本节和后面几节会更加深入地探讨一下在 Python 中与字符串相关的概念：字节、Unicode、字符编码和解码以及字符串存储。
+
+这些概念有助于初学者理解 Python 是如何在计算机中处理字符串的。
+
+下面就让我们先来详细介绍一下字节类型。
+
+## 基本概念
+
+**字节**（Byte）是 Python 编程中的一个重要概念，也是计算机编程中的一个重要概念。众所周知，计算机能够处理的数据是 `0` 和 `1`。一个 `0` 或 `1` 就代表一位数；而由若干位 `0` 或 `1` 就可以组成一个二进制数。其中的“位（`Bit`）“就是计算机存储信息的最基本单位；因此，我们也常听到有人管一位数叫一个”比特“，也就是英文 `Bit` 的音译。
+
+但是一个比特只能存储 `0` 或 `1` ，显然太小了，我们需要更大的存储单元来表示更多的信息，”字节（`Byte`）“由此产生。
+
+一个字节（`Byte`）是 8 位比特的集合，存储范围由 `00000000` 至 `11111111`；对应十进制单位，就是从 0 至 255。也就是说，一个字节可以表示 256 种不同的数据。
+
+在计算机和网络世界，除了比特之外，最基本的数据存储单位就是字节。
+
+本质上，我们在计算机和网络上看到和操作的一切最终都归结为二进制数据——一组 `0` 和 `1`；正是这组二进制数可以被计算机和其他数字设备存储、传输和处理。字节提供了一种标准化的方式来表示二进制数据，使所有的计算机都能够以一种一致的和可预测的方式理解和操作数字信息。
+
+## 基本操作
+
+在 Python 中，我们使用 `bytes` 数据类型表示一个字节列表。要创建一个字节对象，可以使用 `bytes()` 构造函数并传入 0 到 255 之间的整数序列。每个整数表示序列中一个字节的值。
+
+例如，以下是创建表示序列[72、101、108、108、111]（对应于 ASCII 字符串“Hello”）的字节对象的方法：
+
+```python
+>>> b = bytes([72, 101, 108, 108, 111])
+>>> print(b)
+b'Hello'
+```
+
+请注意输出中的 `b` 前缀，它用来表示这是一个字节对象。因此，我们也可以直接使用 `b` 前缀来创建字节对象。我们可以在这个语法中填入任意的字符串，它会被自动转换为字节。例如：
+
+```python
+>>> b = b'Hello'
+>>> print(b)
+b'Hello'
+```
+
+创建了字节对象后，我们还可以对其执行各种操作。例如，我们可以使用索引访问单个字节：
+
+```python
+>>> print(b[0])
+72
+>>> print(b[1])
+101
+```
+
+我们还可以使用 for 循环迭代字节对象中的字节：
+
+```python
+>>> for byte in b:
+...     print(byte)
+...
+72
+101
+108
+108
+111
+```
+
+需要注意的一点是，在 Python 中，**字节对象是不可变的**，这意味着我们不能直接修改字节串。如果我们确实需要修改字节对象，有两种方法：
+
+-   创建一个带有所需更改的新字节对象。
+-   使用 `bytearray` 类型来处理可变的字节序列。
+
+在 Python 中，`bytearray` 类型与 `bytes` 很相似，但 `bytearray` 类型提供了一个可变的字节序列。让我们来看一个例子：
+
+```python
+>>> b = bytearray(b'Hello')
+>>> print(b)
+bytearray(b'hello')
+```
+
+同样，我们也可以使用索引来访问 `bytearray` 对象中的数据：
+
+```python
+>>> b[0]
+72
+```
+
+与 `bytes` 不同的是，Python 为 `bytearray` 类型提供了多种方法以便对其本身进行处理，例如：
+
+```python
+>>> b.append(33) # 在字节对象的末尾追加一个字节。
+>>> print(b)
+bytearray(b'Hello!')
+>>> b.extend(b' world') # 在字节对象的末尾追加一个字节对象。
+>>> print(b)
+bytearray(b'Hello! world')
+>>> b.pop() # 删除并返回字节对象的最后一个字节。
+100
+>>> print(b)
+bytearray(b'Hello! worl')
+```
+
+在这个例子中，我们使用 `append()` 方法将一个新的字节添加到 `bytearray` 对象的末尾；使用 `extend()` 方法添加了另一个 `bytes` 对象；使用 `pop()` 方法删除并返回 `bytearray` 对象中的最后一个字节。
+
+此外，`bytearray` 类型提供了几个其他有用的方法，包括 `insert()`、`remove()`、`reverse()` 和 `sort()`。
+
+需要注意的一点是，尽管 `bytearray` 对象是可变的，但它们仍然有存储值的限制。具体来说，`bytearray` 中的每个字节的值必须在 0 到 255 之间。如果尝试分配超出此范围的值，则会出现 `ValueError` 错误。
+
+## 字节与字符串的转换
+
+在 Python 中，字节和字符串是两种不同的数据类型。如前所述，字节是以二进制形式表示的数据，而字符串是由一系列字符组成的文本。
+
+要在 Python 中将字符串转换为字节，可以使用 `bytes` 函数。例如，可以这样将字符串转换为字节：
+
+```python
+>>> string = 'Hello'
+>>> b = bytes(string, 'utf-8')
+>>> print(b)
+b'Hello'
+```
+
+这个例子中，我们使用了 `bytes` 函数将字符串 `'Hello'` 转换为字节。我们还指定了使用的编码方式，即 `utf-8`。
+
+要在 Python 中将字节转换为字符串，可以使用 `decode` 方法。例如，可以这样将字节转换为字符串：
+
+```python
+>>> b = b'Hello'
+>>> string = b.decode('utf-8')
+>>> print(string)
+Hello
+```
+
+在这个例子中，我们使用了字节的 `decode` 方法将字节转换为字符串。我们还指定了使用的编码方式，即 `utf-8`。
+
+## 总结
+
+本节介绍了 Python 中字节的概念和基本用法。简言之，字节是 Python 编程中的一个重要部分，因为它们提供了一种处理二进制数据的方法，这对于许多应用程序，如网络通信、文件输入/输出和加密等都非常重要。
+
+下一节中，我们会继续介绍 Unicode。

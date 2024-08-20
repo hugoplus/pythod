@@ -1,0 +1,63 @@
+---
+title: "Python Interpreter"
+description: "The article explains the Python interpreter, detailing how it runs Python code either in interactive mode for immediate feedback or in script mode for executing complete scripts. It also describes two main types of Python interpreters: CPython, the standard and most commonly used, and PyPy, which is faster for some tasks but lacks full feature compatibility with CPython."
+---
+
+## 什么是 Python 解释器？
+
+**Python 解释器**（Python Interpreter）是一种可以执行 Python 代码的软件。当我们在命令提示符或终端中输入`python`并按下回车键时，我们就启动了 Python 解释器。
+
+一般来说，Python 解释器有两种模式：**交互模式**和**脚本模式**。
+
+1. **交互模式**：你可以在”交互模式“解释器中输入单行或多行 Python 代码，并立即得到结果。这是一种很好的学习 Python 和测试代码片段的方式。
+
+    Python 安装包中自带的`IDLE`就是典型的”交互模式“解释器，你可以在`IDLE`中输入一行或多行 Python 代码，然后立即查看运行结果。你也可以通过`python`命令，在 Windows 命令行下调出“交互模式”。
+
+    ```ascii
+    ┌────────────────────────────────────────────────────────┐
+    │Command Prompt - python                           - □ x │
+    ├────────────────────────────────────────────────────────┤
+    │Microsoft Windows [Version 10.0.0]                      │
+    │(c) 2015 Microsoft Corporation. All rights reserved.    │
+    │                                                        │
+    │C:\> python                                             │
+    │Python 3.11 ... on win32                                │
+    │Type "help", ... for more information.                  │
+    │>>> _                                                   │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    └────────────────────────────────────────────────────────┘
+    ```
+
+2. **脚本模式**：在”脚本模式“解释器下，你可以将多行 Python 代码保存到文件中，然后使用解释器来完整执行这个文件。这是一种更常见的 Python 编程方式。
+
+    例如，我们可以在 Windows 命令行下通过“脚本模式”运行 Python 程序：
+
+    ```ascii
+    ┌────────────────────────────────────────────────────────┐
+    │Command Prompt                                    - □ x │
+    ├────────────────────────────────────────────────────────┤
+    │Microsoft Windows [Version 10.0.0]                      │
+    │(c) 2015 Microsoft Corporation. All rights reserved.    │
+    │                                                        │
+    │C:\>python hello-world.py_                              │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    │                                                        │
+    └────────────────────────────────────────────────────────┘
+    ```
+
+## Python 解释器的主流实现
+
+目前有两种主流的 Python 解释器实现：
+
+1.  CPython：这是 Python 的参考实现，用 C 语言编写。它是最广泛使用的 Python 解释器，大多数人在谈论“Python”时所指的就是这个。
+2.  PyPy：这是 Python 的另一种实现，用一种叫做 RPython 的 Python 子集编写。PyPy 在某些类型的工作负载中比 CPython 快，但它可能不支持 CPython 中可用的所有功能和库。
+
+除了这两个主要解释器外，还有其他几种 Python 实现用于特定的场景，例如 Jython（用 Java 编写）和 IronPython（用 C#编写，用于.NET 平台）。

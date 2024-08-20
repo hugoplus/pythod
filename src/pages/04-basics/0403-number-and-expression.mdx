@@ -1,0 +1,99 @@
+---
+title: "Numbers & Expressions"
+description: "The article explains basic concepts of numbers and expressions in Python, detailing types like integers, floats, and complex numbers. It describes expressions as combinations of values, operators, and functions that Python evaluates to produce results. Using examples, it shows how to perform simple calculations and use expressions effectively, making it essential for beginners to grasp these fundamentals for mathematical operations in Python."
+---
+
+## 基本概念：数和表达式
+
+一般来说，**数和表达式**，是编程中的最基本概念。在 Python 中，数是一种数据类型，表示数值，例如整数，浮点数和复数；表达式是由值、运算符和函数构成的组合，最终被求值计算，产生结果。
+
+我们可以在 Python 的交互模式下，尝试以下的计算：
+
+```bash
+>>> 2 + 2
+ 4
+>>> (1 + 2) * 3
+ 9
+```
+
+下面让我们来快速地了解一下数和表达式的基本用法。详细内容，我们会在下一章中进行讲解。
+
+## Python 中的数
+
+Python 支持三种数字类型，包括**整数**，**浮点数**和**复数**。
+
+-   整数，是没有小数点的数字。例如：
+
+```python
+x = 10
+y = -5
+```
+
+-   浮点数，也称为小数，是有小数点的数字。例如：
+
+```python
+x = 3.14
+y = -2.5
+```
+
+-   复数，是具有实部和虚部的数字。它们用 `a + bj` 的形式表示，其中 `a` 是实部，`b` 是虚部。例如：
+
+```python
+x = 2 + 3j
+y = -4 - 2j
+```
+
+在日常编程的过程中，整数和浮点数是我们最常见的类型。
+
+## Python 中的表达式
+
+如前所述，在 Python 中，**表达式**是由值、运算符和函数构成的组合，它们被求值以产生结果。例如：
+
+```python
+x = 5
+y = 2
+z = x + y * 2
+```
+
+在此示例中，`x + y * 2` 就是表达式，而 `y * 2` 也是表达式。其中，Python 解释器先计算 `y * 2`，因为乘法比加法的优先级高；然后，将 `y * 2` 的结果添加到 `x` 的值中以产生最终结果，即 `9`；最后，将 `9` 赋值给 `z`。
+
+Python 支持多种运算符，包括算术运算符，比较运算符，逻辑运算符和位运算符等。一些常见的运算符包括：
+
+-   算术运算符：`+`（加法），`-`（减法），`*`（乘法），`/`（除法），`％`（取模），`**`（幂运算），`//`（地板除）
+-   比较运算符：`==`（等于），`!=`（不等于），`>`（大于），`<`（小于），`>=`（大于或等于），`<=`（小于或等于）
+-   逻辑运算符：`and`（逻辑与），`or`（逻辑或），`not`（逻辑非）
+-   位运算符：`&`（位与），`|`（位或），`^`（位异或），`~`（位非），`<<`（左移），`>>`（右移）
+
+初学者可以先简单了解，我们会在后续的章节中详细介绍上述的运算符。
+
+## 示例
+
+针对数和表达式在 Python 中的使用，我们再来多看几个例子。
+
+```python
+# 计算两个数字的和
+x = 5
+y = 3
+sum = x + y
+print(sum)
+
+# 计算矩形的面积
+width = 10
+height = 5
+area = width * height
+print(area)
+
+# 计算复杂表达式的结果
+x = 2
+y = 5
+z = (x + y) * (x - y) / (x ** 2 - y ** 2)
+print(z)
+```
+
+在第一个示例中，我们计算两个数字的和并打印结果；在第二个示例中，我们使用两个变量计算矩形的面积并打印结果；在第三个示例中，我们使用算术和指数运算符的组合来计算复杂表达式的结果。
+
+## 总结
+
+总而言之，数和表达式是 Python 编程中的最基本概念。数代表数值，例如整数，浮点数和复数，而表达式是由值、运算符和函数构成的组合，用以产生结果。
+
+对于初学者在 Python 中处理数值数据和执行数学计算来说，理解这些概念是必不可少的。

@@ -1,0 +1,9 @@
+{
+    "index": "首页",
+    "01-get-started": "1. Python概述",
+    "02-python-install": "2. Python的安装与使用",
+    "03-hello-world": "3. 第一个Python程序",
+    "04-basics": "4. 基本功：Python语法基础",
+    "05-data-type": "5. Python数据类型",
+    "06-advanced-function": "6. 函数进阶"
+}

@@ -1,0 +1,100 @@
+---
+title: "First Script 'Hello, world!'"
+description: "The article explains how to write and run a Python script. It covers saving Python code in a file and executing it in script mode, using 'Hello, World!' as an example. It also describes how to make scripts directly executable on Unix-like systems by adding a shebang line and adjusting permissions."
+---
+
+## 脚本模式
+
+让我们再复习一下什么是“脚本模式”：在”脚本模式“下，你可以将多行 Python 代码保存到文件中，然后使用解释器来一次性执行整个文件。
+
+“脚本模式”是 Python 开发最常见的模式，下面就让我们来创建自己的第一个 Python 代码文件吧。
+
+## ”Hello, world!“
+
+打开一个 Python IDE，例如 Visual Studio Code，然后输入 `print("Hello, world!")`，如下所示。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Visual Studio Code                                - □ x │
+├────────────────────────────────────────────────────────┤
+│print("Hello, world!")                                  │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+然后，将上述代码保存为 `hello_world.py` 文件；当然，你也可以保存为别的文件名，但是一定要以 `.py` 为文件后缀名。另外，文件名只能是英文字母、数字和下划线的组合。
+（注意：如果你是使用 Windows 自带的”记事本“编辑上述代码，那么在保存时，一定要存为 `UTF-8` 格式，而不是 `UTF-8 with BOM` 格式；否则，该文件无法执行。）
+
+接下来，我们就可以在命令行中键入 `python hello_world.py` 来运行该程序了。（当然，你要先切换到 `hello_world.py` 文件所在的目录。）
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\>python hello_world.py                               │
+│Hello, world!                                           │
+│                                                        │
+│C:\> _                                                  │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+恭喜，你已经完成了自己的第一个 Python 代码脚本了！
+
+## 直接运行
+
+在上面的示例中，我们需要在命令行键入 `python hello_world.py` 才能执行 Python 脚本，那么，有没有办法像运行 `.exe` 文件一样，直接运行 `hello_world.py` 脚本呢？
+
+答案是：在 Windows 系统中不行，但是在 Mac 电脑或 Linux 系统上是可以的。
+
+方法就是在 `hello_world.py` 脚本文件的第一行添加一条特殊的注释：
+
+```python
+#!/usr/bin/env python
+```
+
+这条注释的意思是告诉系统：你可以在 `/usr/bin/env` 这个位置找到 Python 解释器，然后用这个解释器运行我。
+
+添加了这条注释后，完整的 `hello_world.py` 的脚本内容如下所示。
+
+```python
+#!/usr/bin/env python
+
+print("Hello, world!")
+```
+
+需要说明的是，在你运行该脚本之前，还需要运行下面的命令，为该脚本赋予可执行的权限。
+
+```bash
+$ chmod a+x hello_world.py
+```
+
+这样，你在 Mac 电脑或 Linux 系统中就可以直接运行 Python 脚本了。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Terminal                                          - □ x │
+├────────────────────────────────────────────────────────┤
+│Last login: Sat Apr 1 10:15:15                          │
+│                                                        │
+│$ hello_world.py                                        │
+│Hello, world!                                           │
+│                                                        │
+│$ _                                                     │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```

@@ -1,0 +1,127 @@
+---
+title: "Number | Data Type"
+description: "In Python, numbers are divided into integers, floating-point numbers, and complex numbers. These types are used for various mathematical operations with built-in functions like abs(), pow(), and round(). Numbers are a core part of Python, used in many common programming tasks."
+---
+
+## 基本概念
+
+在 Python 中，数字（Number）是用于表示数值的数据类型。数字可以分为整数、浮点数和复数三种。
+
+1. 整数是没有小数部分的数字，它可以是正数、负数或 0。例如：
+
+    ```python
+    a = 100
+    b = -200
+    c = 0
+    ```
+
+2. 浮点数是带有小数部分的数字，它也可以是正数、负数或 0。例如：
+
+    ```python
+    x = 3.14
+    y = -2.718
+    z = 0.0
+    ```
+
+3. 复数是由实数部分和虚数部分构成的数字，它的形式通常是 `a + bj`，其中 `a` 是实数部分，`b` 是虚数部分，`j` 是虚数单位。例如：
+
+    ```python
+    c1 = 3 + 4j
+    c2 = -1.5 + 2.3j
+    c3 = 0 + 0j
+    ```
+
+## 基本操作
+
+在 Python 中，有许多内建函数和运算符可以用于对数字进行操作。下面是一些常用的数字函数和运算符：
+
+-   内建函数
+
+    -   `abs(x)`：返回数字 `x` 的绝对值。
+    -   `pow(x, y)`：返回数字 `x` 的 `y` 次幂。
+    -   `round(x, n)`：将数字 `x` 四舍五入到小数点后 `n` 位，并返回结果。
+    -   `int(x)`：将数字 `x` 转换为整数并返回结果。
+    -   `float(x)`：将数字 `x` 转换为浮点数并返回结果。
+    -   `complex(real, imag=0)`：创建一个复数，其实数部分为 `real`，虚数部分为 `imag`。
+    -   `max(x, y, z, ...)`：返回参数中的最大值。
+    -   `min(x, y, z, ...)`：返回参数中的最小值。
+    -   `sum(iterable, start=0)`：返回可迭代对象中所有元素的和。
+
+-   运算符
+    -   加号 `+`：用于计算两个数字的和。
+    -   减号 `-`：用于计算两个数字的差。
+    -   乘号 `*`：用于计算两个数字的积。
+    -   除号 `/`：用于计算两个数字的商。
+    -   幂运算符 `**`: 用于计算数字的幂。
+    -   取商运算符 `//`：用于计算两个数字的商的整数部分。
+    -   取模运算符 `%`：用于计算两个数字的模（余数）。
+
+## 参考示例
+
+```python
+# abs(x) 返回数字 x 的绝对值。
+a = -3
+b = abs(a)  # b == 3
+
+# pow(x, y) 返回数字 x 的 y 次幂。
+c = 2
+d = 3
+e = pow(c, d)  # e == 8
+
+# round(x, n) 将数字 x 四舍五入到小数点后 n 位，并返回结果。
+f = 3.14159
+g = round(f, 2)  # g == 3.14
+
+# int(x) 将数字 x 转换为整数并返回结果。
+h = 3.9
+i = int(h)  # i == 3
+
+# float(x) 将数字 x 转换为浮点数并返回结果。
+j = 3
+k = float(j)  # k == 3.0
+
+# complex(real, imag=0) 创建一个复数，其实数部分为 real，虚数部分为 imag。
+l = 2
+m = 3
+n = complex(l, m)  # n == 2 + 3j
+
+# max(x, y, z, ...) 返回参数中的最大值。
+o = 1
+p = 2
+q = 3
+r = max(o, p, q)  # r == 3
+
+# min(x, y, z, ...) 返回参数中的最小值。
+s = 4
+t = 5
+u = 6
+v = min(s, t, u, v)  # v == 4
+
+# sum(iterable, start=0) 返回可迭代对象中所有元素的和。
+w = [1, 2, 3, 4, 5]
+x = sum(w)  # x == 15
+y = sum(w, 10)  # y == 25
+
+# 幂运算符 `**` 计算数字的幂。
+za = 2
+zb = 3
+result = za ** zb  # result == 8
+
+# 取商运算符 `//` 计算两数相除的商。
+zc = 7
+zd = 2
+result_floor = zc // zd  # result_floor == 3
+
+# 取模运算符 `%` 计算两数相除的模（余数）。
+ze = 9
+zf = 4
+result_mod = ze % zf  # result_mod == 1
+```
+
+## 总结
+
+在 Python 中，数字（Number）类型可以用于表示数字数据，包括整数、浮点数和复数。开发人员会使用数字类型进行各种数学计算和操作。我们可以使用 Python 提供的各种内置方法来操作数字类型，例如执行四舍五入、转换或算术运算等任务。
+
+此外，数字类型还可以与其他数据类型结合使用，以执行复杂的计算。
+
+总而言之，数字（Number）类型是 Python 的基本组成部分，其在各种编程实践中都被广泛使用。

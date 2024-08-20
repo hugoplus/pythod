@@ -1,0 +1,12 @@
+{
+    "0501-data-type-summary": "5.1 概述",
+    "0502-data-type-number": "5.2 数字类型",
+    "0503-data-type-string": "5.3 字符串类型",
+    "0504-data-type-byte": "5.4 字节类型",
+    "0505-data-type-boolean": "5.5 布尔类型",
+    "0506-data-type-list": "5.6 列表类型",
+    "0507-data-type-tuple": "5.7 元组类型",
+    "0508-data-type-dictionary": "5.8 字典类型",
+    "0509-data-type-set": "5.9 集合类型",
+    "0510-data-type-frozenset": "5.10 冻结集合类型"
+}

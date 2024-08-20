@@ -1,0 +1,87 @@
+---
+title: "Variable"
+description: "In Python, a variable is a named location in memory used to store data, and is declared by assigning a value with the = operator. Variables in Python are dynamically typed, which means their type is determined at runtime based on the assigned value, and do not need a type declaration. The naming rules for variables require that they may include letters, digits, and underscores but cannot start with a digit and are case-sensitive."
+---
+
+## 变量的基本概念
+
+**变量**，是 Python 编程中的另一个基本概念。在 Python 中，变量指的是内存中的命名位置，用于存储数据。我们可以将变量视为一个容器，它包含一个值，而变量的名称用于访问该值。
+
+例如，当我们在 Python 的交互模式下编写如下代码时，我们就在内存中分配了一个位置用以存储数字 `5`，而 `a` 就是它的名字。这样，我们就可以用 `a` 来访问内存空间中的数字 `5` 了。
+
+```bash
+>>> a = 5
+```
+
+## 在 Python 中声明变量
+
+如果我们需要在 Python 中声明一个变量，只需使用赋值运算符（`=`）将值分配给它就可以。例如：
+
+```python
+x = 25
+```
+
+在这个例子中，我们声明了一个名为 `x` 的变量，并将值 `25` 分配给它。一旦声明了变量，我们就可以在后续的代码中使用这个变量来执行各种操作了。
+
+## Python 中的变量名称
+
+当在 Python 中声明一个变量时，我们必须遵守 Python 的变量命名规则。在 Python 中，**变量名称可以包含字母、数字和下划线（\_），但不能以数字开头**。变量名称区分大小写，这意味着大写字母 `A` 和小写字母 `a` 会被看成时不同的变量。
+
+以下是一些有效和无效变量名称的示例：
+
+```python
+# 有效的变量名称
+x = 25
+my_variable = "hello"
+another_variable_123 = True
+
+# 无效的变量名称
+123variable = "invalid"
+my-variable = "invalid"
+```
+
+## 在 Python 中使用变量
+
+如前所述，变量是 Python 编程中的最基本概念之一，我们可以以各种方式在 Python 中使用变量。以下是一些示例：
+
+```python
+# 打印变量的值
+x = 25
+print(x)
+
+# 使用变量执行算术运算
+x = 10
+y = 2
+z = x + y
+print(z)
+
+# 将新值分配给变量
+x = 25
+x = x + 1
+print(x)
+```
+
+在第一个示例中，我们使用 `print()` 函数打印一个名为 `x` 的变量的值；在第二个示例中，我们使用两个变量（ `x` 和 `y` ）执行算术运算，并将结果存储在第三个变量（ `z` ）中；在第三个示例中，我们通过将 `1` 添加到其当前值来为一个名为 `x` 的变量分配一个新值。
+
+需要注意的是，与 C++或 Java 语言不同，在 Python 中，**我们不必在使用一个变量前先声明它的类型**。Python 是一种动态类型语言，这意味着变量的类型是根据它所包含的值在运行时确定的。
+
+例如，您可以简单地将值分配给一个变量，而无需声明其类型：
+
+```python
+x = 25
+```
+
+在这个例子中，我们将整数值 `25` 分配给一个名为 `x` 的变量。Python 会自动确定变量 `x` 是一个整数。
+
+我们还可以在后面的程序中将其他类型的值分配给同一个变量：
+
+```python
+x = 25
+x = "Hello, World!"
+```
+
+在我们将整数值 `25` 分配给变量 `x` 后，可以再将字符串 `“Hello, World!”` 分配给同一个变量。Python 将自动更改变量 `x` 的类型为字符串。
+
+## 总结
+
+总结一下，在 Python 中，变量是内存中的命名位置，用于存储数据。要声明一个变量，只需使用赋值运算符（`=`）将值分配给它就可以。变量名称可以包含字母、数字和下划线，但不能以数字开头。在 Python 中使用变量可以让我们执行各种操作，用以管理或修改程序中的数据。

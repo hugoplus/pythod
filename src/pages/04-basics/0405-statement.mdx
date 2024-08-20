@@ -1,0 +1,136 @@
+---
+title: "Statement"
+description: "
+The article describes statements in Python as units of code executed by the interpreter, which can include expressions, assignments, function calls, and control flows. It distinguishes between statements and expressions by noting that statements execute actions, whereas expressions generate values. Additionally, it advises using newline characters instead of semicolons to separate statements for better readability in code."
+---
+
+## 语句的基本概念
+
+在 Python 中，**语句**指的是由解释器执行的代码单元。语句可以是简单的表达式、赋值、函数调用、控制流语句或这些语句的组合。
+
+让我们看一个简单的例子。
+
+```python
+print("Hello, World!")
+```
+
+这个语句将字符串 `“Hello, World!”` 打印到控制台上。 `print()` 函数是一个语句，告诉 Python 解释器显示传递给它的参数。
+
+让我们再举一个赋值语句的例子：
+
+```python
+x = 25
+```
+
+这是一个赋值语句，语句将值 `5` 赋给变量 `x`。`=` 运算符是一个语句，告诉 Python 解释器将等号右边的值赋给左边的变量。
+
+第三个语句的例子是控制流语句，以 `if` 语句为例：
+
+```python
+if x > 0:
+    print("x is positive")
+else:
+    print("x is zero or negative")
+```
+
+这个语句检查 `x` 的值是否大于 `0`，并根据结果打印 `“x is positive”` 或 `“x is zero or negative”`。`if` 和 `else` 语句是控制流语句，告诉 Python 解释器根据条件执行某些语句。这些我们会在后续的章节中详细讲解。
+
+让我们再来看看一段复杂一点的语句示例：
+
+```python
+y = x + 2  # 将 x 加 2 的结果赋给 y 的赋值语句
+z = input("Enter a number: ")  # 提示用户输入数字并将输入的值赋给 z 的函数调用语句
+while x < 10:  # 当 x 小于 10 时执行代码块的循环语句
+    x += 1
+    print(x)
+```
+
+## Python 中的语句分隔
+
+当我们参考前面的示例时会发现，在 Python 中，语句往往是由换行符来进行分隔的，也就是说，每一个语句都另起一行。
+
+```python
+y = x + 2  # 由换行符分隔的一行语句
+z = input("Enter a number: ")  # 由换行符分隔的一行语句
+while x < 10:  # 由换行符分隔的一行语句
+    x += 1 # 由换行符分隔的一行语句
+    print(x) # 由换行符分隔的一行语句
+```
+
+这也是 Python 推荐的方式。
+
+但是，在 Python 中，我们也可以用分号 `;` 进行语句分隔，如：
+
+```python
+x = 5; print(x) # 由分号进行语句分隔
+
+y = x + 2; # 由分号进行语句分隔
+z = input("Enter a number: "); # 由分号进行语句分隔
+```
+
+那么，使用换行符与使用分号进行语句分隔有什么区别呢？
+
+其实，使用换行符与使用分号进行语句分隔的主要区别在于**风格**和**可读性**。通常，使用换行符分隔语句被认为是良好的编程实践，因为这可以使代码更易于阅读和理解；使用分号可以使代码更紧凑，但也可能使代码更难以阅读，特别是对于更长的代码行。
+
+以下是一个例子，以说明使用分号和使用换行符分隔语句之间的区别：
+
+```python
+# 使用换行符
+x = 5
+y = 10
+z = x + y
+
+# 使用分号
+x = 5; y = 10; z = x + y
+```
+
+第一段代码使用换行符分隔语句，这使得代码更易于阅读和理解。第二段代码使用分号分隔语句，这使得代码更紧凑，但也更难以阅读。
+
+简单来说，Python 中的分号往往用于在同一行上分隔多个语句。不过，虽然使用分号可以使代码更紧凑，但我们并不推荐。记住：**使用换行符分隔语句是一种更好的编程实践。**
+
+## 语句与表达式的区别
+
+在上一节中，我们讲解了 Python 中的表达式，那么语句和表达式到底有什么区别呢？
+
+简单一句话说，语句和表达式的本质区别是：在 Python 中，语句是执行某些操作的代码单元，而表达式是生成一个值的代码单元。
+
+详细一点说：
+
+-   表达式可以在语句中使用以计算一个值，但是语句不能在表达式中使用。
+-   表达式可以组合成更复杂的表达式，而语句不能以同样的方式组合。
+
+让我们举几个例子，以说明语句和表达式之间的区别：
+
+```python
+# 语句 - 将值 5 分配给变量 x
+x = 5
+
+# 表达式 - 计算 x 加 2 的值
+y = x + 2
+
+# 语句 - 打印变量 y 的值
+print(y)
+
+# 表达式 - 计算布尔表达式 x > y 的值
+z = x > y
+
+# 语句 - 检查变量 z 的值是否为 True 并执行相应的分支
+if z:
+    print("x is greater than y")
+else:
+    print("x is less than or equal to y")
+```
+
+在上面的示例中，
+
+-   第一行是一个语句，将值 `5` 分配给变量 `x`。
+-   第二行是一个表达式，计算 `x + 2` 的值，并通过赋值语句，将其分配给变量 `y`。
+-   第三行是一个语句，将变量 `y` 的值打印到控制台上。
+-   第四行是一个表达式，计算表达式 `x > y` 的布尔值，然后通过赋值语句，将其分配给变量 `z`。
+-   第五和第六行是一个语句，检查变量 `z` 的值是否为 `True`，并执行 `if` 语句的相应分支。
+
+总之，在 Python 中，语句和表达式之间的关键区别在于：语句执行某些操作，而表达式生成一个值。
+
+## 总结
+
+在 Python 中，语句是执行特定操作的代码单元。语句可以包括表达式、赋值、函数调用、控制流语句和循环、或这些语句的组合。通过理解语句的概念，我们可以更好地掌握编写有效 Python 代码的技能。

@@ -1,0 +1,207 @@
+---
+title: "List | Data Type"
+description: "In Python, lists are ordered collections that store multiple items, such as numbers and strings, in a single variable. They are mutable, allowing for changes such as adding or removing items. Lists are commonly used for tasks like sorting data, searching for items, and iterating over elements, making them a fundamental tool in programming."
+---
+
+## 基本概念
+
+在 Python 中，**列表**（List）是一种有序的集合，用于存储一组相关的数据。列表是 Python 中非常常用的类型，也非常通用。
+
+列表的主要特点是：
+
+-   可以存储数据集合  
+    列表可以存储任意数量的任何数据类型，例如数字、字符串甚至其他列表。这使得它成为在单个位置存储数据集合的极其有用的数据结构。
+
+-   可以迭代  
+    开发人员可以使用循环轻松地遍历列表，从而使我们能够对列表中的每个项目执行操作。例如，我们可以遍历数字列表以找到总和或平均值。
+
+-   可以索引  
+    列表是可以索引的，这意味着我们可以通过位置访问列表中的单个项，而这也让从列表中检索特定项变得容易。
+
+-   可变  
+    列表是可变的，这意味着我们可以在创建后修改它们。能够动态地向列表中添加或删除项目，或更改现有项目的值，会让我们的开发变得更加简单快捷。
+
+-   可以排序和搜索  
+    列表可以排序和搜索，从而允许我们快速查找特定项目或以某种方式组织列表。
+
+在实际的项目开发中，我们往往会频繁地使用列表对象，特别是在如下场景：
+
+-   存储和处理大量数据，例如传感器读数或用户输入。
+-   创建动态数据结构，例如堆栈或队列。
+-   实现算法和数据结构，例如排序算法或链表。
+-   在科学计算或数据分析中操作和分析数据。
+
+## 基本操作
+
+在 Python 中，我们通过将逗号分隔的一系列值括在方括号 `[]` 中来创建一个列表（`list`）。例如，以下代码创建一个数字列表：
+
+```python
+numbers = [1, 2, 3, 4, 5]
+```
+
+而列表中的每一项都有一个索引。索引从 0 开始，因此列表中的第一个项的索引为 `0`，第二个项的索引为 `1`，依此类推。例如，要访问上面创建的 `numbers` 列表中的第一个项，可以使用：
+
+```python
+first_number = numbers[0]
+```
+
+同时，在 Python 中，列表中的元素可以是任何类型，甚至可以是不同类型的数据。例如，我们可以创建一个包含字符串、数字和布尔值的混合列表：
+
+```python
+my_list = ['apple', 123, True]
+```
+
+如前所述，Python 中的列表是一种动态类型，我们可以在运行时添加、修改或删除列表中的元素。例如，我们可以使用下面的代码来操作刚才创建的列表：
+
+```python
+# 访问列表中的第一个元素
+print(my_list[0])
+
+# 修改列表中的第二个元素
+my_list[1] = 456
+
+# 在列表末尾添加一个新元素
+my_list.append('banana')
+
+# 删除列表中的第三个元素
+del my_list[2]
+```
+
+正如我们看到的，Python 提供了许多的内置函数和方法来方便开发人员操作列表，例如：
+
+-   `len(my_list)` 可以获取列表的长度（即列表中元素的数量）。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5]
+    >>> length = len(my_list)
+    >>> print(length)
+    5
+    ```
+
+-   `del my_list[i]` 可以删除列表中索引为 `i` 的元素。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5]
+    >>> del my_list[2]
+    >>> print(my_list)
+    [1, 2, 4, 5]
+    ```
+
+-   `my_list.count(x)` 可以统计列表中值为 `x` 的元素出现的次数。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 2, 4, 2, 5]
+    >>> count = my_list.count(2)
+    >>> print(count)
+    3
+    ```
+
+-   `my_list.sort()` 可以对列表中的元素进行排序。
+
+    ```python {2}
+    >>> my_list = [5, 3, 1, 4, 2]
+    >>> my_list.sort()
+    >>> print(my_list)
+    [1, 2, 3, 4, 5]
+    ```
+
+-   `min(my_list)` 和 `max(my_list)` 可以获取列表中的最小值和最大值。
+
+    ```python {2, 5}
+    >>> my_list = [5, 3, 1, 4, 2]
+    >>> smallest = min(my_list)
+    >>> print(smallest)
+    1
+    >>> largest = max(my_list)
+    >>> print(largest)
+    5
+    ```
+
+-   `sum(my_list)` 可以计算列表中数字元素的总和。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5]
+    >>> total = sum(my_list)
+    >>> print(total)
+    15
+    ```
+
+-   `my_list.index(x)` 可以查找列表中第一个值为 `x` 的元素的索引。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5, 3]
+    >>> index = my_list.index(3)
+    >>> print(index)
+    2
+    ```
+
+-   `my_list.insert(i, x)` 可以在列表中的第 `i` 个位置插入一个值为 `x` 的元素。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5]
+    >>> my_list.insert(2, 6)
+    >>> print(my_list)
+    [1, 2, 6, 3, 4, 5]
+    ```
+
+-   `my_list.remove(x)` 可以删除列表中第一个值为 `x` 的元素。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5, 3]
+    >>> my_list.remove(3)
+    >>> print(my_list)
+    [1, 2, 4, 5, 3]
+    ```
+
+-   `my_list.pop(i)` 可以删除列表中第 `i` 个元素，并返回该元素的值。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5]
+    >>> item = my_list.pop(2)
+    >>> print(item)
+    3
+    >>> print(my_list)
+    [1, 2, 4, 5]
+    ```
+
+-   `my_list.clear()` 可以清空列表中的所有元素。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3, 4, 5]
+    >>> my_list.clear()
+    >>> print(my_list)
+    []
+    ```
+
+-   `my_list.append(x)` 可以将元素添加到列表的末尾。
+
+    ```python {2}
+    >>> my_list = [1, 2, 3]
+    >>> my_list.append(4)
+    >>> print(my_list)
+    [1, 2, 3, 4]
+    ```
+
+-   `list1.extend(list2)` 可以连接两个列表，即将可迭代对象（例如另一个列表、元组或字符串）中的元素添加到列表的末尾。
+    ```python {3}
+    >>> list1 = [1, 2, 3]
+    >>> list2 = [4, 5, 6]
+    >>> list1.extend(list2)
+    >>> print(list1)
+    [1, 2, 3, 4, 5, 6]
+    ```
+
+## 总结
+
+综上所述，列表（`list`）类型是 Python 内置的数据结构，它允许开发人员将多个项目存储在单个变量中。列表在 Python 中非常常用，也非常通用。
+
+以下是列表类型的一些重要特点：
+
+-   列表可以存储任意数量和任何数据类型的项目，包括数字、字符串和其他列表。
+-   列表中的项目是有序和索引的，这意味着可以通过它们在列表中的位置访问单个项目。
+-   列表是可变的，这意味着可以通过添加、删除或更改项目来修改它们。
+-   可以使用循环对列表进行排序、搜索和迭代。
+
+在 Python 中，列表的一些常见用途包括存储和操作大型数据集、创建动态数据结构以及实现算法和数据结构等。
+
+总之，列表类型可以看作是任何 Python 开发人员的一项基本工具，我们会在各种应用中广泛使用它。

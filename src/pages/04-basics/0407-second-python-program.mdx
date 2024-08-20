@@ -1,0 +1,150 @@
+---
+title: "Second Python Program"
+description: "This article instructs readers on writing a basic Python program, beginning with opening an IDE and continuing through various coding steps including comments, variables, expressions, statements, and functions. It introduces a function add_numbers to demonstrate how to add and print results, highlighting Python's simple syntax and automatic type handling. The piece concludes by advising readers to save and execute their script, connecting basic concepts to actual coding practice."
+---
+
+import { Steps } from "nextra/components";
+
+## Python 程序的基本编写流程
+
+在初步掌握了缩进、注释、数和表达式、变量、语句、函数这些基础概念后，让我们来编写一个稍微完整点儿的 Python 程序吧。
+
+<Steps>
+### 创建新的 Python 文件
+
+打开一个你喜欢的 IDE，例如 Visual Studio Code，如下所示。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Visual Studio Code                                - □ x │
+├────────────────────────────────────────────────────────┤
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+### 编写注释
+
+复习：在 Python 中，注释以井号（`＃`）开头。注释并不被 Python 解释器执行，其作用是为代码提供上下文或解释。
+
+在 IDE 中输入下面代码：
+
+```python
+# 这是我的第二个Python程序。
+```
+
+### 定义变量
+
+复习：在 Python 中，变量是用于存储数据的容器。我们不需要在使用变量前声明变量类型，Python 会根据我们分配给变量的值自动确定其类型。
+
+让我们在 IDE 中输入如下代码：
+
+```python
+# 定义变量
+x = 5
+y = 10
+```
+
+### 编写表达式
+
+复习：在 Python 中，表达式是可以生成结果的变量、值和运算符的组合。
+
+让我们继续在 IDE 中输入如下代码：
+
+```python
+# 编写表达式
+z = x + y
+```
+
+### 编写语句
+
+复习：语句是 Python 可以执行的代码行。在 Python 中，大多数表达式都可以用作语句。
+
+让我们继续在 IDE 中输入如下代码：
+
+```python
+# 编写语句
+print(z)
+```
+
+### 定义函数
+
+复习：函数是一组可以在整个程序中重复使用的代码块。在 Python 中，我们使用 `def` 关键字定义一个函数，同时，我们可以给函数设置不同的参数。
+
+让我们继续在 IDE 中输入如下代码：
+
+```python
+# 定义函数
+def add_numbers(x, y):
+    z = x + y
+    print(z)
+```
+
+### 调用函数
+
+在完成了函数定义后，我们可以调用它并传递一些参数。
+
+```python
+# 调用函数
+add_numbers(5, 10)
+```
+
+我们将参数 `5` 和 `10` 传递给 `add_numbers` 函数。该函数将计算 `5` 和 `10` 的总和并打印结果，应该是 `15`。
+
+### 保存和运行代码
+
+上述完整的代码如下所示：
+
+```python
+# 这是我的第二个Python程序。
+
+# 定义变量
+x = 5
+y = 10
+
+# 编写表达式
+z = x + y
+
+# 编写语句
+print(z)
+
+# 定义函数
+def add_numbers(x, y):
+    z = x + y
+    print(z)
+
+# 调用函数
+add_numbers(5, 10)
+```
+
+然后，在 IDE 中将上述代码保存到脚本文件 `run_add.py`。
+
+### 在命令行中运行该脚本。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\>python run_add.py                                   │
+│15                                                      │
+│15                                                      │
+│C:\> _                                                  │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+</Steps>
+
+## 总结
+
+好了，我们已经完成自己的第二个 Python 程序。在掌握了本章所讲述的基本概念之后，我们就可以开始学习构建更复杂的 Python 应用了。

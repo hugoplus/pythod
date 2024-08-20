@@ -1,0 +1,262 @@
+---
+title: "Set | Data Type"
+description: "The article discusses Python's set data type, highlighting its use for storing unique, unordered elements and enabling operations like membership tests and removing duplicates. It details methods for creating sets and performing standard set operations such as unions and intersections. The text emphasizes the practical applications of sets in Python, particularly for data deduplication and efficient computational tasks."
+---
+
+## 基本概念
+
+在讲解了几种常见的 Python 数据类型后，我们将在本节介绍一种新的数据类型：集合（Set）。
+
+集合，本质上是一个数学概念。在数学中，集合是一组不同的对象，称为集合的元素。数学家通常使用花括号将若干元素括起来来表示一个集合。例如，小于 10 的偶数集合可以写成：
+
+```python
+{0, 2, 4, 6, 8}
+```
+
+Python 语言借鉴了这个概念，并提供了一个相关的数据类型，就是集合。
+
+在 Python 中，**集合**（Set）表示一种无序的、可变的数据集合，且该集合中的每一个元素都是唯一的，不会重复出现。由于集合是无序的，因此，集合中元素的顺序不能保证。
+
+要在 Python 中创建一个集合，我们可以使用花括号 `{}` 或 `set()` 函数。例如：
+
+```python
+# 使用花括号创建一个集合
+my_set = {1, 2, 3, 4, 5}
+
+# 使用 set() 函数创建一个集合
+my_set = set([1, 2, 3, 4, 5])
+```
+
+我们还可以使用 `set()` 函数创建一个空集合：
+
+```python
+my_set = set()
+```
+
+由于集合中元素的唯一性，在需要执行快速的成员资格测试、或从序列中删除重复项以及计算数学操作，如并集、交集和差集时，我们会频繁地使用到集合。
+
+下面，我们来看一下在 Python 中处理集合的一些基本操作。
+
+## 基本操作
+
+下面是如何创建和使用集合的一些简单示例代码：
+
+```python
+# 创建一个空集合
+set1 = set()
+
+# 创建一个包含数字的集合
+set2 = {1, 2, 3, 4, 5}
+
+# 创建一个包含字符串的集合
+set3 = {'apple', 'banana', 'cherry'}
+
+# 创建一个包含混合类型的集合
+set4 = {1, 'apple', True, 3.14}
+
+# 将列表转换为集合
+set5 = set([1, 2, 3, 4, 5])
+
+# 将元组转换为集合
+set6 = set((1, 2, 3, 4, 5))
+
+# 添加单个元素
+set1.add(1)
+
+# 添加多个元素
+set1.update([2, 3, 4])
+
+# 移除集合中的元素
+set1.remove(4)
+
+# 计算集合的长度
+len(set1)
+
+# 判断元素是否在集合中
+1 in set1
+
+# 计算并集
+set1 | set2
+
+# 计算交集
+set1 & set2
+
+# 计算差集
+set1 - set2
+```
+
+下面，我们来详细地学习一下 Python 中内置的集合处理方法。
+
+常用的集合方法包括：
+
+-   `add()`：向集合中添加单个元素。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> my_set.add(4)
+    >>> print(my_set)
+    {1, 2, 3, 4}
+    ```
+
+-   `update()`：向集合中添加多个元素（可以是列表、元组或其他集合）。
+
+    ```python {3}
+    >>> my_set = {1, 2, 3}
+    >>> my_list = [3, 4, 5]
+    >>> my_set.update(my_list)
+    >>> print(my_set)
+    {1, 2, 3, 4, 5}
+    ```
+
+-   `remove()`：从集合中删除单个元素。如果该元素不存在，会抛出 `KeyError` 异常。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> my_set.remove(2)
+    >>> print(my_set)
+    {1, 3}
+    ```
+
+-   `discard()`：从集合中删除单个元素。如果该元素不存在，不会抛出异常。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> my_set.discard(2)
+    >>> print(my_set)
+    {1, 3}
+    ```
+
+-   `pop()`：随机地从集合中删除一个元素，并返回该元素。如果集合为空，会抛出 `KeyError` 异常。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> element = my_set.pop()
+    >>> print(element)
+    1
+    >>> print(my_set)
+    {2, 3}
+    ```
+
+-   `clear()`：清空集合中的所有元素。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> my_set.clear()
+    >>> print(my_set)
+    set()
+    ```
+
+-   `copy()`：返回集合的浅拷贝。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> copy_set = my_set.copy()
+    >>> print(copy_set)
+    {1, 2, 3}
+    ```
+
+-   `len()`：计算集合的长度，即集合中元素的数量。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> print(len(my_set))
+    3
+    ```
+
+-   `in`：判断指定的元素是否在集合中。
+
+    ```python {2}
+    >>> my_set = {1, 2, 3}
+    >>> print(2 in my_set)
+    True
+    ```
+
+-   `union()`：计算两个集合的并集。
+
+    ```python {3}
+    >>> set1 = {1, 2, 3}
+    >>> set2 = {3, 4, 5}
+    >>> union = set1.union(set2)
+    >>> print(union)
+    {1, 2, 3, 4, 5}
+    ```
+
+-   `intersection()`：计算两个集合的交集。
+
+    ```python {3}
+    >>> set1 = {1, 2, 3}
+    >>> set2 = {3, 4, 5}
+    >>> intersection = set1.intersection(set2)
+    >>> print(intersection)
+    {3}
+    ```
+
+-   `difference()`：计算两个集合的差集。
+
+    ```python {3}
+    >>> set1 = {1, 2, 3}
+    >>> set2 = {3, 4, 5}
+    >>> difference = set1.difference(set2)
+    >>> print(difference)
+    {1, 2}
+    ```
+
+-   `symmetric_difference()`：计算两个集合的对称差集。
+
+    ```python {3}
+    >>> set1 = {1, 2, 3}
+    >>> set2 = {3, 4, 5}
+    >>> symmetric_difference = set1.symmetric_difference(set2)
+    >>> print(symmetric_difference)
+    {1, 2, 4, 5}
+    ```
+
+-   `issubset()`：判断一个集合是否是另一个集合的子集。
+
+    ```python {3}
+    >>> set1 = {1, 2}
+    >>> set2 = {1, 2, 3, 4, 5}
+    >>> print(set1.issubset(set2))
+    True
+    ```
+
+-   `issuperset()`：判断一个集合是否是另一个集合的超集。
+
+    ```python {3}
+    >>> set1 = {1, 2, 3, 4, 5}
+    >>> set2 = {1, 2}
+    >>> print(set1.issuperset(set2))
+    True
+    ```
+
+此外，我们还可以使用 `|`、`&` 和 `-` 运算符来计算集合的并集、交集和差集，例如：
+
+```python {3, 7, 11}
+>>> set1 = {1, 2, 3, 4, 5}
+>>> set2 = {4, 5, 6, 7, 8}
+>>> set3 = set1 | set2
+>>> print(s3)
+{1, 2, 3, 4, 5, 6, 7, 8}
+>>>
+>>> set4 = set1 & set2
+>>> print(set4)
+{4, 5}
+>>>
+>>> set5 = set1 - set2
+>>> print(set5)
+{1, 2, 3}
+```
+
+## 总结
+
+综上所述，在 Python 中，集合（Set），可以帮助开发人员快速地进行数据去重、统计和集合运算。
+
+下面是一些在实际的 Python 项目中经常用到集合的场景：
+
+-   删除重复项：如果我们有一个包含重复元素的列表，我们可以使用集合来删除重复项并获得一个唯一元素的列表。
+-   查找唯一元素：如果我们有两个或更多重叠的元素列表，我们可以使用集合查找每个列表中的唯一元素或出现在所有列表中的唯一元素。
+-   成员资格测试：如果我们有一个大的元素集合，我们需要测试特定元素是否是该集合的成员，集合是一种快速有效的方法。
+-   集合操作：如果我们需要对两个或多个集合执行并集、交集或差集等集合操作，Python 内置的集合类型使得操作变得容易。
+-   计算唯一出现次数：如果我们有一个大的元素集合，并且想要计算每个元素的唯一出现次数，我们可以使用集合确定唯一项，然后使用字典或 `Counter` 对象计算出现次数。
+
+总之，在任何需要存储唯一元素的集合或对唯一元素的集合执行操作的场景中，集合都非常有用。

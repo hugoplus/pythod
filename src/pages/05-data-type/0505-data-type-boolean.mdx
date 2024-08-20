@@ -1,0 +1,90 @@
+---
+title: "Boolean | Data Type"
+description: "In Python, the Boolean data type represents true or false values, limited to True or False. Boolean and logical operators are used to evaluate expressions and control program flow in conditions and loops. It's essential to capitalize True and False correctly to prevent errors."
+---
+
+## 基本概念
+
+在 Python 中，**布尔**（Boolean）是一种数据类型，用于表示真假值。
+
+布尔类型只有两个值：真（True）和假（False）。
+
+在 Python 中，我们可以使用**布尔运算符**来比较两个值的大小关系，并得到一个布尔值作为结果。布尔运算符包括：
+
+-   等于运算符 `==`：用于比较两个值是否相等。  
+    例如：`1 + 1 == 2` 的结果为 `True`。
+
+-   不等于运算符 `!=`：用于比较两个值是否不相等。  
+    例如：`2 * 3 != 5` 的结果为 `True`。
+
+-   大于运算符 `>`：用于比较左边的值是否大于右边的值。  
+    例如：`3 > 2` 的结果为 `True`。
+
+-   小于运算符 `<`：用于比较左边的值是否小于右边的值。  
+    例如：`2 < 3` 的结果为 `True`。
+
+-   大于等于运算符 `>=`：用于比较左边的值是否大于等于右边的值。  
+    例如：`3 >= 3` 的结果为 `True`。
+
+-   小于等于运算符 `<=`：用于比较左边的值是否小于等于右边的值。  
+    例如：`2 <= 3` 的结果为 `True`。
+
+此外，我们还可以使用**逻辑运算符**来组合多个布尔表达式，得到一个新的布尔值。逻辑运算符包括：
+
+-   与运算符 `and`：只有两个布尔表达式都为真时，结果才为真。  
+    例如：`True and True` 的结果为 `True`，`True and False` 的结果为 `False`。
+
+-   或运算符 `or`：只要两个布尔表达式中有一个为真，结果就为真。  
+    例如：`True or True` 的结果为 `True`，`True or False` 的结果为 `True`。
+
+-   非运算符 `not`：用于反转一个布尔表达式的真假值。  
+    例如：`not True` 的结果为 `False`，`not False` 的结果为 `True`。
+
+在 Python 编程中，布尔类型的值经常用于条件判断和循环语句中，以决定程序的流程。
+
+需要注意的是，在 Python 中，布尔值的大小写很重要。`True` 和 `False` 必须以大写字母开头，其余字母小写。如果使用 `true` 或 `false`，将会引发 `NameError` 错误。
+
+## 参考示例
+
+以下是一些布尔值的示例，以及如何在 Python 中使用它们：
+
+```python
+x = True
+y = False
+
+# 在条件语句中使用布尔值
+if x:
+    print("x is true")  # 输出：x is true
+
+if not y:
+    print("y is not true")  # 输出：y is not true
+
+# 在循环中使用布尔值
+while x:
+    print("x is true")  # 输出：x is true
+    x = False
+
+# 使用逻辑运算符和布尔值
+a = 10
+b = 5
+
+if a > b and x:
+    print("Both conditions are true")  # 不会被执行，因为x为False
+else:
+    print("At least one condition is not true")  # 输出：At least one condition is not true
+```
+
+在上面的示例中，我们定义了两个布尔变量 `x` 和 `y`，它们的值分别为 `True` 和 `False`。我们在条件语句和循环中使用了这些布尔值来控制程序的流程。我们还使用了逻辑运算符，如 `and`，来创建复合条件。
+
+## 总结
+
+综上所述，在 Python 中，布尔数据类型代表一个真值，它只能是 `True` 或 `False`。布尔值通常用于逻辑操作，例如条件和循环，以及逻辑运算符，如 `and`，`or` 和 `not`。
+
+关于 Python 中的布尔值的一些要点如下：
+
+-   布尔值的大小写很重要：`True` 和 `False` 必须以大写字母开头，其余字母小写。
+-   布尔值通常用于条件语句和循环中来控制程序的流程。
+-   布尔值可以与逻辑运算符（如 `and`，`or` 和 `not`）组合以创建复杂的逻辑表达式。
+-   布尔值可以用于测试任何 Python 对象的真值或假值。
+
+总之，布尔数据类型是 Python 的重要组成部分，我们会在条件语句和循环控制中频繁地使用它。

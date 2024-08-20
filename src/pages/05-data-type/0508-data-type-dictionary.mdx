@@ -1,0 +1,175 @@
+---
+title: "Dictionary | Data Type"
+description: "The article explains the dictionary type in Python, which is used to store key-value pairs where each key is unique. It uses an example of a fruit store inventory system to show how dictionaries can organize and access data efficiently. The article also covers basic operations and benefits of dictionaries, including quick access times, dynamic sizing, and a variety of built-in methods."
+---
+
+## 基本概念
+
+本节，我们将学习 Python 语言中的另一个非常实用的数据类型：字典类型。
+
+在 Python 中，**字典**（Dict）类型是一种映射类型，用于存储一组无序的键值对（Key-Value Pair）。其中，每个键（Key）在字典中都是唯一的。
+
+为什么我们会需要在编程中使用字典类型呢？因为它允许我们将一个值与一个唯一的标识符--或叫键--关联起来。
+
+举个例子，假设我们正在为一个水果店开发一套库存管理系统。在这个系统中，每种水果的基本库存信息都需要保存起来。一般来说，一种水果的库存基本信息会包含如下内容：
+
+-   种类
+-   颜色
+-   价格
+-   库存数量
+
+例如：
+
+-   种类：苹果
+-   颜色：红色
+-   价格：0.5 元/个
+-   库存数量：10 个
+
+在这种情况下，我们可以使用字符串来保存水果种类和颜色，使用浮点数来保存价格，使用整数来存储库存数量；但是，我们可以使用哪种数据类型来将上述信息整合在一起呢？纵观我们之前学到的各种数据类型，不管是只使用字符串，还是使用列表，或是元组，其实都不合适；因为不管是上述哪种类型，都无法让我们将颜色、价格和库存数量信息整合在一起、又同时与水果种类对应起来。
+
+此时，最能满足我们需求的，就是字典类型了。
+
+我们可以创建如下的字典数据，将各种水果的库存信息保存起来。
+
+```python
+# 创建一个字典
+items = {
+    'apple': {'color': 'red', 'price': 0.5, 'quantity': 10},
+    'banana': {'color': 'yellow', 'price': 0.25, 'quantity': 20},
+    'orange': {'color': 'orange', 'price': 0.3, 'quantity': 15}
+}
+```
+
+上面的示例保存了三种水果的库存信息，分别是：苹果、香蕉和桔子。其中，每种水果又分别包含各自的详细信息，分别是：颜色、价格和库存数量。
+
+我们可以看到，这种以字典方式存储的数据结构非常清晰；同时，字典类型允许开发人员对它进行动态的修改，因此，它的使用也非常灵活。
+
+下面，就让我们看一下字典类型的具体使用方法。
+
+## 基本操作
+
+如前所述，在 Python 中，字典是一种映射类型，它的每个元素都是由一个键（Key）和一个值（Value）组成的。字典中的元素使用花括号 `{}` 括起来，元素的键和值之间使用冒号 `:` 分隔；同时，每个元素之间使用逗号 `,` 进行区隔。
+
+例如，下面是一个字典的例子：
+
+```python
+person = {'name': 'John', 'age': 30, 'city': 'New York'}
+```
+
+在上面的字典中，`name`、`age` 和 `city` 是键，`John`、`30` 和 `New York` 是对应的值。
+
+在使用时，我们可以通过键来访问字典中的值。例如：
+
+```python
+>>> person = {'name': 'John', 'age': 30, 'city': 'New York'}
+>>> print(person['name'])
+John
+>>> print(person['age'])
+30
+>>> print(person['city'])
+New York
+```
+
+在 Python 中，字典是一种动态类型，这意味着，我们可以在运行时动态地添加、修改或删除字典中的元素。
+
+例如，我们可以使用赋值运算符 `=` 来添加或修改字典中的元素：
+
+```python
+>>> person = {'name': 'John', 'age': 30, 'city': 'New York'}
+>>> print(person)
+{'name': 'John', 'age': 30, 'city': 'New York'}
+>>>
+>>> person['country'] = 'United States' # 添加新元素
+>>> print(person)
+{'name': 'John', 'age': 30, 'city': 'New York', 'country': 'United States'}
+>>>
+>>> person['age'] = 31 # 修改元素值
+>>> print(person)
+{'name': 'John', 'age': 31, 'city': 'New York', 'country': 'United States'}
+```
+
+我们也可以使用 `del` 关键字来删除字典中的元素：
+
+```python
+>>> del person['country']
+>>> print(person)
+{'name': 'John', 'age': 31, 'city': 'New York'}
+```
+
+Python 为我们提供了很多常用的内置方法来处理字典对象，包括：
+
+-   `len()`：计算字典的长度，即字典中键值对的数量。
+
+    ```python
+    >>> my_dict = {'apple': 1, 'banana': 2, 'orange': 3}
+    >>> print(len(my_dict))
+    3
+    ```
+
+-   `clear()`：清空字典中的所有键值对。
+
+    ```python
+    >>> my_dict = {'apple': 1, 'banana': 2, 'orange': 3}
+    >>> my_dict.clear()
+    >>> print(my_dict)
+    {}
+    ```
+
+-   `get()`：获取指定键对应的值，如果键不存在，则返回指定的默认值。
+
+    ```python
+    >>> my_dict = {'apple': 1, 'banana': 2, 'orange': 3}
+    >>> print(my_dict.get('apple'))
+    1
+    >>> print(my_dict.get('pear', 'not found'))
+    not found
+    ```
+
+-   `items()`：返回字典中所有的键值对。
+
+    ```python
+    >>> my_dict = {'apple': 1, 'banana': 2, 'orange': 3}
+    >>> print(my_dict.items())
+    dict_items([('apple', 1), ('banana', 2), ('orange', 3)])
+    ```
+
+-   `keys()`：返回字典中所有的键。
+
+    ```python
+    >>> my_dict = {'apple': 1, 'banana': 2, 'orange': 3}
+    >>> print(my_dict.keys())
+    dict_keys(['apple', 'banana', 'orange'])
+    ```
+
+-   `values()`：返回字典中所有的值。
+
+    ```python
+    >>> my_dict = {'apple': 1, 'banana': 2, 'orange': 3}
+    >>> print(my_dict.values())
+    dict_values([1, 2, 3])
+    ```
+
+-   `update()`：将另一个字典的键值对更新到当前字典中。
+
+    ```python {4}
+    >>> my_dict = {'apple': 1, 'banana': 2}
+    >>> other_dict = {'orange': 3, 'pear': 4}
+    >>>
+    >>> my_dict.update(other_dict)
+    >>> print(my_dict)
+    {'apple': 1, 'banana': 2, 'orange': 3, 'pear': 4}
+    ```
+
+## 总结
+
+综上所述，在 Python 中，字典类型是一种映射类型，用于存储一组无序的键值对。
+
+字典类型的主要优点包括：
+
+-   快速访问：由于字典类型使用哈希表存储和访问其元素，因此根据其键访问值通常非常快速（O(1) 时间复杂度）。
+-   灵活的键和值：字典类型中的键和值可以是 Python 中几乎任何类型，只要键是可哈希的（即其值在其生命周期内不会更改）且唯一即可。
+-   高效的内存使用：字典类型以一种高效的方式实现，即使是大量的键值对也可以高效地利用内存。
+-   动态大小：字典类型可以根据需要动态调整大小，这使得它们非常适合集合大小可能随时间变化的情况。
+-   内置方法：Python 提供了许多内置方法来处理字典类型对象，例如 `keys()`、`values()` 和 `items()`，这使得执行常见操作变得非常容易。
+
+总的来说，字典类型是 Python 中一个强大而灵活的数据结构，可以提供快速、高效、灵活的访问键值对集合的方式。

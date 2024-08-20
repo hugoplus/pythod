@@ -1,0 +1,120 @@
+---
+title: "First Interactive 'Hello, world!'"
+description: "The article explains how to use Python's interactive mode, which allows beginners to test code instantly by entering commands directly into the interpreter. It demonstrates starting with a basic 'Hello, world!' command and includes simple examples like arithmetic calculations. The article concludes by showing how to exit interactive mode using the exit() command."
+---
+
+## 交互模式
+
+还记得我们在[《Python 解释器》](https://pythod.com/02-python-install/0203-python-interpreter)那一节所介绍的“交互模式”吗？对，“交互模式”就是你可以在解释器中输入单行或多行 Python 代码，然后立即得到结果的运行模式。
+
+对初学者而言，“交互模式”是一种很好的学习 Python 和测试代码的方式。
+
+那么，就让我们从“交互模式”开始编写自己的第一个 Python 程序吧。
+
+## “Hello, world!”
+
+让我们打开 Python 安装包中自带的`IDLE`工具，或者在 Windows 命令行下键入 `python` 调出“交互模式”。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt - python                           - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\> python                                             │
+│Python 3.11 ... on win32                                │
+│Type "help", ... for more information.                  │
+│>>> _                                                   │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+然后，在命令行中键入 `print("Hello, world!")` ，点击回车，你就可以看到命令行中马上返回的执行结果。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt - python                           - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\> python                                             │
+│Python 3.11 ... on win32                                │
+│Type "help", ... for more information.                  │
+│>>> print("Hello, world!")                              │
+│Hello, world!                                           │
+│>>> _                                                   │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+恭喜你，完成了自己的第一行 Python 代码！
+
+## 再尝试一下
+
+让我们再试试其他的 Python 指令，例如，运行一下简单的数学计算，看看 `1+2+3+4+5+6+7+8+9+10` 等于多少。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt - python                           - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\> python                                             │
+│Python 3.11 ... on win32                                │
+│Type "help", ... for more information.                  │
+│>>> 1+2+3+4+5+6+7+8+9+10                                │
+│55                                                      │
+│>>> _                                                   │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+再来试试这一条，`print(2*2)`。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt - python                           - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\> python                                             │
+│Python 3.11 ... on win32                                │
+│Type "help", ... for more information.                  │
+│>>> print(2 * 2)                                        │
+│4                                                       │
+│>>> _                                                   │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
+## 退出交互模式
+
+最后，如果需要退出交互模式，可以键入 `exit()` 指令。
+
+```bash
+┌────────────────────────────────────────────────────────┐
+│Command Prompt - python                           - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\> python                                             │
+│Python 3.11 ... on win32                                │
+│Type "help", ... for more information.                  │
+│>>> print(2 * 2)                                        │
+│4                                                       │
+│>>> exit()                                              │
+│C:\> _                                                  │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
