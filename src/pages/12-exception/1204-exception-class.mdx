@@ -1,0 +1,59 @@
+---
+title: "Exception Class | Exception"
+description: "The Exception class is the root of all built-in exceptions in Python, allowing developers to handle errors across different levels of code granularity."
+---
+
+## 基本概念
+
+在上一节中我们提到，自定义异常总是继承自 `Exception` 类或其子类，那么 `Exception` 类到底是什么呢？
+
+在 Python 中，`Exception` 类是所有内置异常的基类。它作为 Python 中各种特定异常类的父类，允许开发人员在代码不同层次的粒度上捕获和处理异常。
+
+## 关于 `Exception` 的一切
+
+让我们在这一小节中了解关于 `Exception` 一切。
+
+1. **基础异常类**：  
+   `Exception` 是 Python 中所有异常的基类。这意味着每个内置异常类，如: `ValueError`、`TypeError`、`ZeroDivisionError` 等，最终都是从 `Exception` 继承而来。
+
+2. **异常类的层次结构**：  
+   Python 中异常类的层次结构是按照“更具体的异常继承自更一般的异常”这个原则进行组织。例如，`ValueError` 是 `Exception` 的子类，而 `ZeroDivisionError` 是 `ArithmeticError` 的子类，而后者又是 `Exception` 的子类。这个层次结构允许开发人员可以在代码里不同粒度的位置捕获并处理异常。
+
+3. **捕获多个异常**：  
+   由于所有异常都继承自 `Exception`，开发人员可以使用单个 `except` 块捕获多种类型的异常。当我们希望以相同的方式处理一组相关的异常时，这非常有用。
+
+    ```python
+    try:
+        # 可能引发异常的代码
+    except (ValueError, TypeError) as e:
+        # 一起处理 ValueError 和 TypeError
+    ```
+
+4. **创建自定义异常**：  
+   在创建自定义异常时，通常会从 `Exception` 或其子类继承。
+
+    ```python
+    class MyCustomError(Exception):
+        pass
+    ```
+
+5. **抛出异常**：  
+   开发人员可以使用 `raise` 语句抛出 `Exception` 类或其子类的实例。例如：
+
+    ```python
+    raise Exception("这是一个通用异常")
+    ```
+
+6. **自定义异常行为**：  
+   通过从 `Exception` 派生并添加自己的属性和方法，开发人员可以在自定义异常类中，添加更丰富的错误信息。
+
+    ```python
+    class MyCustomError(Exception):
+        def __init__(self, message, code):
+            super().__init__(message)
+            self.code = code
+    ```
+
+## 总结
+
+综上所述，`Exception` 类是 Python 异常层次结构的基础。它为所有异常提供了一个通用基础，并帮助开发人员能够创建具有特定行为和属性的自定义异常。

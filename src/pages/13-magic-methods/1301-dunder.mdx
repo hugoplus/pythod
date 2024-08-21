@@ -1,0 +1,85 @@
+---
+title: "Dunder | Magic Methods"
+description: "In Python, double underscores or 'dunder' are used to prefix class attribute and method names to prevent naming conflicts and designate them as private. For example, a private attribute __my_attribute in a class named MyClass is automatically renamed to _MyClass__my_attribute by Python, and trying to access it directly as __my_attribute will result in an AttributeError. It's important to use dunder carefully to keep the code clean and understandable."
+---
+
+## 基本概念
+
+在 Python 中，双下划线--也被称为“dunder”--是一种用于修饰类属性名称或类方法名称的行为。当开发人员在类内部的属性名称或方法名称前加上双下划线时，Python 会对其进行名称修饰。具体的修饰方法是：在属性名称或方法名称前加上类名作为前缀。
+
+举个例子，如果我们有一个名为`MyClass`的类，其中包含一个名为`__my_attribute`的属性，Python 将自动将其重命名为`_MyClass__my_attribute`。Python 内置的这种名称修饰机制有助于避免类之间的属性名称冲突。
+
+让我们看一个例子。
+
+```python
+class MyClass:
+    def __init__(self):
+        self.__my_attribute = 42
+
+obj = MyClass()
+print(obj.__my_attribute)  # 这将触发一个 AttributeError
+print(obj._MyClass__my_attribute)  # 这行语句将会运行正常
+```
+
+在上面的代码中，尝试直接访问`obj.__my_attribute`将导致 AttributeError，因为存在名称修饰。要访问属性，我们需要使用名称修饰后的名称，即`obj._MyClass__my_attribute`。
+
+下面让我们来详细了解一下如何在 Python 中使用双下划线。
+
+## 如何在 Python 中使用双下划线
+
+1. **私有属性**  
+   双下划线属性通常用于在类内部创建私有属性。虽然 Python 没有像某些其他语言那样的严格访问控制，但这种命名约定可以向其他开发人员发出信号，表明这些属性不应直接访问。
+
+    ```python
+    class BankAccount:
+        def __init__(self, balance=0):
+            self.__balance = balance
+
+        def deposit(self, amount):
+            if amount > 0:
+                self.__balance += amount
+
+        def withdraw(self, amount):
+            if amount > 0 and amount <= self.__balance:
+                self.__balance -= amount
+
+        def get_balance(self):
+            return self.__balance
+    ```
+
+    在`BankAccount`类中，`__balance`属性被视为私有属性，我们使用双下划线表示。这可以在某种程度上防止外部直接访问该属性。
+
+2. **避免属性名称冲突**  
+   如前所述，双下划线有助于避免类之间的属性名称冲突。这在继承场景中特别有用。
+
+    ```python
+    class Parent:
+        def __init__(self):
+            self.__my_attribute = "父类的属性"
+
+    class Child(Parent):
+        def __init__(self):
+            super().__init__()
+            self.__my_attribute = "子类的属性"
+
+    parent_obj = Parent()
+    child_obj = Child()
+
+    print(parent_obj._Parent___my_attribute)  # 输出“父类的属性”
+    print(child_obj._Child___my_attribute)   # 输出“子类的属性”
+    ```
+
+    通过使用双下划线，`Child`类中的`__my_attribute`属性不会与`Parent`类中的属性冲突。
+
+虽然双下划线可以很有用，但我们还应该谨慎使用。以下是一些需要尽量遵循的最佳实践规范：
+
+1. **避免过度使用名称修饰：** 谨慎使用双下划线。过度使用可能会使我们的代码变得不易阅读和维护。
+2. **考虑在大多数情况下使用单下划线：** 对于大多数情况下，仅使用单个前导下划线即可表示属性仅供内部使用。将双下划线保留用于可能发生名称冲突的情况。
+3. **文档化私有属性：** 如果选择使用双下划线，请在类的文档字符串或注释中记录这些私有属性的用途。
+4. **使用获取器和设置器方法：** 当封装很重要时，考虑使用获取器和设置器方法来访问和修改私有属性。这提供了更好的属性访问控制，并允许进行必要的验证。
+
+## 总结
+
+对开发人员而言，Python 中的双下划线是一种很有用的工具，用于修饰属性名称或方法名称，并在类内部创建私有属性和私有方法。这种双下划线的修饰方式有助于避免名称冲突并改善代码的组织。
+
+当然，我们需要谨慎使用双下划线，并尽量遵循最佳实践规范，以确保我们的代码保持可读性和可维护性。

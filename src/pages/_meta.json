@@ -5,5 +5,12 @@
     "03-hello-world": "3. 第一个Python程序",
     "04-basics": "4. 基本功：Python语法基础",
     "05-data-type": "5. Python数据类型",
-    "06-advanced-function": "6. 函数进阶"
+    "06-advanced-function": "6. 函数进阶",
+    "07-advanced-string-operation": "7. 字符串操作进阶",
+    "08-advanced-list-operation": "8. 序列操作进阶",
+    "09-advanced-statement": "9. 语句进阶",
+    "10-oop": "10. 面向对象编程",
+    "11-module": "11. 模块",
+    "12-exception": "12. 异常",
+    "13-magic-methods": "13. Python中的魔法方法"
 }

@@ -1,0 +1,44 @@
+---
+title: "Jump Out | Statement"
+description: "The article explains how to use the break and continue statements in Python. Break exits a loop early when a condition is met, while continue skips the current loop iteration and continues with the next one. These commands help manage loop execution more efficiently."
+---
+
+## 基本概念
+
+在前两节中，我们讲解了 Python 中的两类循环语句，`while` 循环和 `for` 循环。虽然循环语句提供了强大的重复功能，但在实际使用中，我们往往还需要控制代码流程；而这时，我们就需要用到 `break` 和 `continue` 这两条循环控制语句了。
+
+## 基本用法
+
+### `break` 语句
+
+`break` 语句用于在循环完成所有迭代之前提前退出循环。当循环内遇到 `break` 语句时，程序会立即退出循环，并继续执行循环块后面的语句。这在我们想要根据特定条件停止循环执行时特别有用。
+
+让我们来看一个例子。
+
+```python
+for i in range(1, 11):
+    if i == 5:
+        break
+    print(i)
+```
+
+在这个示例中，循环将打印从 1 到 4 的数字；但当 `i` 变为 5 时，由于程序遇到 `break` 语句，循环将退出。
+
+### `continue` 语句
+
+`continue`语句用于跳过当前循环迭代，继续下一次迭代。当遇到 `continue` 语句时，当前循环迭代中的代码将被跳过，循环继续下一次迭代。这在我们想要在某些条件下避免执行特定代码时很有帮助。
+
+让我们来看一个例子。
+
+```python
+for i in range(1, 11):
+    if i % 2 == 0:
+        continue
+    print(i)
+```
+
+在这个示例中，循环将只打印从 1 到 10 的奇数。因为，当 `i` 是偶数（即 `i % 2 == 0` ）时，程序会遇到 `continue` 语句，从而跳过 `print(i)` 语句，继续下一次迭代。
+
+## 总结
+
+综上所述，在 Python 开发中，`break` 和 `continue` 语句是控制循环流程的重要工具。它们允许开发人员在循环尚未完全结束之前就提前退出循环或根据条件跳过特定迭代，从而帮助我们在处理循环时编写更高效和更具表现力的代码。

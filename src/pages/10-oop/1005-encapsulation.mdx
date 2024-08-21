@@ -1,0 +1,71 @@
+---
+title: "Encapsulation | OOP"
+description: "Encapsulation in Python bundles data and methods into a class, restricting external access to ensure data security and integrity. Python's approach to encapsulation is more flexible than in languages like Java, using naming conventions and property decorators to control access and modify properties. This feature aids in simplifying code management and enhances modularity and abstraction, making the code easier to maintain and reuse."
+---
+
+## 基本概念
+
+在学习了多态后，我们将在本节讲解面向对象编程的另一个重要概念：封装（Encapsulation）。**封装**的核心概念是将数据（属性）和操作该数据的方法（函数）打包到一个称为类的单元中。这个单元通常被称为“对象”，它将数据隐藏在外部访问之外，提供对数据的受控和安全的交互。
+
+**为什么我们需要封装？**
+
+封装在软件开发中具有几个重要用途：
+
+1. **数据保护：** 通过将数据封装在类内部，开发人员可以限制外部访问，防止数据的意外修改或损坏，确保其完整性。
+2. **抽象：** 封装隐藏了类的内部复杂性，允许类的用户通过明确定义的接口与之交互。这种抽象简化了代码的理解和维护。
+3. **模块化：** 封装通过将相关数据和函数组织到一个单元中，促进了模块化，使代码更容易管理、扩展和重用。
+
+## Python 中的封装
+
+在 Python 中，封装的执行程度不如某些语言（如 Java、C++等）严格，但仍然可以通过一些关键技术有效实现：
+
+### 1. 私有属性和方法：
+
+在 Python 中，有一种命名约定，用于指示属性或方法应被视为私有，即不应从类外部直接访问。这个约定涉及将名称前缀加上下划线（\_）。
+
+```python
+class MyClass:
+    def __init__(self):
+        self._private_data = 42  # 私有属性
+
+    def _private_method(self):
+        return "这是一个私有方法"
+
+obj = MyClass()
+print(obj._private_data)        # 访问私有属性（不建议这样做）
+print(obj._private_method())    # 访问私有方法（不建议这样做）
+```
+
+在实际开发中，我们虽然可以访问私有属性和方法，但最好不要这样做。
+
+### 2. 属性装饰器：
+
+Python 提供了属性装饰器来控制对属性的访问。通过使用`@property`，我们可以定义获取属性值的方法，以及`@属性名称.setter`来控制属性的修改。
+
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self._balance = balance
+
+    @property
+    def balance(self):
+        return self._balance
+
+    @balance.setter
+    def balance(self, value):
+        if value < 0:
+            raise ValueError("余额不能为负数")
+        self._balance = value
+
+account = BankAccount(1000)
+print(account.balance)  # 访问余额属性
+account.balance = 1500  # 修改余额属性
+```
+
+通过使用属性装饰器，我们就可以在获取或设置属性值时，强制规则和验证。
+
+## 总结
+
+封装是 Python 和面向对象编程中的一个重要概念。通过数据保护、抽象和模块化，封装使开发人员能够创建强大且易于维护的代码。
+
+虽然 Python 并不如某些语言那样对封装提供严格的实现，但通过遵循命名约定并使用属性装饰器，我们还是可以在 Python 程序中有效实现封装。

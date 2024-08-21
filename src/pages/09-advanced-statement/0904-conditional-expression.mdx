@@ -1,0 +1,128 @@
+---
+title: "Conditional Expression | Statement"
+description: "This article explains how to use Python's if-elif-else statements and Boolean operators to create complex decision-making logic. It covers the basics of Boolean operators and how they combine with conditional statements through examples. The article emphasizes the importance of these tools in building robust Python applications that can manage various inputs and conditions."
+---
+
+## 基本概念
+
+在上一节中，我们讲解了 Python 中的条件语句，也就是 `if-elif-else` 语句。我们知道，Python 中的条件语句通过判断“条件”为真或假来执行不同的代码。同时，我们在[《5.5 布尔类型》](https://pythod.com/05-data-type/0505-data-type-boolean)一节中，详细介绍了 Python 中的布尔运算符，如`<`、`=`、`>`、`and`、`not`等。在实际开发中，我们可以通过将这些布尔运算符与 `if-elif-else` 语句结合在一起，来生成复杂的条件判断。
+
+## 基本用法
+
+在我们深入探讨如何将布尔运算符与条件语句相结合以创建条件表达式之前，让我们回顾一下 Python 中常见的布尔运算符：
+
+1. `<`（小于）：检查一个值是否小于另一个值。
+2. `>`（大于）：检查一个值是否大于另一个值。
+3. `==`（等于）：测试两个值是否相等。
+4. `!=`（不等于）：测试两个值是否不相等。
+5. `<=`（小于或等于）：检查一个值是否小于或等于另一个值。
+6. `>=`（大于或等于）：检查一个值是否大于或等于另一个值。
+7. `and`：执行逻辑 AND 操作。
+8. `or`：执行逻辑 OR 操作。
+9. `not`：执行逻辑 NOT 操作。
+
+下面，就让我们来看看这些布尔运算符可以有多少种形式与条件语句结合在一起。
+
+### 简单条件
+
+1. **使用 `if` 语句：**
+
+    `if`语句用于在指定条件为真时执行一块代码。以下是一个示例：
+
+    ```python
+    age = 18
+    if age >= 18:
+        print("你已经成年了。")
+    ```
+
+    在这种情况下，`if` 语句将判断条件 `age >= 18`。如果为真，则会打印消息“你已经成年了”。
+
+2. **使用 `if-else` 语句：**
+
+    `if-else` 语句允许开发人员在条件为真时执行一个代码块，而在条件为假时执行另一个代码块：
+
+    ```python
+    age = 16
+    if age >= 18:
+        print("你已经成年了。")
+    else:
+        print("你还是未成年。")
+    ```
+
+    在这里，如果年龄大于或等于 18，将打印第一个消息；否则，将打印第二个消息。
+
+3. **使用 `if-elif-else` 语句：**
+
+    `if-elif-else` 链允许您按顺序测试多个条件。以下是一个示例：
+
+    ```python
+    score = 85
+    if score >= 90:
+        print("A")
+    elif score >= 80:
+        print("B")
+    elif score >= 70:
+        print("C")
+    else:
+        print("F")
+    ```
+
+    上述代码将根据 `score` 的值，将打印 A、B、C 或 F 中的一个等级。
+
+### 多个条件
+
+除了上述简单条件外，我们还可以通过使用布尔运算符来组合多个条件。
+
+1. **使用 `and` 组合条件：**
+
+    ```python
+    age = 25
+    income = 50000
+    if age >= 18 and income >= 30000:
+        print("你有资格获得贷款。")
+    ```
+
+    在这里，只有当 `age >= 18` 和 `income >= 30000` 这两个条件同时为真时，才会打印消息。
+
+2. **使用 `or` 组合条件：**
+
+    ```python
+    is_weekend = False
+    is_holiday = True
+    if is_weekend or is_holiday:
+        print("是放松的时候了！")
+    ```
+
+    在上述代码中，当 `is_weekend` 为真或者当 `is_holiday` 为真时，都将触发消息。
+
+3. **使用 `not` 否定条件：**
+
+```python
+is_raining = False
+if not is_raining:
+    print("不需要雨伞。")
+```
+
+在上述代码中，`not` 运算符对条件进行否定，因此在不下雨时打印消息。
+
+### 复杂条件
+
+开发人员还可以通过组合不同的运算符和语句来创建更复杂的条件：
+
+```python
+age = 30
+income = 45000
+if age >= 18 and (income >= 30000 or age < 25):
+    print("您符合此计划的条件。")
+```
+
+在上述代码中，条件语句结合了 `and` 和 `or` 运算符，用以判断：
+
+-   年龄大于等于 18 岁，同时收入大于 30000 元。
+-   年龄大于等于 18 岁，同时年龄小于 25 岁。
+
+上述两个条件只要满足一条，就打印"您符合此计划的条件。"消息。
+
+## 总结
+
+通过结合布尔操作符和条件语句，开发人员可以在 Python 程序中构建复杂的决策逻辑，从而帮助我们创建能够应对各种输入和条件的程序，使我们的代码更加强大。

@@ -1,0 +1,80 @@
+---
+title: "Inheritance | OOP"
+description: "Inheritance is a key concept in object-oriented programming that allows new classes to inherit properties and methods from existing classes, facilitating code reuse and reducing redundancy. In Python, developers can create a base class and extend it through subclasses that modify or add new functionalities. This technique simplifies code development, promotes code organization, and supports the efficient modeling of real-world relationships."
+---
+
+## 基本概念
+
+面向对象编程（OOP）的核心是四大基础概念：抽象、多态、封装和继承。在前面几节中，我们讲解了抽象、多态和封装，本节我们将重点讲解继承。
+
+在编程的世界中，代码的可重用性和组织性是关键原则。想象一下，我们正在构建一个复杂的软件系统，该系统的各个组件共享共同的属性和行为。与其反复编写相同的代码，不如创建一个定义了这些共享特征的蓝图，然后基于该蓝图构建特定的组件。这就是继承的概念发挥作用的地方。
+
+举一个例子吧。想象一下汽车制造商。他们有一辆汽车的基本设计，但他们也生产各种型号，每个型号都具有自己独特的特点和功能。与其为每个新型号从头开始，不如继承核心设计，然后进行特定的修改。这不仅节省时间，还确保了产品的一致性。
+
+这就是继承的核心理念。它允许我们通过继承已存在的类的属性和行为来创建新的类。继承优化了代码的重用，减少了冗余，同时提高了代码的整体结构和可维护性。
+
+## Python 中的继承
+
+Python 是一种完全支持继承的面向对象编程语言。让我们深入了解开发人员如何在 Python 中使用它。
+
+### 1. 定义基类
+
+在 Python 中，从其他类继承的类被称为“基类”或“父类”。要创建一个基类，我们可以使用 Python 中定义类的语法，像定义任何其他类一样定义它，但一般需要包括我们想要在其子类之间共享的属性和方法。
+
+```python
+class Vehicle:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def display_info(self):
+        print(f"品牌：{self.brand}，型号：{self.model}")
+```
+
+在这里，我们定义了一个`Vehicle`类，它具有两个属性和一个显示有关车辆信息的方法。
+
+### 2. 创建子类
+
+子类，也称为“派生类”或“子类”，继承了父类的属性和方法。然后，我们可以扩展或覆盖这些继承的属性。
+
+```python
+class Car(Vehicle):
+    def __init__(self, brand, model, doors):
+        super().__init__(brand, model)
+        self.doors = doors
+
+    def display_info(self):
+        super().display_info()
+        print(f"门数：{self.doors}")
+
+class Motorcycle(Vehicle):
+    def __init__(self, brand, model, engine_size):
+        super().__init__(brand, model)
+        self.engine_size = engine_size
+
+    def display_info(self):
+        super().display_info()
+        print(f"发动机大小：{self.engine_size}")
+```
+
+在这里，我们创建了两个子类，`Car`和`Motorcycle`，它们继承自`Vehicle`类。它们通过添加自己的属性和方法来扩展基类。
+
+### 3. 使用继承的特性
+
+现在，让我们看看继承如何起作用。我们可以创建派生类的实例并利用继承和特定功能：
+
+```python
+my_car = Car("Toyota", "Camry", 4)
+my_motorcycle = Motorcycle("Honda", "CBR600RR", "600cc")
+
+my_car.display_info()
+my_motorcycle.display_info()
+```
+
+当我们运行上述代码时，我们会看到每个子类的`display_info`方法包括来自基本`Vehicle`类和它们各自属性的信息。
+
+## 总结
+
+继承是 Python 和面向对象编程中的核心理念之一。它简化了代码开发，增强了代码组织，并促进了现有代码的重用。
+
+通过创建继承层次结构，开发人员可以有效地模拟现实世界的关系，并构建更具可维护性和可扩展性的软件。

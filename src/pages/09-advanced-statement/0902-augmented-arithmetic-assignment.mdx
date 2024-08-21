@@ -1,0 +1,57 @@
+---
+title: "Augmented Arithmetic Assignment | Statement"
+description: "Augmented arithmetic assignments in Python combine arithmetic operations with assignment, allowing for shorter and clearer code. These operations include +=, -=, *=, /=, and %= among others, which perform the operation and update the variable in one step. This feature, borrowed from C and C++, simplifies code by directly modifying variable values with arithmetic."
+---
+
+## 基本概念和基本用法
+
+除了我们在前面章节中见到的赋值操作外，Python 还提供一种简写符号，可以帮助我们在赋值时编写更简洁的代码，这就是：增强型算术赋值。
+
+在 Python 中，**增强型算术赋值**（augmented arithmetic assignment），简称增强赋值，是指我们可以在一条语句中同时执行算术运算和赋值操作。
+
+以下是一些示例：
+
+```python
+>>> x = 5
+>>> x += 2   # 等同于 x = x + 2
+>>> print(x)
+7
+```
+
+在上例中，我们首先将值 `5` 分配给变量 `x`；然后，我们使用 `+=` 运算符将 `2` 添加到 `x` 的当前值（即 `5`）中，然后将结果（`7`）重新分配给 `x`。
+
+如果我们不使用增强赋值，那么普通代码就像下面这样：
+
+```python
+>>> x = 5
+>>> x = x + 2
+>>> print(x)
+7
+```
+
+我们可以看到，增强赋值的语法更简洁，也更易于阅读。
+
+在 Python 中，增强赋值适用于所有标准运算符，包括：`+`、`-`、`*`、`/`、`%` 等。例如：
+
+```python
+>>> y = 10
+>>> y -= 3   # 等同于 y = y - 3
+>>> print(y)
+7
+>>> z = 3
+>>> z *= 4   # 等同于 z = z * 4
+>>> print(z)
+12
+>>> a = 7
+>>> a /= 2   # 等同于 a = a / 2
+>>> print(a)
+3.5
+>>> b = 9
+>>> b %= 4   # 等同于 b = b % 4
+>>> print(b)
+1
+```
+
+## 总结
+
+本质上，Python 中的增强赋值是从 C 和 C++编程语言中借鉴过来的，因为这一个非常有用的简写符号，可以通过对变量的当前值执行算术运算来更新其值。如果我们能够灵活地应用，增强赋值可以有效地帮助我们提高编写代码的效率。

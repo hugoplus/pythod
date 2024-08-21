@@ -1,0 +1,87 @@
+---
+title: "For Loop | Statement"
+description: "The article explains the for loop in Python, which is used to execute a block of code multiple times by iterating over a sequence like a list or string. It outlines the syntax and provides examples, such as iterating through numbers or items in a list. The article also compares for loops to while loops, noting that for loops are better for known sequences and iteration counts, while while loops are used when the number of iterations isn't predetermined."
+---
+
+## 基本概念
+
+在上一节中，我们学习了 Python 中的 `while` 循环语句，从而帮助我们可以通过一种简洁的方式，执行重复的代码。除了 `while` 循环外，Python 还提供了第二种循环语句：`for` 循环。
+
+与 `while` 循环类似，`for` 循环也是一种基本的循环控制结构，用于重复执行一段代码特定次数，或者迭代一个序列（如列表或字符串）以对每个项执行操作。与 `while` 循环相比，`for` 循环提供了更简洁和有结构的方式来处理重复的任务。
+
+## 基本用法
+
+Python 中 `for` 循环的基本语法如下：
+
+```python
+for 变量 in 序列:
+    # 用于对序列中的每个项执行的代码
+```
+
+其中：
+
+-   `变量` 代表序列中的当前项。
+-   `序列` 是您要迭代的项的集合。
+
+`for` 循环会遍历 `序列` 中的每一个 `变量`，并针对该 `变量`，执行相应的代码。
+
+## 示例
+
+让我们来看几个例子。
+
+**示例 1：遍历一定范围的数字**
+
+```python
+for num in range(1, 6):
+    print(num)
+```
+
+在这个示例中，`for` 循环遍历从 1 到 5（包括 1 和 5）的数字，并打印每个数字。
+
+**示例 2：遍历列表**
+
+```python
+fruits = ["苹果", "香蕉", "樱桃"]
+for fruit in fruits:
+    print("我喜欢", fruit)
+```
+
+在这个例子中，`for` 循环遍历一个水果列表，然后对于每个水果，打印一条“我喜欢”该水果的消息。
+
+## `for` 循环与 `while` 循环的区别
+
+在 Python 中，`for` 循环和 `while` 循环的主要区别在于循环的控制条件和迭代方式。
+
+1. **条件差异**：
+
+    - `for` 循环：`for` 循环通常用于迭代一个已知范围内的项或集合，例如列表、元组、字符串等。开发人员可以在 `for` 循环中提供一个序列，循环将自动按顺序处理序列中的每个项，直到处理完所有项为止。
+    - `while` 循环：`while` 循环使用一个条件表达式，只要该条件为真，循环就会一直执行。它用于处理不确定次数的迭代，通常需要手动更新循环条件以确保循环的结束。
+
+2. **适用场景**：
+    - `for` 循环：适用于已知循环次数或需要迭代处理集合中的每个元素的情况，通常用于遍历容器（如列表）或执行已知次数的操作。
+    - `while` 循环：适用于需要不断迭代，直到满足某个条件的情况，通常用于处理未知数量的迭代或需要动态判断何时结束的情况。
+
+参考我们之前举出的例子：
+
+-   `for` 循环示例：遍历列表中的元素
+
+    ```python
+    fruits = ["苹果", "香蕉", "樱桃"]
+    for fruit in fruits:
+        print(fruit)
+    ```
+
+-   `while` 循环示例：根据用户输入验证密码
+
+    ```python
+    password = input("请输入密码：")
+    while password != "密码":
+        print("密码不正确，请重试。")
+        password = input("请输入密码：")
+    ```
+
+总之，`for` 循环适用于已知迭代次数和集合的情况，而`while` 循环适用于需要根据条件不断迭代的情况。在选择循环类型时，我们可以根据任务的性质和所需的控制方式，选择合适的循环结构。
+
+## 总结
+
+在 Python 中，`for` 循环是一种强大且用途广泛的工具。它简化了重复代码或处理序列内元素的任务。无论您需要已知次数地执行一组操作，还是需要迭代处理一组项，`for` 循环都提供了一种高效而优雅的解决方案。随着我们更加熟悉 Python，我们会发现 `for` 循环对于解决各种编程问题至关重要。

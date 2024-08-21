@@ -1,0 +1,188 @@
+---
+title: "String Format | String Operation"
+description: "The article discusses Python's string formatting methods, focusing on the str.format() method and the newer f-strings introduced in Python 3.6. It details how str.format() allows customization through placeholders and format specifiers, and emphasizes the efficiency and simplicity of using f-strings in modern Python versions. The use of examples highlights practical applications of these formatting methods."
+---
+
+## 引子
+
+在前几节的讲解中，我们使用了 `print()` 方法来输出一个固定内容的字符串，就像是 `print("Hello, world!")` 一样。但是，在现实中，我们很多时候是需要输出一些内容不断变化，或者内容动态生成的字符串，例如，我们不再输出 "Hello, world!"，而是输出 "Hello, Mike!" 或者 "Hello, Tom!"。
+
+这个时候我们该怎么做呢？
+
+本节将介绍如何按照需要，在 Python 中格式化一个字符串。
+
+## `string.format()`方法
+
+在 Python 中，有几种格式化字符串的方法，包括 `%` 格式化方法、`str.format()` 方法和最近在 Python 3.6 中引入的 `f-strings` 方法（也称为格式化字符串字面量）。每种方法都有其自己的优点和缺点，但它们都可以用于格式化字符串。
+
+在 Python 3.6 版本之前，我们推荐使用 `str.format()` 方法格式化字符串。该方法通过将字符串中的占位符替换为值来格式化字符串。该方法具有多个可选参数，允许开发人员自定义输出的格式。
+
+`str.format()` 方法的基本语法为：
+
+```python
+string.format(value1, value2, ...)
+```
+
+其中，`string` 是我们要格式化的字符串，`value1`、`value2` 等是要替换到字符串中的占位符的值。
+
+字符串中的占位符由成对的大括号 `{}` 表示。在大括号内部，我们可以使用**格式说明符**来控制被替换的值的格式。
+
+以下是一些常用的格式说明符：
+
+-   `{}`
+
+    这是最简单的格式说明符，它只是原样替换值。
+
+-   `{ :<N}`
+
+    这个说明符将值左对齐，并在右侧填充空格，以达到总宽度 N。
+
+-   `{ :>N}`
+
+    这个说明符将值右对齐，并在左侧填充空格，以达到总宽度 N。
+
+-   `{ :^N}`
+
+    这个说明符将值居中，并在两侧填充空格，以达到总宽度 N。
+
+-   `{ :.Nf}`
+
+    这个说明符将浮点数格式化为 N 位小数。
+
+-   `{ :.Ng}`
+
+    这个说明符将数字格式化为 N 位有效数字。
+
+-   `{ :.N%}`
+
+    这个说明符将浮点数格式化为带有 N 位小数的百分比。
+
+除了这些格式说明符外，`str.format()`方法还支持许多其他参数：
+
+-   `sep`
+
+    指定在连接多个值时要使用的分隔符字符。
+
+-   `end`
+
+    指定要附加到输出结尾的字符串。
+
+-   `file`
+
+    指定要将输出写入的文件对象。
+
+-   `flush`
+
+    指定在写入输出后是否刷新输出缓冲区。
+
+下面，我们来看几个使用 `str.format()` 方法格式化字符串的例子：
+
+```python
+>>> name = "Alice"
+>>> age = 30
+>>> print("My name is {} and I am {} years old.".format(name, age))
+My name is Alice and I am 30 years old.
+```
+
+你也可以通过给参数命名来替换占位符，例如:
+
+```python
+>>> print("My name is {name} and I am {age} years old.".format(name=name, age=age))
+My name is Alice and I am 30 years old.
+```
+
+你还可以重复使用相同的参数，例如：
+
+```python
+>>> print("My name is {name} and I am {age} years old. I repeated my name {name}".format(name=name, age=age))
+My name is Alice and I am 30 years old. I repeated my name Alice
+```
+
+我们还是可以尝试使用更复杂一点的参数，例如：
+
+```python
+>>> x = 12345.6789
+>>> y = 98765.4321
+>>> message = "x = {:.2f}, y = {:.2f}".format(x, y)
+>>> print(message)
+x = 12345.68, y = 98765.43
+```
+
+在这个示例中，我们使用 `str.format()` 方法来格式化两个浮点数 `x` 和 `y`。我们使用 `:.2f` 格式说明符，将数字格式化为两位小数。
+
+一般来说，在 Python 3.6 版本之前，我们都推荐使用 `string.format()` 方法来格式化字符串。
+
+## `f-string`语法
+
+在 Python 3.6 及更高版本中，Python 提供了一种称为 `f-string` (也叫 `f-strings` 或 `f-interpolation`) 的新语法，可以更简单地格式化字符串。
+
+`f-string` 的语法是通过在字符串前面加上一个前缀 `f` 或 `F`，然后在字符串中插入表达式的方式来格式化字符串。表达式需要用大括号 `{}` 括起来。
+
+例如，你可以使用以下代码格式化字符串：
+
+```python
+>>> name = "Alice"
+>>> age = 30
+>>> print(f"My name is {name} and I am {age} years old.")
+My name is Alice and I am 30 years old.
+```
+
+你还可以在表达式中调用函数或运算符，例如：
+
+```python
+>>> import math
+>>> print(f"2*2={2*2}, pi={math.pi}")
+2*2=4, pi=3.141592653589793
+```
+
+也可以通过在表达式的后面添加一个冒号和格式说明符来格式化输出，例如，你可以使用以下语法来保留小数点后两位：
+
+```python
+>>> print(f"The value of pi is approximately {math.pi:.2f}.")
+The value of pi is approximately 3.14.
+```
+
+你还可以使用冒号和格式说明符来指定字符串的对齐方式、宽度和其他格式选项。
+
+例如，你可以使用以下语法来左对齐一个字符串，并在右侧填充空格以达到指定宽度：
+
+```python
+>>> name = 'Alice'
+>>> print(f"{name:<10}")
+Alice
+```
+
+与 `str.format()` 方法类似，`f-string` 方法也可以使用若干格式说明符来指定格式：
+
+-   `:d` 或 `:i` 转换为有符号十进制整数；
+-   `:o` 转换为无符号八进制整数；
+-   `:x`, `:X` 转换为无符号十六进制整数，`x` 表示小写，`X` 表示大写；
+-   `:e`, `:E` 转换为科学计数法，`e` 表示小写，`E` 表示大写；
+-   `:f`, `:F` 转换为十进制浮点数，`f` 表示小写，`F` 表示大写；
+-   `:g`, `:G` 转换为十进制浮点数，尽量使用科学计数法，`g`表示小写，`G` 表示大写；
+-   `:%` 转换为百分数；
+-   `:c` 转换为字符；
+-   `:s` 转换为字符串；
+
+如果你需要在字符串中插入大括号，可以使用双大括号 `{{}}`，这样 Python 就会将它们当作普通字符而不是占位符：
+
+```python
+>>> print(f"{{name}} is a placeholder")
+{name} is a placeholder
+```
+
+你还可以使用 `f-string` 格式化字典对象：
+
+```python
+>>> person = {'name': 'Alice', 'age': 30}
+>>> print(f"My name is {person['name']} and I am {person['age']} years old.")
+My name is Alice and I am 30 years old.
+```
+
+目前，`f-string` 是 Python 中最简单，最快，也是最常用的字符串格式化方式，我们推荐开发人员在 Python 3.6 及以上版本中使用。
+
+## 总结
+
+在 Python 开发中，格式化字符串是一种重要的技术，可以用于动态创建包含变量、表达式和其他数据的字符串。它允许开发人员通过将字符串的某些部分替换为变量、表达式或其他字符串的值来构造复杂的字符串。
+
+在 Python 中，目前有三种主要的格式化字符串方法，包括 `%` 格式化方法、`str.format()` 方法和 `f-strings` 方法。我们推荐开发人员在 Python 3.6 及以上版本中使用 `f-string` 方法来格式化字符串。

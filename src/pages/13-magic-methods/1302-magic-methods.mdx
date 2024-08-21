@@ -1,0 +1,334 @@
+---
+title: "Common Magic Methods | Magic Methods"
+description: "The article explains Python's magic methods, which use double underscores to prevent naming conflicts and define special behaviors for objects. These methods allow predictable interactions with built-in functions and enable features like operator overloading and customized string representations. Magic methods help ensure that custom classes work seamlessly with Python's built-in operations, providing consistency across the language."
+---
+
+## 基本概念
+
+我们在前面的章节中，经常会看到类似如下代码的例子。
+
+```python
+def __init__(self):
+    self.__my_id = 0
+
+def __str__(self):
+    return self.name
+```
+
+在上一节中，我们已经学习了双下划线在 Python 的应用，所以知道：通过以双下划线修饰的特殊方法，开发人员既可以避免命名冲突，也可以定义对象的特殊行为。因此，这种双下划线风格的方法虽然看起来很另类，但却在 Python 中拥有独特而强大的功能。
+
+在 Python 中，这种以双下划线修饰的方法，我们往往称为“特殊方法”或“魔法方法”。
+
+除了上一节中谈到的诸多特点外，这些“魔法方法”还有两个独特之处：
+
+1. 可以预测的行为
+2. 与内置函数的继承
+
+下面就让我们详细地讲解一下这两个特点。
+
+## ”魔法方法“的独特之处
+
+### 可预测的行为
+
+Python 中这些”魔法方法“的关键优势之一就在于：它们提供了在不同操作中定义对象行为时的可预测性。
+
+让我们来看几个例子：
+
+1. **运算符重载**  
+   Python 允许开发人员使用”魔法方法“来重载运算符。例如，`__add__`方法定义了`+`运算符如何配合我们自定义类的对象一起工作。通过遵循双下划线约定，Python 确保运算符的行为是一致的，并遵循明确定义的规则。
+
+    ```python
+    class ComplexNumber:
+        def __init__(self, real, imag):
+            self.real = real
+            self.imag = imag
+
+        def __add__(self, other):
+            real_sum = self.real + other.real
+            imag_sum = self.imag + other.imag
+            return ComplexNumber(real_sum, imag_sum)
+
+    num1 = ComplexNumber(1, 2)
+    num2 = ComplexNumber(3, 4)
+    result = num1 + num2
+
+    print(result.real, "+", result.imag, "i")  # 输出 "4 + 6 i"
+    ```
+
+    `ComplexNumber`类中的`__add__`方法定义了该类对象的加法操作的行为，使行为可预测。
+
+2. **序列和映射行为**  
+   "魔法方法"允许我们的自定义类对象可以像 Python 内置的序列（例如列表或元组）或映射（例如字典）那样工作。
+
+    例如，我们可以通过实现`__getitem__`方法来定义索引在自定义对象中的工作方式，以确保一致且直观的行为。
+
+    ```python
+    class MyList:
+        def __init__(self, elements):
+            self.elements = elements
+
+        def __getitem__(self, index):
+            return self.elements[index]
+
+    my_list = MyList([1, 2, 3, 4, 5])
+    print(my_list[2])  # 输出 3
+    ```
+
+3. **字符串表示**  
+   `__str__`方法允许我们定义对象应该如何表示为字符串。这就让 Python 内置的`str()`函数和`print()`函数的行为可以被预测，同时又增强了对象的可读性。
+
+    ```python
+    class Person:
+        def __init__(self, name, age):
+            self.name = name
+            self.age = age
+
+        def __str__(self):
+            return f"{self.name}, {self.age} 岁"
+
+    person = Person("Alice", 30)
+    print(person)  # 输出 "Alice, 30 岁"
+    ```
+
+### 与内置函数的集成
+
+Python 的内置函数和运算符通常依赖于特殊方法的存在和命名约定来处理自定义对象。这种集成提供了一致性，并确保我们的对象可以与语言的核心功能无缝互动。
+
+1. **`str()` 函数**  
+   如前所述，在 Python 中，`str()`函数依赖于`__str__`方法来获取对象的人类可读字符串表示。当我们对对象使用`str()`时，它返回`__str__`方法定义的值。
+
+    ```python
+    class Book:
+        def __init__(self, title, author):
+            self.title = title
+            self.author = author
+
+        def __str__(self):
+            return f"{self.title} 由 {self.author} 编写"
+
+    book = Book("Python 编程", "Guido van Rossum")
+    str_representation = str(book)
+
+    print(str_representation)  # 输出 "Python 编程 由 Guido van Rossum 编写"
+    ```
+
+2. **比较运算符 (`==`, `!=`, `<`, `<=`, `>`, `>=`)**  
+   在 Python 中，比较运算符如`==`和`!=`依赖于`__eq__`方法来确定对象的相等性。通过实现`__eq__`，我们就可以定义如何比较类的实例。
+
+    ```python
+    class Point:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        def __eq__(self, other):
+            return self.x == other.x and self.y == other.y
+
+    point1 = Point(1, 2)
+    point2 = Point(1, 2)
+
+    print(point1 == point2)  # 输出 True
+    ```
+
+## Python 中常见的特殊方法
+
+下面，让我们来看看 Python 中常见的一些”魔法方法“。我们往往需要在创建自定义类时，编写这些特殊方法。
+
+再强调一遍：在 Python 中，以双下划线修饰的方法往往意味着该方法是特殊的，开发人员不应该像对待常规方法一样对待它。
+
+### `__init__`：构造方法
+
+`__init__`方法用于在创建对象时初始化对象的属性。当我们创建类的新实例时，它会自动调用。
+
+让我们看一个例子：
+
+```python
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+obj = MyClass(42)
+print(obj.value)  # 输出 42
+```
+
+### `__str__`：字符串表示
+
+`__str__`方法允许我们定义对象在使用`str()`函数或`print()`函数时应如何表示为字符串。它应返回一个可读的字符串。
+
+示例如下：
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"{self.name}, {self.age} 岁"
+
+person = Person("Alice", 30)
+print(person)  # 输出 "Alice, 30 岁"
+```
+
+### `__repr__`: 字符串表示
+
+`__repr__`方法也用于为对象定义一个字符串表示。当开发人员在使用`str()`函数或`print()`函数时，该方法可以返回适当的字符串。如果未定义`__repr__`，Python 将回退到使用`__str__`进行表示。
+
+```python
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f"MyClass({self.value})"
+
+obj = MyClass(42)
+print(repr(obj))  # 输出 "MyClass(42)"
+```
+
+**注意：**
+
+`__str__`和`__repr__`都可以用于定义对象的字符串表示，它们的区别主要在于：
+
+1. `__str__`方法主要用于提供对象的人类可读的字符串表示。它的目的是为了方便开发人员和最终用户，以友好和易于理解的方式查看对象的内容。通常，`__str__`返回的字符串应该是一个简洁的描述，不应包含过多的技术细节。
+
+    ```python
+    class MyClass:
+        def __str__(self):
+            return "这是一个MyClass对象"
+
+    obj = MyClass()
+    print(str(obj))  # 输出 "这是一个MyClass对象"
+    ```
+
+    通常情况下，`str()`函数会调用`__str__`方法来获取对象的字符串表示。
+
+2. `__repr__`方法用于定义对象的“官方”字符串表示，通常用于调试和开发过程中。它的目的是提供一个详细和准确的对象描述，以便开发人员可以了解对象的内部结构和状态。通常情况下，`__repr__`返回的字符串应该是一个可以用于重新创建对象的表达式。
+
+    ```python
+    class MyClass:
+        def __repr__(self):
+            return "MyClass()"
+
+    obj = MyClass()
+    print(repr(obj))  # 输出 "MyClass()"
+    ```
+
+    当使用`repr()`函数或在交互式环境中直接输入对象名称时，会调用`__repr__`方法来获取对象的字符串表示。
+
+总的来说，`__str__`用于提供用户友好的字符串表示，而`__repr__`用于提供开发者友好的、可用于重新创建对象的字符串表示。这两种方法在不同的上下文中有不同的用途，但都有助于更好地理解和调试代码中的对象。通常情况下，如果只能选择一个方法，通常建议实现`__repr__`方法，因为它在调试和开发过程中更具实用性。
+
+### `__eq__`：相等比较
+
+`__eq__`方法允许我们定义如何使用`==`运算符来比较我们自定义的类的对象是否相等。以下是一个示例：
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+point1 = Point(1, 2)
+point2 = Point(1, 2)
+
+print(point1 == point2)  # 输出 True
+```
+
+### `__add__`：自定义算术操作
+
+我们可以通过实现`__add__`方法来定义在使用加法`+`算术操作时，我们的类对象应该如何行为。
+
+来看一个例子：
+
+```python
+class ComplexNumber:
+    def __init__(self, real, imag):
+        self.real = real
+        self.imag = imag
+
+    def __add__(self, other):
+        real_sum = self.real + other.real
+        imag_sum = self.imag + other.imag
+        return ComplexNumber(real_sum, imag_sum)
+
+num1 = ComplexNumber(1, 2)
+num2 = ComplexNumber(3, 4)
+result = num1 + num2
+
+print(result.real, "+", result.imag, "i")  # 输出 "4 + 6 i"
+```
+
+### `__len__`：自定义长度
+
+`__len__`方法允许我们定义`len()`函数如何与我们的自定义类的对象一起工作。它应返回对象的长度。以下是一个示例：
+
+```python
+class MyList:
+    def __init__(self, elements):
+        self.elements = elements
+
+    def __len__(self):
+        return len(self.elements)
+
+my_list = MyList([1, 2, 3, 4, 5])
+print(len(my_list))  # 输出 5
+```
+
+### `__contains__`: 对象是否存在
+
+如果我们希望在自定义对象上使用`in`运算符检查对象中是否存在某项时，可以编写`__contains__`方法。
+
+```python
+class MyContainer:
+    def __init__(self, items):
+        self.items = items
+
+    def __contains__(self, item):
+        return item in self.items
+
+container = MyContainer([1, 2, 3, 4, 5])
+print(3 in container)  # 输出 True
+```
+
+### `__del__`: 删除
+
+`__del__`方法允许我们定义`del`语句如何与我们自定义的对象一起工作。众所周知，`del`语句主要用于清理任务。
+
+```python
+class MyClass:
+    def __del__(self):
+        print("对象已删除")
+
+obj = MyClass()
+del obj  # 输出 "对象已删除"
+```
+
+### `__getitem__` 和 `__setitem__`: 索引和赋值
+
+`__getitem__` 和 `__setitem__`方法定义了对象在使用方括号进行索引和赋值时的行为。
+
+```python
+class MyList:
+    def __init__(self, elements):
+        self.elements = elements
+
+    def __getitem__(self, index):
+        return self.elements[index]
+
+    def __setitem__(self, index, value):
+        self.elements[index] = value
+
+my_list = MyList([1, 2, 3, 4, 5])
+print(my_list[2])  # 输出 3
+my_list[2] = 99
+print(my_list[2])  # 输出 99
+```
+
+以上这些只是 Python 中可用的诸多双下划线方法的一部分。通过这些方法，我们就可以让我们自定义的类配合 Python 的内置函数和运算符一起使用。这无疑让我们的代码更加直观和强大。
+
+## 总结
+
+综上所述，Python 在某些方法中使用双下划线进行修饰，这些”特殊方法“或”魔法方法“有助于开发人员在开发中保持封装性、避免名称冲突，同时确保特殊方法在整个语言中得到明确定义并一致使用。

@@ -1,0 +1,176 @@
+---
+title: "Sequence Unpacking | List Operation"
+description: "The article explains sequence unpacking in Python, a feature that allows multiple variables to be assigned values from a sequence or iterable in a single statement, facilitating operations like variable swapping without a temporary variable. It covers uses in functions that return multiple values, and unpacking of nested sequences, sets, and dictionaries. Special operators _ and * are introduced for ignoring or capturing surplus elements in unpacking, streamlining code and increasing its readability."
+---
+
+## 引子
+
+我们在之前的章节中，已经见到了很多赋值语句。除了像 `a = 3` 或者 ` name = 'Tom'` 这种简单的赋值操作外，我们还见到过同时给多个变量赋值的操作，如下所示：
+
+```python
+>>> a, b, c = 1, 2, 3
+>>> print(a, b, c)
+1 2 3
+```
+
+这种赋值方式看起来很平常，但是有一个神奇的用处就是：它可以交换多个变量的值，例如：
+
+```python
+>>> a, b, c = 1, 2, 3
+>>> a, b = b, a
+>>> print(a, b, c)
+2, 1, 3
+```
+
+这种交换变量值的方式是不是很快速？如果使用其他编程语言的话，我们往往需要一个中间变量来辅助交换两个变量的值，但是在 Python 中，该操作却可以非常轻松的完成，因为 Python 提供了一个非常强大的特性，叫：序列解包。
+
+下面就让我们来详细介绍一下这个概念。
+
+## 基本概念
+
+在 Python 中，**序列解包**（Sequence Unpacking）指的是将一个序列（或任何可迭代的对象）解包，并将得到的值存储在一系列变量中。
+
+举个例子：
+
+```python
+>>> numbers = 1, 2, 3
+>>> print(numbers)
+(1, 2, 3)
+>>> a, b, c = numbers
+>>> print(a)
+1
+>>> print(b)
+2
+>>> print(c)
+3
+```
+
+在这个例子中，我们首先将一个数字序列 `(1, 2, 3)` 赋值给变量 `numbers`。在赋值过程中，我们并没有使用标准的元组格式，即 `(1, 2, 3)`，而是直接将 `1, 2, 3` 赋值给 `numbers`。Python 自动将其打包为一个元组。接着，我们使用序列解包操作将 `numbers` 中的每个值分配给三个不同的变量 `a`、`b` 和 `c`。结果是每个变量包含列表中的不同值。
+
+如前所述，序列解包可以轻松地实现变量交换，因为 Python 会自动将等号右边的变量打包成一个元组，然后在通过序列解包，将每一个值赋给等号左边的变量。
+
+让我们再来看一下变量交换的操作。
+
+```python
+>>> a, b, c = 1, 2, 3
+>>> a, b = b, a
+>>> print(a, b, c)
+2, 1, 3
+```
+
+## 使用方法
+
+除了上面的基本用法外，序列解包还有其他很多用处。让我们来一一介绍。
+
+1. 序列解包通常会用于返回多个值的函数。例如：
+
+    ```python
+    def get_name_and_age():
+        name = "Alice"
+        age = 30
+        return name, age
+
+    name, age = get_name_and_age()
+
+    print(name) # 输出: "Alice"
+    print(age) # 输出: 30
+    ```
+
+    在这个例子中，`get_name_and_age()` 函数返回一个人的姓名和年龄两个值。我们使用序列解包可以将每个值分配给不同的变量 `name` 和 `age`。
+
+2. 使用序列解包来解包嵌套序列的值。例如：
+
+    ```python
+    numbers = [1, 2, [3, 4], 5]
+    a, b, (c, d), e = numbers
+
+    print(a) # 输出: 1
+    print(b) # 输出: 2
+    print(c) # 输出: 3
+    print(d) # 输出: 4
+    print(e) # 输出: 5
+    ```
+
+    在这个例子中，我们创建了一个数字列表，其中包含一个嵌套列表 `[3, 4]`。我们使用序列解包来提取嵌套列表中的值，并将它们分配给单独的变量 `c` 和 `d`。
+
+3. 使用序列解包来解包集合和字典中的值。例如：
+
+    ```python
+    my_set = {1, 2, 3}
+    a, b, c = my_set
+
+    print(a) # 输出: 1
+    print(b) # 输出: 2
+    print(c) # 输出: 3
+    ```
+
+    在这个例子中，我们使用序列解包将集合中的每个值分配给单独的变量。
+
+    ```python
+    my_dict = {"name": "Alice", "age": 30}
+    name, age = my_dict.items()
+
+    print(name) # 输出: ("name", "Alice")
+    print(age) # 输出: ("age", 30)
+    ```
+
+    在这个例子中，我们使用 `items()` 方法获取字典中的键值对列表；然后，我们使用序列解包将键值对分配给单独的变量 `name` 和 `age`。
+
+## 特殊操作
+
+在序列解包操作中，有两个特殊的操作符: `_` 和 `*` 。它们可以被用来收集多余的值，以帮助我们忽略掉不需要的序列值，详情如下：
+
+-   使用下划线（`_`）来忽略不需要的序列值。例如：
+
+    ```python
+    numbers = [1, 2, 3, 4, 5]
+    a, _, _, d, e = numbers
+
+    print(a) # 输出: 1
+    print(d) # 输出: 4
+    print(e) # 输出: 5
+    ```
+
+    在这个例子中，我们解包一个数字列表，但我们使用下划线来忽略掉第二个和第三个值。
+
+-   使用星号（`*`）操作符在序列解包中解包任意长度的序列。例如：
+
+    ```python
+    numbers = [1, 2, 3, 4, 5]
+    a, b, *rest = numbers
+
+    print(a) # 输出: 1
+    print(b) # 输出: 2
+    print(rest) # 输出: [3, 4, 5]
+    ```
+
+    在这个例子中，我们使用星号（`*`）操作符将列表的其余部分解包到变量 `rest` 中。这个变量将包含除了前两个值之外的所有值。
+
+    注意：在使用序列解包时，星号（`*`）操作符可以出现在等号左边的任意位置，但只能出现一次。例如：
+
+    ```python
+    >>> numbers = [1, 2, 3, 4, 5]
+    >>> *a, b, c = numbers
+    >>> print(a)
+    [1, 2, 3]
+    >>> print(b)
+    4
+    >>> print(c)
+    5
+    ```
+
+    在这个例子中，我们使用星号操作符将前三个值分配给一个列表 `a`，将最后两个值分配给变量 `b` 和 `c`。
+
+    但是，如果我们尝试在变量列表的开头或中间使用多个星号操作符，则会得到语法错误。例如：
+
+    ```python
+    >>> numbers = [1, 2, 3, 4, 5]
+    >>> *a, b, *c = numbers
+    SyntaxError: multiple starred expressions in assignment
+    ```
+
+    在这个例子中，我们尝试在变量列表中使用两个星号操作符，但这在 Python 中是不允许的。
+
+## 总结
+
+综上所述，序列解包是 Python 中一个非常强大的特性，可以帮助我们简化代码并使其更易读。在我们处理列表、元组或编写返回多个值的函数时，序列解包特别有用。

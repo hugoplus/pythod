@@ -1,0 +1,73 @@
+---
+title: "While Loop | Statement"
+description: "The article explains the while loop in Python, used to repeat code until a condition changes to false. It describes the loop's syntax, operation, and highlights the need for an exit condition to avoid infinite loops. Examples demonstrate uses of while loops for tasks such as counting and input validation."
+---
+
+## 基本概念
+
+在实际生活中，我们总是能发现很多不断重复的工作，例如十字路口的红绿灯，总是在红色、绿色和黄色之间按照某种规则重复切换；又比如，当我们遇到喜欢的歌曲时，可能会不断地单曲循环。对于类似的场景，如果开发人员需要一遍又一遍地编写相同的代码，那么程序将变得冗长、不宜阅读、容易出错；同时，编程工作也会变得异常痛苦。
+
+幸好，计算机是最擅长执行重复指令的。当我们通过某种方式告诉计算机去不间断地重复某项工作时，它会高效地完成。而这种“方式”，就是编程中的**循环语句**。
+
+`while` 和 `for` 是 Python 中最重要的两个循环命令，本节将会重点介绍 `while` 语句。
+
+## 基本用法
+
+`while`循环用于根据某个条件重复执行一段代码块。换句话说，只要条件保持为真，它将不断地重复执行代码；一旦条件变为假，循环就会终止。
+
+这是`while`循环的基本结构：
+
+```python
+while 条件:
+    # 只要条件为真，就会执行的代码
+```
+
+`while`循环的工作流程是：
+
+1. 首先评估`条件`。
+2. 如果`条件`为`True`，则执行循环内的代码。
+3. 在执行循环内的代码之后，再次评估`条件`。
+4. 如果`条件`仍然为`True`，则继续循环，此过程重复。
+5. 当`条件`变为`False`时，循环终止，并且程序继续执行循环后面的代码。
+
+## 示例
+
+让我们看几个 `while` 循环的例子吧。
+
+**示例 1：从 1 数到 5**
+
+```python
+count = 1
+while count <= 5:
+    print(count)
+    count += 1
+```
+
+在此示例中，`while`循环将在`count`小于或等于 5 时执行。它从`count`等于 1 开始，并在每次迭代中将其递增 1。循环打印`count`的值，直到`count`变为 6，此时条件`count <= 5`变为`False`，循环终止。
+
+**示例 2：用户输入验证**
+
+```python
+password = input("请输入您的密码：")
+while password != "secret":
+    print("密码不正确，请重试。")
+    password = input("请输入您的密码：")
+print("访问已授权！")
+```
+
+在此示例中，`while`循环用于输入验证。它重复提示用户输入密码，直到提供正确的密码（"secret"）为止。只要输入的密码不是"secret"，循环就会继续要求输入。
+
+**示例 3：无限循环**
+
+```python
+while True:
+    print("这是一个无限循环！")
+```
+
+在使用`while`循环时要小心。如果条件始终为`True`，循环将无限运行，导致程序挂起。因此，在使用`while`循环时，非常重要的一点就是：**要包括退出条件，以防止无限循环的发生。**
+
+## 总结
+
+在 Python 中，`while`循环语句被用于自动化执行重复的任务。它允许开发人员根据指定的条件多次执行一段代码块，这样不仅节省了开发人员的时间和精力，还确保了执行任务的准确性和一致性。
+
+当然，开发人员需要牢记的是必须定义明确的退出条件，以避免无限循环。

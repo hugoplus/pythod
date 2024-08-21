@@ -1,0 +1,65 @@
+---
+title: "Unicode | String Operation"
+description: "The article explains the evolution of Unicode as a response to the insufficiencies of ASCII, which only supported English characters. It details how Unicode assigns a unique binary code to each character from any language, facilitating cross-platform text processing. The article also notes that Python 3 inherently supports Unicode through UTF-8 encoding, simplifying the handling and storage of diverse text."
+---
+
+## 引子
+
+我们在第五章中讲解了 Python 中的字符串类型和字节类型，其中涉及到了 `utf-8` 编码，那么本节就来讲一讲什么是 `utf-8` 编码，以及它背后的故事。
+
+## Unicode 的历史
+
+在计算机出现后，开发人员主要是使用数字和英文进行必要的代码编写，因此程序需要处理的也只是数字、26 个英文字母和一些特殊字符。美国信息交换标准代码（ASCII）就是早期计算机系统中最常用的字符编码系统，但它仅支持英语字符，缺乏对许多其他语言的支持。
+
+随着计算机技术在全球的不断普及，计算机软件面临着需要处理多种语言文本的问题。美国人使用的软件需要处理英文，法国人使用的软件需要处理法文，而中国人使用的软件就需要处理中文。由于前面提到的 ASCII 码仅支持出英文，因此，各个国家就提出了各自的字符编码系统来处理各自的文字。例如，中国政府就在 1980 年发布了”GB/T 2132“标准简体中文字符集，全称是《信息交换用汉字编码字符集·基本集》。该字符集共收录了 6763 个汉字，还包括拉丁字母、希腊字母、日文平假名及片假名字母、俄语西里尔字母在内的 682 个字符。
+
+但是，全球不同语言非常繁杂，而诸多不同的字符编码系统又都有自己的限制和不一致的地方，因此，软件系统对多语言的支持就变得异常令人头疼。
+
+为了解决这个问题，Unicode 标准便应运而生。
+
+## Unicode 基本概念
+
+**Unicode**，全称为 Unicode 标准（The Unicode Standard），其官方机构 Unicode 联盟所用的中文名称为**统一码**，又译作**万国码**、**统一字元码**、**统一字符编码**，是信息技术领域的业界标准。Unicode 标准整理和编码了世界上大部分的文字系统，使得计算机能以统一通用的字符集来处理和显示不同的文字。由此，不但减轻了用户在不同编码系统间切换和转换的困扰，更为软件系统提供了一种跨平台的乱码问题解决方案。
+
+从原理上讲，Unicode 使用了一种称为”码位“的方式为每种语言中的每个字符都设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求，这样该字符就可以在计算机上正确地表示出来了。
+
+在 Python 中，Unicode 支持已内置到核心语言和标准库中。Python 3 中的字符串默认为 Unicode，这意味着它们可以表示任何书写系统中的字符。例如，您可以在 Python 中创建一个 Unicode 字符串，如下所示：
+
+```python
+unicode_str = "Hello, 世界"
+```
+
+该字符串包含英语和中文字符，如果没有 Unicode 支持，这是不可能的。
+
+但是，由于 Unicode 需要兼容全球绝大部分语言，因此其需要为每个字符分配 4 个字节的空间以对其进行编码。这虽然让 Unicode 可以支持超过 14 万个字符数量，但也带来一个缺点就是：文本占用的存储空间巨大。
+
+为了解决这个问题，Unicode 提出了一种压缩的表示方式叫做**UTF-8**。UTF-8 标准能够有效地压缩存储空间，使得文本占用的空间更小。
+
+## UTF-8
+
+UTF-8 是一种用来表示 Unicode 字符编码的变长字符集，其使用变长而不是固定长度的方式来表示字符，即不同的字符用的字节数是不一样的。对于常用的 ASCII 字符，UTF-8 只需要使用 1 个字节就可以表示出来了；而对于汉字和其他复杂的字符，UTF-8 则使用 3 个或 4 个字节来表示。
+
+UTF-8 在表示字符时，使用了一些特殊的标志位来表示这是一个 UTF-8 编码的字符。这样就可以让计算机正确地识别和处理 UTF-8 编码的文本了。
+
+UTF-8 是一种常用的字符编码，因为它能够有效地压缩存储空间，同时还能够表示出所有 Unicode 字符。因此，UTF-8 标准基本成为了软件系统和互联网通信上的事实标准。
+
+前面提到，Python 3 中的字符串默认为 Unicode，但更详细一点的解释是 UTF-8。
+
+## UTF-8 与字符串存储
+
+如前所述，在 Python 中，字符串都是以 Unicode 编码（UTF-8）的形式存储的。如果我们想要详细了解字符与 Unicode 编码之间的关系，我们可以使用 Python 的内置函数 `ord` 和 `chr` 来对字符与 Unicode 编码之间进行转换。例如：
+
+```python
+>>> code = ord('A')
+>>> print(code)
+65
+>>> char = chr(65)
+>>> print(char)
+A
+```
+
+其中，`ord` 函数可以将一个字符转换为编码值；而 `chr` 函数可以将一个编码值转换为字符。
+
+## 总结
+
+综上所述，Python 3 在内部使用 Unicode 表示字符串，支持任何书写系统的字符。在 Python 中，字符串存储为 UTF-8 编码的字节序列。不需要其他特殊的编码指令，UTF-8 本身就是 Python 3 源代码文件的默认编码格式。

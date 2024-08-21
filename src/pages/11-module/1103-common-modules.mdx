@@ -1,0 +1,150 @@
+---
+title: "Common Modules | Module"
+description: "The article covers commonly used Python modules including math, random, datetime, os, and json, highlighting their practical applications in programming. It explains the purpose and functionality of each module, supported by examples to demonstrate usage in real-world tasks. The text emphasizes the importance of these modules for operations like mathematical calculations, randomization, date manipulation, file management, and JSON data handling."
+---
+
+## 常用模块
+
+在讲解了 Python 中的模块概念后，我们来简要了解几个在实际开发中经常会用到的模块或库。
+
+-   `math` 模块
+-   `random` 模块
+-   `datetime` 模块
+-   `os` 模块
+-   `json` 模块
+
+### `math` 模块
+
+`math` 模块是 Python 标准库的一部分，提供了各种数学函数和常数。它在代码需要执行数学运算时非常有用。其涵盖的方法包括了三角函数、对数、指数等。
+
+示例用法：
+
+```python
+import math
+
+# 计算平方根
+result = math.sqrt(25)
+
+# 计算π的余弦值
+cosine = math.cos(math.pi)
+
+# 计算一个数的阶乘
+factorial = math.factorial(5) # 5! = 120
+
+# 计算一个数的幂
+power = math.pow(2, 3) # 2^3 = 8.0
+
+# 查找两个数的最大公约数（GCD）
+gcd = math.gcd(12, 18) # 12和18的最大公约数是6
+```
+
+### `random` 模块
+
+`random` 模块用于生成随机数和进行随机选择。它经常用于游戏、模拟和需要随机性的任何应用程序中。
+
+示例用法：
+
+```python
+import random
+
+# 生成1到100之间的随机整数
+random_number = random.randint(1, 100)
+
+# 生成一个0到1之间的随机浮点数
+random_float = random.random()
+
+# 从列表中选择一个随机元素
+random_choice = random.choice(["苹果", "香蕉", "樱桃"])
+
+# 随机打乱一个列表
+my_list = [1, 2, 3, 4, 5]
+random.shuffle(my_list)
+
+# 从一个范围内生成一个随机选择
+random_number = random.choice(range(1, 11))  # 1到10之间的随机数字
+```
+
+### `datetime` 模块
+
+`datetime` 模块提供了用于操作日期和时间的类。它对于处理时间戳、计算时间差异和格式化日期非常重要。
+
+示例用法：
+
+```python
+from datetime import datetime
+
+# 获取当前日期和时间
+current_time = datetime.now()
+
+# 将时间格式化为字符串
+formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
+
+# 创建一个自定义日期
+custom_date = datetime(2023, 9, 25)
+
+# 计算两个日期之间的差异
+date1 = datetime(2023, 9, 30)
+date2 = datetime(2023, 9, 15)
+date_difference = date1 - date2  # 返回一个 timedelta 对象
+```
+
+### `os` 模块
+
+`os` 模块允许程序与操作系统进行交互，因此我们在处理文件和目录操作、处理环境变量和执行系统命令时，会经常使用该模块。
+
+示例用法：
+
+```python
+import os
+
+# 获取当前工作目录
+current_directory = os.getcwd()
+
+# 创建新目录
+os.mkdir("new_folder")
+
+# 执行系统命令（Linux/macOS）
+os.system("ls")
+
+# 列出当前目录中的文件和目录
+file_list = os.listdir()
+
+# 重命名文件
+os.rename("old_file.txt", "new_file.txt")
+
+# 检查文件是否存在
+file_exists = os.path.exists("file_to_check.txt")
+
+# 删除文件
+os.remove("file_to_remove.txt")
+```
+
+### `json` 模块
+
+Python 中的 `json` 模块用于编码和解码 JSON（JavaScript 对象表示法）数据。JSON 是一种轻量级的数据交换格式，通常用于服务器和 Web 应用程序之间的数据交换，或用于配置文件。
+
+示例用法：
+
+```python
+import json
+
+# 将Python字典转换为JSON字符串
+data = {'name': 'Alice', 'age': 30}
+json_string = json.dumps(data)
+
+# 解析JSON字符串为Python字典
+json_data = '{"name": "Bob", "age": 25}'
+parsed_data = json.loads(json_data)
+
+# 将JSON写入文件
+with open('data.json', 'w') as json_file:
+    json.dump(data, json_file)
+
+# 从文件中读取JSON
+with open('data.json', 'r') as json_file:
+    loaded_data = json.load(json_file)
+```
+
+## 总结
+
+我们在本节中只是简单介绍了 Python 中的五个常用模块，而这五个模块只是 Python 庞大而丰富的模块和库集合中非常微小的一部分。我们在实际开发中会接触到各种有趣又实用的模块。我们会在涉及到这些模块时，再详细介绍。

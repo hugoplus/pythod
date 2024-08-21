@@ -1,0 +1,72 @@
+---
+title: "Import | Module"
+description: "The article describes how to use Python's import statement to include external modules in scripts, allowing access to their functions, classes, and variables. It details several methods of importing, such as importing whole modules, using aliases, and selectively or completely importing module contents. The text advises against importing all elements at once to avoid naming conflicts and keep the code clear."
+---
+
+在上一节中，我们讲解了模块的概念，也简单学习了如何使用 `import` 语句来导入外部模块；那么，我们就在本节中学习一下 `import` 语句的详细用法。
+
+## 关键字`import` 的详细用法
+
+我们知道，在 Python 中，`import` 语句可以将外部模块或库引入到我们自己的 Python 脚本或程序中，从而允许我们访问这些模块中定义的函数、类和变量。
+
+下面让我们来看看 `import` 语句的具体工作方式：
+
+1. **导入模块**：  
+   要使用 `import` 语句，我们只需编写关键字 `import`，后跟要导入的模块的名称。模块名称通常是 Python 文件的名称，不包括“.py”扩展名。例如：
+
+    ```python
+    import math
+    ```
+
+    在此例中，我们导入了名为 `math` 的 Python 标准库模块。在导入后，我们就可以访问 `math` 模块中定义的函数和变量。
+
+2. **访问模块元素**：  
+   在导入模块后，我们可以使用点符号（`.`）来访问其元素（函数、类和变量），具体语法是：指定模块名称，后跟一个点（`.`），然后是要访问的元素的名称。例如：
+
+    ```python
+    result = math.sqrt(25)
+    ```
+
+    在此例中，我们从 `math` 模块中调用 `sqrt` 函数来计算数字 25 的平方根。`math.sqrt` 语法指定了我们使用 `math` 模块的 `sqrt` 函数。
+
+3. **模块别名**：  
+   在导入模块时，我们还可以使用 `as` 关键字为模块指定不同的名称（别名），从而让代码更简洁，同时也避免命名冲突。例如：
+
+    ```python
+    import math as m
+    ```
+
+    现在，我们可以使用别名 `m` 来访问 `math` 模块的元素：
+
+    ```python
+    result = m.sqrt(25)
+    ```
+
+    在此例中，我们为 `math` 模块指定了别名 `m`，并使用 `m.sqrt` 来调用 `sqrt` 函数。这样，即使我们在自己的程序中也定义了一个 `math` 类，也不会引起命名冲突。
+
+4. **导入特定元素**：  
+   有时，我们可能只需要从模块中导入特定函数或变量，而不是整个模块。在这种情况下，我们可以使用 `from` 关键字仅导入这些元素。例如：
+
+    ```python
+    from math import sqrt, pi
+    ```
+
+    这样，我们就可以直接使用 `sqrt` 和 `pi`，而无需指定模块名称：
+
+    ```python
+    result = sqrt(25)
+    print(pi)
+    ```
+
+5. **导入所有元素**：  
+   如果我们想从一个模块中导入其所有元素，可以使用 `*` 通配符。但是，通常不建议这样做，因为它可能导致命名冲突，使代码不太可读。例如：
+
+    ```python
+    from math import *
+    ```
+
+    使用这种方法，我们可以直接使用 `math` 模块的所有函数和变量。但 Python 的最佳实践并不推荐这样做。我们最好仅导入需要的特定元素，以保持代码的清晰度。
+
+## 总结
+
+综上所述，Python 中的 `import` 语句是一个强大的工具，用于引入外部模块，实现代码重用，并将代码组织成可管理的单元。“引用外部模块”是 Python 编程中的一个基本概念，使开发人员能够利用庞大又丰富的库和模块生态系统来增强自己开发的应用程序。

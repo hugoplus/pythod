@@ -1,0 +1,197 @@
+---
+title: "Polymorphism | OOP"
+description: "Polymorphism in Python enables a common interface to manage various object types, which makes the code more flexible and easier to maintain. It uses a base Animal class with a make_sound method that is overridden by different animal subclasses to simplify code and reduce redundancy. Python also uses 'duck typing' to emphasize behavior over type, allowing functions to work with any object that behaves appropriately."
+---
+
+## 基本概念
+
+在了解了对象、类与抽象的概念后，我们再来学习一下面向对象编程中另一个重要概念：多态（Polymorphism）。
+
+**多态性**（Polymorphism）源自希腊语单词 "poly"（意为多）和 "morph"（意为形式），顾名思义，它反映了一种多样性的统一。
+
+多态性这个术语并不容易理解，让我们参考一下示例。
+
+想象一下，我们的生活中存在一个动物王国。在这个虚构的世界中，有各种各样的动物，包括狗、猫、鸟和鱼。现在，假设我们要编写一个程序来模拟这个动物王国，并让每种动物发出声音。如果不考虑多态性，我们不得不需要为每种动物类型编写不同的代码来处理它们的声音。
+
+这是一个不使用多态性的示例：
+
+```python
+def make_dog_sound():
+    print("狗：汪汪！")
+
+def make_cat_sound():
+    print("猫：喵喵！")
+
+def make_bird_sound():
+    print("鸟：叽叽喳喳！")
+
+# 模拟动物王国
+make_dog_sound()
+make_cat_sound()
+make_bird_sound()
+```
+
+上述代码会输出每种动物的声音，但它不够灵活。如果我们要添加更多的动物类型，就需要编写更多的函数，这必然会导致代码的冗余。
+
+现在，让我们看看如何使用多态性来改进这个示例：
+
+```python
+class Animal:
+    def make_sound(self):
+        pass
+
+class Dog(Animal):
+    def make_sound(self):
+        print("狗：汪汪！")
+
+class Cat(Animal):
+    def make_sound(self):
+        print("猫：喵喵！")
+
+class Bird(Animal):
+    def make_sound(self):
+        print("鸟：叽叽喳喳！")
+
+# 使用多态性模拟动物王国
+def animal_sound(animal):
+    animal.make_sound()
+
+# 创建动物对象
+dog = Dog()
+cat = Cat()
+bird = Bird()
+
+# 使用多态性进行声音模拟
+animal_sound(dog)   # 输出：狗：汪汪！
+animal_sound(cat)   # 输出：猫：喵喵！
+animal_sound(bird)  # 输出：鸟：叽叽喳喳！
+```
+
+在这个改进后的示例中，我们创建了一个通用的 `Animal` 类，其中包含了一个 `make_sound` 方法。然后，我们创建了不同的动物子类，每个子类都覆盖了 `make_sound` 方法以发出相应的声音。最后，通过 `animal_sound` 函数，我们可以以一种通用的方式模拟动物发出声音，而不需要为每种动物类型编写单独的函数。
+
+动物的叫声的多样的，而我们可以通过一个方法来实现多样的叫声，这就是本文开头提到的**多样性的统一**！
+
+而这也就是多态性的力量！
+
+多态性允许开发人员通过统一的接口处理不同类型的对象，从而使我们的代码更清晰、更灵活，也更易于维护。
+
+## Python 中的多态性
+
+Python 作为一种面向对象编程语言，完全支持多态性。它通过**方法覆盖**和**鸭子类型**来实现多态性。
+
+### 1. 方法覆盖
+
+方法覆盖是一种技术，其中子类提供了已在其超类中定义的方法的具体实现。这允许子类的对象可以与超类的对象互换使用。
+
+让我们再来看一下前面的例子：
+
+```python
+class Animal:
+    def make_sound(self):
+        pass
+
+class Dog(Animal):
+    def make_sound(self):
+        print("狗：汪汪！")
+
+class Cat(Animal):
+    def make_sound(self):
+        print("猫：喵喵！")
+
+class Bird(Animal):
+    def make_sound(self):
+        print("鸟：叽叽喳喳！")
+
+# 使用多态性模拟动物王国
+def animal_sound(animal):
+    animal.make_sound()
+
+# 创建动物对象
+dog = Dog()
+cat = Cat()
+bird = Bird()
+
+# 使用多态性进行声音模拟
+animal_sound(dog)   # 输出：狗：汪汪！
+animal_sound(cat)   # 输出：猫：喵喵！
+animal_sound(bird)  # 输出：鸟：叽叽喳喳！
+```
+
+如前所述，我们定义了一个基类 `Animal`，它具有一个 `make_sound` 方法。然后，我们创建了三个子类 `Dog`、`Cat` 和 `Bird`，它们分别覆盖了基类中的 `make_sound` 方法，以实现各自的声音输出。通过多态性，我们可以使用通用的 `animal_sound` 函数来模拟不同类型的动物发出声音，而不需要知道具体是哪种动物。
+
+理解了这个例子，也就理解了 Python 中多态性的精髓。
+
+### 2. 鸭子类型
+
+"鸭子类型" 是一种应用于动态类型语言（如 Python）的编程哲学，这个术语来源于一句谚语："如果它看起来像一只鸭子，叫声像一只鸭子，那就是一只鸭子"。这个哲学强调了对象的行为比其正式类型或类别更为重要。换句话说，对象的类型或类别是由其行为（方法和属性）而不是显式的类型声明来确定的。
+
+在设计中，Python 遵循了“鸭子类型”的哲学，这意味着对象的类型或类是由其行为而不是显式的类型声明来确定的。如果一个对象像鸭子一样嘎嘎叫、走路，那么它就被视为鸭子。
+
+再说得具体一点，"鸭子类型"的编程哲学就是：不需要明确检查对象的类型，而只是编写依赖于特定方法或属性存在的函数。如果对象具有所需的行为，函数就能与之一起工作。
+
+让我们来看一个"鸭子类型" 的示例：
+
+```python
+class Duck:
+    def quack(self):
+        return "嘎嘎！"
+
+class Person:
+    def quack(self):
+        return "我不是鸭子，但我可以像一个一样嘎嘎叫！"
+
+# 使用鸭子类型的多态性
+def make_sound(entity):
+    return entity.quack()
+
+duck = Duck()
+person = Person()
+
+print(make_sound(duck))    # 输出：嘎嘎！
+print(make_sound(person))  # 输出：我不是鸭子，但我可以像一个一样嘎嘎叫！
+```
+
+在这个例子中，`Duck` 类和 `Person` 类都有一个 `quack` 方法，因此它们可以在 `make_sound` 函数中互换使用。
+
+在很多实际场景中，这种设计方式是非常有用的。举两个例子：
+
+1. **循环**
+
+    ```python
+    creatures = [duck, person]
+
+    for creature in creatures:
+        print(make_sound(creature))
+    ```
+
+    因为使用了"鸭子类型"，我们就可以在循环中迭代具有共同行为的对象，即使它们属于不同的类。这非常有助于提高代码的可重用性。
+
+2. **错误处理**
+
+    ```python
+    def process_data(data_source):
+        if hasattr(data_source, "fetch_data") and callable(data_source.fetch_data):
+            return data_source.fetch_data()
+        else:
+            raise ValueError("Invalid data source")
+
+    class Database:
+        def fetch_data(self):
+            # 从数据库获取数据
+
+    class API:
+        def fetch_data(self):
+            # 从API获取数据
+
+    database_source = Database()
+    api_source = API()
+
+    print(process_data(database_source))  # 可行，因为数据库源具有获取数据的方法
+    print(process_data(api_source))       # 可行，因为API源具有获取数据的方法
+    ```
+
+    同样，在使用"鸭子类型"后，我们可以不需要检查特定异常，而是在使用方法或属性之前检查对象是否具有这些方法或属性。这可以使我们的代码更加健壮。
+
+## 总结
+
+多态性是 Python 和面向对象编程的一个重要概念。它允许开发人员通过统一的方式处理不同类的对象，从而使我们编写的代码更加灵活和易于维护。无论是通过方法覆盖还是“鸭子类型”，Python 都为我们提供了在程序中利用多态性的诸多工具。

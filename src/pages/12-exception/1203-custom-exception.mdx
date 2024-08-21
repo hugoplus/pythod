@@ -1,0 +1,87 @@
+---
+title: "Custom Exception | Exception"
+description: "In Python, custom exceptions let developers handle specific errors not covered by built-in exceptions. By creating a new class that inherits from an existing exception, developers can add custom messages and attributes to give more context about the error. Following best practices, like keeping exceptions simple and providing clear error messages, helps keep the code easy to read and maintain."
+---
+
+import { Steps } from "nextra/components";
+
+## 基本概念
+
+在前两节中，我们讲解了 Python 中的异常处理机制，以及如何抛出异常；不过，虽然 Python 提供了丰富的内置异常来涵盖大多数常见错误情况，但在有些时候，我们仍然会遇到特定的错误，或需要在代码中标注特定的异常。这时，我们就需要通过自定义异常来满足某些特定的需求。
+
+在 Python 中，开发人员可以通过定义一个继承自内置异常类或其子类的新类，来创建自定义异常。我们可以在新建异常中添加各种属性、方法和自定义行为，帮助捕获和传达需要关注的错误信息，从而更容易进行调试和有效处理异常。
+
+## 如何在 Python 中自定义异常
+
+要在 Python 中创建自定义异常，我们可以按照以下步骤进行：
+
+<Steps>
+
+### 定义新的异常类
+
+创建一个新的类，该类需要继承自现有的异常类，通常是 `Exception` 或其子类，如 `ValueError` 或 `TypeError`。
+
+```python
+class MyCustomError(Exception):
+    pass
+```
+
+### 添加属性和方法
+
+我们可以通过添加新的属性和方法来自定义异常，提供自定义的错误信息。当然，这个步骤是可选的。
+
+```python
+class MyCustomError(Exception):
+    def __init__(self, message, code):
+        super().__init__(message)
+        self.code = code
+
+    def __str__(self):
+        return f"{self.message} (代码：{self.code})"
+```
+
+### 抛出自定义异常
+
+在代码中遇到需要自定义异常的情况时，使用 `raise` 语句抛出异常。
+
+```python
+def some_function(value):
+    if value < 0:
+        raise MyCustomError("值应该是非负数", 1001)
+```
+
+</Steps>
+
+通过这三个步骤，我们就可以方便地在程序中使用自定义异常了。
+
+当然，为了保证程序的有效性和可维护性，我们应该尽量遵循在 Python 中使用自定义异常的最佳实践规范，例如：
+
+1. **继承内置异常**  
+   尽量将自定义异常继承自与错误性质最接近的现有异常类，这有助于其他开发人员理解我们的自定义异常的目的，而无需详细的文档说明。
+
+    ```python
+    class MyCustomError(Exception):
+        pass
+    ```
+
+2. **丰富的错误信息**  
+   尽量在自定义异常中包括清晰和丰富的错误信息。错误信息应当传递出错误的原因以及任何可帮助调试的相关细节。
+
+    ```python
+    class MyCustomError(Exception):
+        def __init__(self, message, code):
+            super().__init__(message)
+            self.code = code
+
+        def __str__(self):
+            return f"{self.message} (代码：{self.code})"
+    ```
+
+3. **保持自定义异常相对简单**  
+   尽量避免创建过于复杂的自定义异常。自定义异常应当侧重于封装有关错误的信息，而不是实现复杂的逻辑。复杂的逻辑应放置在捕获和处理异常的代码中。
+
+## 总结
+
+Python 中的自定义异常是提高代码清晰度和可维护性的重要工具。通过创建自定义异常类，开发人员可以提供有意义的错误消息和附加上下文信息，从而更容易识别和处理应用程序中的异常。
+
+在创建自定义异常时，我们需要尽量遵循最佳实践规范，以确保代码的可读性和有效性。
