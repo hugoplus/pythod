@@ -1,0 +1,150 @@
+---
+title: "Manipulation | File"
+description: "This article explains how to handle files in Python, detailing different file modes and methods to open, read, and write files. It recommends using the with statement for managing files efficiently and ensuring they close properly after use. The article also describes various methods like read(), readline(), and readlines() for reading file contents, each suited for specific needs."
+---
+
+## 基本概念
+
+在计算中，文件是一组数据或信息，以特定的名称存储在存储设备上，如硬盘或固态硬盘。文件可以存储各种类型的数据，包括文本、图像、视频等等。因此，文件操作是众多编程技术中的基本要素之一，Python 也不例外。
+
+相比于其他语言，Python 更是提供了很多内置函数和库，帮助开发人员可以轻松地操作这些文件。
+
+下面就让我们来学习一下如何在 Python 中读取和使用文件。
+
+## Python 中的文件读取
+
+### 文件模式
+
+在 Python 中处理文件时，我们遇到的第一个概念是：文件模式。文件模式将确定打开文件的目的以及我们如何与其交互。
+
+以下是一些常见的文件模式：
+
+-   `"r"`：读取模式。以读取方式打开文件（默认模式）。
+-   `"w"`：写入模式。以写入方式打开文件（如果文件不存在则创建新文件，如果文件存在则截断它）。
+-   `"a"`：追加模式。以追加方式打开文件（如果文件不存在则创建新文件）。
+-   `"b"`：二进制模式。与其他模式结合使用（例如，`"rb"`，`"wb"`）以处理二进制文件。
+-   `"x"`：独占创建。创建新文件，但如果已存在则引发错误。
+-   `"t"`：文本模式。与其他模式结合使用（例如，`"rt"`，`"wt"`）以处理文本文件（文本的默认模式）。
+
+### 打开和关闭文件
+
+要在 Python 中处理文件，首先必须使用`open()`函数打开文件，然后在完成后关闭它们。一般的语法如下：
+
+```python
+file = open("filename", "mode")
+# 在此处编写您的代码
+file.close()
+```
+
+需要注意的是：关闭文件非常重要，开发人员必须谨记在打开文件后关闭，以释放系统资源并确保数据完整性。
+
+### 两种打开和关闭文件的方式
+
+在 Python 中处理文件时，我们有两种处理方式：
+
+1. 传统处理方式
+2. `with`处理方式
+
+传统的文件处理方式如下所示：
+
+```python {1, 3, 6}
+file = open("example.txt", "r")
+try:
+    content = file.read()
+    print(content)
+finally:
+    file.close()  # 文件必须在finally块中手动关闭
+```
+
+一般情况下，开发人员需要首先打开文件，然后使用`try...finally...`方式进行必要的操作，同时保证文件可以在最后被关闭。
+
+不过这种方式比较繁琐，开发人员也很容易忘记最后关闭文件，所以在 Python 2.5 版本后，我们推荐使用`with`方式来处理文件。
+
+Python 中的`with`语句用于简化资源（如文件）的管理，确保这些资源被正确获取和释放。`with`语句用于文件处理的一般语法如下：
+
+```python
+with open("filename", "mode") as file:
+    # 在这里编写您的代码
+    # 文件操作在此执行
+
+# 当退出该块时，文件会自动关闭
+```
+
+`with`的工作原理是这样的：
+
+1. 在`with`语句内部使用`open()`函数以指定的模式打开文件。
+2. 我们在缩进的块内执行读取或写入文件的各种操作。
+3. 一旦退出缩进的块（通过到达末尾或遇到异常），文件会自动关闭，确保适当的清理。
+
+让我们来看一个例子：
+
+```python
+with open("example.txt", "r") as file:
+    content = file.read()
+    print(content)
+# 文件会自动关闭
+```
+
+相比于传统文件处理方式，使用`with`语句的优点包括：
+
+1. **自动清理**：使用`with`语句，我们不需要显式关闭文件；当退出块时，它会自动完成。而在传统方式中，开发人员必须手动记住关闭文件，如果忘记关闭可能会导致资源泄漏。
+2. **简化语法**：`with`语句提供了更清晰和更简洁的语法。它明确分离了资源的获取和释放，提高了代码的可读性。
+3. **错误处理**：`with`语句自动处理异常，并确保在块内发生错误时文件被正确关闭。在传统方式中，开发人员需要使用`try...finally...`结构来确保在发生异常时适当清理。
+
+### 常见的文件读取方法
+
+`read()`、`readline()` 和 `readlines()`是 Python 中三个常见的文件读取方法，让我们分别看一下。
+
+1. **`read()` 方法：**
+
+    - `read()` 方法用于将整个文件的内容作为一个字符串读取。
+    - 如果我们不指定大小参数，它将读取整个文件。
+    - 需要注意的是，如果我们多次使用 `read()` 而不关闭并重新打开文件，它将从上次读取的位置继续读取。
+
+        例如：
+
+    ```python
+    with open("example.txt", "r") as file:
+        content = file.read()  # 读取整个文件
+        print(content)
+    ```
+
+2. **`readline()` 方法：**
+
+    - `readline()` 方法用于从文件中读取一行。
+    - 每次调用 `readline()` 时，它将从文件中读取下一行。
+    - 当达到文件末尾时，它返回一个空字符串（`""`）。
+
+        例如：
+
+    ```python
+    with open("example.txt", "r") as file:
+        line1 = file.readline()  # 读取第一行
+        line2 = file.readline()  # 读取第二行
+        print(line1)
+        print(line2)
+    ```
+
+3. **`readlines()` 方法：**
+
+    - `readlines()` 方法用于读取文件中的所有行，并将它们作为字符串列表返回，其中每一行都是列表中的一个元素。
+    - 它会读取整个文件，并根据换行符（`\n`）将文件分割成行。
+
+        例如：
+
+    ```python
+    with open("example.txt", "r") as file:
+        lines = file.readlines()  # 读取所有行并存储在列表中
+        for line in lines:
+            print(line)
+    ```
+
+总之，我们可以根据需要，采用不同的方式从文件中读取数据。
+
+-   如果希望将整个文件作为单个字符串读取时，使用 `read()`。
+-   如果希望逐行读取和处理数据时，使用 `readline()`。
+-   如果希望读取所有行并将它们存储在列表中以供进一步处理时，使用 `readlines()`。
+
+## 总结
+
+Python 为文件操作提供了强大的工具，允许开发人员有效地与文件中存储的数据进行交互。了解文件模式、打开和关闭文件以及使用读取和写入方法是任何 Python 程序员的基本技能。通过遵循最佳实践规范，我们可以确保文件操作代码高效、健壮且无错误。

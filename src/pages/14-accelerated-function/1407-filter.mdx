@@ -1,0 +1,135 @@
+---
+title: "Filter | Accelerated Function"
+description: "The article explains the filter function in Python, which filters elements in a sequence based on a condition function, returning only those that meet the criteria. It highlights that filter simplifies selecting elements without using loops, making the code cleaner and easier to read. The article also offers examples and tips for effectively using filter to streamline data filtering tasks."
+---
+
+## 基本概念
+
+除了前面两节讲到的`map`和`reduce`函数外，Python 中的`filter`函数也是一个常用的工具。
+
+顾名思义，`filter`函数的作用就是筛选，它强大的地方在于：可以允许开发人员自定义筛选条件函数。`filter`函数与`map`和`reduce`函数很类似，也可以将自定义的筛选条件函数作用在给定序列的每一个元素上，最终返回符合特定条件的元素集。
+
+在不使用`filter`函数的情况下，我们当然可以沿用传统的循环迭代的方式，手工筛选符合特定条件的元素；但就像`map`和`reduce`函数一样，`filter`函数也为我们提供了一种简洁而优雅的方式完成筛选操作，这样就既简化过程，又让代码更加清晰可读。
+
+## `filter`函数的语法
+
+与`map`和`reduce`函数类似，`filter`函数的语法也不复杂。
+
+```python
+filter(function, iterable)
+```
+
+其中，
+
+-   `function`：表示过滤条件函数。该函数将被应用在给定可迭代对象的每个元素上。这个过滤条件函数需要返回`True`或`False`，以指示是否应该将元素包含在过滤结果中。
+-   `iterable`：表示需要被筛选的可迭代对象，包括序列、集合或迭代器等。
+
+下面让我们看几个`filter`函数的实际用例。
+
+## `filter`函数的使用
+
+**示例 1：筛选偶数**
+
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+def is_even(num):
+    return num % 2 == 0
+
+even_numbers = list(filter(is_even, numbers))
+print(even_numbers)
+```
+
+输出：
+
+```
+[2, 4, 6, 8, 10]
+```
+
+在这个例子中，`is_even`函数用来检查一个数是否可以整除 2 且没有余数。如果可以，则表示偶数；反之，表示奇数。这个`is_even`函数就是过滤条件函数。`filter`函数将该过滤条件函数应用在`numbers`列表中的每个元素上，并收集所有`is_even`函数返回`True`的元素。最后，返回一个只包含偶数元素的迭代器。（我们可以通过`list()`函数将返回结果转换为列表。）
+
+**示例 2：筛选包含字母'a'的字符串**
+
+```python
+fruits = ['apple', 'banana', 'pear', 'avocado', 'orange']
+
+def has_a(word):
+    return 'a' in word
+
+filtered_fruits = list(filter(has_a, fruits))
+print(filtered_fruits)
+```
+
+输出：
+
+```
+['apple', 'banana', 'avocado', 'orange']
+```
+
+在这个例子中，`has_a`函数用来检查给定的单词是否包含字母`a`。`filter`函数将这个过滤条件函数应用在`fruits`列表中的每个水果上，并只收集通过过滤条件的水果。返回结果就只有包含字母`a`的水果。
+
+**示例 3：筛选质数**
+
+```python
+def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+prime_numbers = list(filter(is_prime, range(1, 20)))
+print(prime_numbers)
+```
+
+输出：
+
+```
+[2, 3, 5, 7, 11, 13, 17, 19]
+```
+
+在这个例子中，我们定义了一个函数`is_prime`，该函数检查一个数字是否为质数。`filter`函数将该过滤条件函数应用在从`1`到`20`的数字范围内，最终返回一个只包含质数的迭代器。
+
+**示例 4：筛选字典**
+
+```python
+students = [
+    {"name": "Alice", "grade": 75},
+    {"name": "Bob", "grade": 90},
+    {"name": "Charlie", "grade": 80},
+    {"name": "David", "grade": 65},
+    {"name": "Emily", "grade": 95}
+]
+
+def pass_grade(student):
+    return student["grade"] >= 70
+
+passed_students = list(filter(pass_grade, students))
+print(passed_students)
+```
+
+输出：
+
+```
+[{'name': 'Alice', 'grade': 75},
+ {'name': 'Bob', 'grade': 90},
+ {'name': 'Charlie', 'grade': 80},
+ {'name': 'Emily', 'grade': 95}]
+```
+
+在此例中，我们有一个用来表示学生和他们成绩的字典列表。过滤条件函数`pass_grade`检查一个学生的成绩是否大于等于`70`。`filter`函数用于筛选通过了考核条件的学生，并返回一个包含筛选后的字典的迭代器。
+
+上面几个例子展示了`filter`函数在 Python 开发中的几个实际应用场景。当我们需要根据给定条件过滤可迭代对象中元素时，我们可以首选`filter`函数。
+
+## `filter`函数的最佳使用实践
+
+为了充分利用`filter`函数，我们建议开发人员遵循以下的最佳使用实践：
+
+1. 对于不需要单独命名的简单筛选操作，请使用 Lambda 函数。Lambda 函数简洁高效，可以帮助减少代码冗余。
+2. 在需要时，请使用明确的类型转换。`filter`函数返回一个过滤器对象，它是一个迭代器。要获取列表或其他可迭代对象，请使用`list()`或适当的转换函数。
+3. 结合其他函数式编程工具，如`map`和`reduce`，可以实现强大的数据转换和计算。
+
+## 总结
+
+Python 中的`filter`函数为根据指定条件从可迭代对象中筛选元素提供了一种方便的方式。`filter`函数简化了筛选数据的过程，减少了手动循环和条件语句的需要。通过使用`filter`函数，开发人员可以编写出简洁高效、可读性强、可维护性高，同时又富有表现力的代码。

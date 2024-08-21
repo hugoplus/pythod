@@ -1,0 +1,303 @@
+---
+title: "MySQL | Database"
+description: "MySQL is widely used in web development for its cost-effectiveness and reliable performance, with broad support across many operating systems and programming environments. Python developers use packages like mysql-connector-python and ORM frameworks such as SQLAlchemy to manage and operate MySQL databases efficiently. The article explains the steps to install mysql-connector-python, connect to a database, execute SQL commands, and handle database sessions and queries in Python."
+---
+
+import { Steps } from "nextra/components";
+
+## 基本概念
+
+对于 Web 开发而言，MySQL 可以说是目前最流行的关系型数据库管理系统，如果不是之一的话。
+
+MySQL 之所以如此流行的原因，可以归结为以下几条：
+
+1. MySQL 是一个开源的关系型数据库管理系统，所以它可以免费提供给开发人员使用。免费从来都是一个非常有吸引力的选择，尤其是对于预算有限的初创企业和小型企业来说。
+2. 经过很多年的发展，MySQL 已经被证明是一个稳定可靠的数据库解决方案。它被广泛使用，同时拥有庞大而活跃的开发人员和用户社区，这也确保了数据库可以不断改进，错误可以被及时修复，安全更新也可以被定期提供。
+3. 还有一个重要原因，就是 MySQL 的性能非常出色。使用 MySQL 数据库的网站可以处理海量数据和大并发访问，而不会出现明显的性能下降。
+4. 另一个不容忽视的原因是兼容性。MySQL 与各种主流操作系统保持兼容，包括 Windows，Linux 和 macOS 等，这使其具有高度可移植性。同时，它还得到了多种编程语言、框架和 Web 开发工具的支持。
+
+因此，对于 Web 开发而言，操作 MySQL 数据库基本上算是一项必备技能。
+
+## 在 Python 中使用 MySQL
+
+如果想要在 Python 中集成 MySQL 数据库，我们需要安装`mysql-connector-python`包。`mysql-connector-python`是一个流行的 Python 模块，用来帮助 Python 程序访问和操作 MySQL 数据库。
+
+当然，除了`mysql-connector-python`模块，Python 中还有其他一些常用的库也提供了类似的功能，例如：
+
+-   `MySQLdb`库。  
+    它是一个在 Python 中被广泛使用的、与 MySQL 数据库进行通信的库，其提供了稳定且成熟的 Python DB-API 规范实现。
+-   `pymysql`库。  
+    它是`MySQLdb`模块的纯 Python 替代品，提供了便捷的接口来使用 Python 的 DB-API 与 MySQL 数据库进行交互。
+-   `PyMySQL`库。  
+    它是一个轻量级的库，实现了 MySQL 的客户端-服务器协议，非常易于使用。
+
+此外，还有 ORM（对象关系映射）库可以简化数据库通信，包括`SQLAlchemy`、`Django
+ORM`和`Peewee`等。这些库抽象了数据库通信的底层细节，并提供了更高级的接口来与 MySQL 数据库交互，从而帮助开发人员能够以更加 Pythonic、更加直观的方式编写数据库查询。
+
+本节将以`mysql-connector-python`库为例，来讲解如何在 Python 中操作 MySQL 数据库。
+
+## MySQL 在 Python 中的使用步骤
+
+让我们先从全局角度看一下在 Python 中使用 MySQL 的具体步骤：
+
+<Steps>
+### 安装
+
+    我们可以使用`pip`包管理器来安装`mysql-connector-python`模块：
+
+    ```python
+    pip install mysql-connector-python
+    ```
+
+    在安装完成后，我们在 Python 程序中导入该模块：
+
+    ```python
+    import mysql.connector
+    ```
+
+### 连接数据库
+
+    使用`mysql-connector-python`的第一步是与 MySQL 服务器建立连接。为此，我们需要提供必要的连接信息，如主机名、用户名、密码和希望连接的数据库名等。
+
+    ```python
+    import mysql.connector
+
+    mydb = mysql.connector.connect(
+      host="主机名",
+      user="用户名",
+      password="密码",
+      database="数据库名")
+
+    print(mydb)
+    ```
+
+    我们需要将上例中的`"主机名"`、`"用户名"`、`"密码"`和`"数据库名"`替换为实际的连接信息。
+
+    返回值`mydb`对象表示与 MySQL 服务器的连接。我们可以在此连接上执行后续的数据库操作。
+
+### 检索数据
+
+    一旦建立了连接，我们就可以在数据库上执行 SQL 查询了。`mysql-connector-python`模块为查询操作提供了`cursor()`方法，该方法返回一个游标对象，用于与数据库交互。通过游标对象调用`execute()`方法，就可以执行 SQL 语句了。
+
+    举个例子：
+
+    ```python
+    import mysql.connector
+
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="yourusername",
+      password="yourpassword",
+      database="yourdatabase")
+
+    mycursor = mydb.cursor()
+
+    mycursor.execute("SELECT * FROM yourtable")
+
+    result = mycursor.fetchall()
+
+    for row in result:
+      print(row)
+
+    mycursor.close()
+    mydb.close()
+    ```
+
+    在此例中，`execute()`方法执行给定的 SQL 检索语句，而`fetchall()`获取结果集的所有行。
+
+### 插入数据
+
+    如果需要向 MySQL 表中插入数据，可以使用 SQL 的`INSERT`语句。下面是一个示例：
+
+    ```python
+    import mysql.connector
+
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="yourusername",
+      password="yourpassword",
+      database="yourdatabase")
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO yourtable (column1, column2, column3) VALUES (%s, %s, %s)"
+    val = ("value1", "value2", "value3")
+
+    mycursor.execute(sql, val)
+
+    mydb.commit()
+
+    print(mycursor.rowcount, "条记录已插入。")
+
+    mycursor.close()
+    mydb.close()
+    ```
+
+    在创建 SQL 语句时，我们可以使用占位符（`%s`）的方式为后续的实际值留出位置。如上例所示，我们在`sql`变量中，使用列名和占位符（`%s`）来创建`INSERT`语句；然后，在`val`变量中，按照相同的顺序提供实际值。
+
+    如同我们操作 SQLite 数据库一样，我们在调用`execute()`方法执行 SQL 语句后，需要调用`commit()`方法来保存更改。
+
+    最后一条语句中的`rowcount`是游标对象的属性，表示插入的记录数。
+
+### 更新数据
+
+    如果需要更新 MySQL 表中的数据，我们可以使用 SQL 中的`UPDATE`语句。下面是一个示例：
+
+    ```python
+    import mysql.connector
+
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="yourusername",
+      password="yourpassword",
+      database="yourdatabase")
+
+    mycursor = mydb.cursor()
+
+    sql = "UPDATE yourtable SET column1 = 'newvalue' WHERE condition"
+
+    mycursor.execute(sql)
+
+    mydb.commit()
+
+    print(mycursor.rowcount, "条记录已更新。")
+
+    mycursor.close()
+    mydb.close()
+    ```
+
+    此例的执行方式与前面插入数据的操作基本一样，不同的是 SQL 语句。
+
+### 删除数据
+
+    要从 MySQL 表中删除数据，我们可以使用 SQL 中的`DELETE`语句。下面是一个示例：
+
+    ```python
+    import mysql.connector
+
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="yourusername",
+      password="yourpassword",
+      database="yourdatabase")
+
+    mycursor = mydb.cursor()
+
+    sql = "DELETE FROM yourtable WHERE condition"
+
+    mycursor.execute(sql)
+
+    mydb.commit()
+
+    print(mycursor.rowcount, "条记录已删除。")
+
+    mycursor.close()
+    mydb.close()
+    ```
+
+    我们可以在`WHERE`子句中定义条件，以指定要删除的记录。同样，我们需要调用`commit()`方法来保存更改。此例中的`rowcount`属性表示已删除的记录数。
+
+</Steps>
+
+## 语句详解
+
+### `mysql.connector.connect`方法
+
+在 Python 中，`mysql.connector.connect()`方法用于与 MySQL 服务器建立连接。其基本语法如下所示：
+
+```python
+mydb = mysql.connector.connect(
+	    user='用户名',
+	    password='密码',
+	    host='主机',
+	    database='数据库'
+	    [additional_options])
+```
+
+以下是每个参数的解释：
+
+-   `user`：连接到 MySQL 服务器的用户名。
+-   `password`：与用户名关联的密码。
+-   `host`：MySQL 服务器运行的主机名，可以是 IP 地址或域名。
+-   `database`：要连接的数据库的名称。如果不想连接到特定的数据库，则可以忽略。
+
+`mysql.connector.connect()`方法的返回值就是与 MySQL 数据库的连接。
+
+让我们来看两个例子。
+
+**例 1：用最少的参数连接到 MySQL 服务器**
+
+```python
+import mysql.connector
+
+# 用最少的参数连接到 MySQL 服务器
+mydb = mysql.connector.connect(user='root', password='password', host='localhost')
+
+# 完成操作后关闭连接
+mydb.close()
+```
+
+在此例中，我们只使用了 3 个参数，即用户名`"root"`、密码`"password"`和数据库服务器名称`"localhost"`，来建立数据库连接。
+
+**例 2：为连接指定额外选项**
+
+```python
+import mysql.connector
+
+# 用额外选项连接到 MySQL 服务器
+mydb = mysql.connector.connect(
+    user='root',
+    password='password',
+    host='localhost',
+    database='mydatabase',
+    autocommit=True,  # 设置自动提交模式
+    use_pure=True,    # 使用纯 Python 实现以获得更好的兼容性
+    charset='utf8'    # 设置字符编码)
+
+# 完成操作后关闭连接
+mydb.close()
+```
+
+在这个示例中，我们使用额外的选项连接到 MySQL 服务器。
+
+其中，
+
+-   `autocommit`表示自动提交模式。设置为`True`后，任何对数据库的更改都将被自动提交。
+-   `use_pure`表示是否开启纯 Python 实现 (`use_pure=True`)。开启后，可以提供更好的兼容性。
+-   `charset`表示字符编码集。这里，我们将字符编码指定为 `utf8`。
+
+### `cursor()`方法
+
+在`mysql-connector-python`模块中，`cursor()`方法主要用来创建一个游标对象，开发人员可以通过此游标对象来执行后续的 SQL 语句。
+
+`cursor()`方法的基本语法如下所示：
+
+```python
+mycursor = connection.cursor(prepared=False, buffered=False)
+```
+
+其中，`cursor()`方法有两个可选参数：
+
+-   `prepared`：布尔值（`True`或`False`），用来表示是否应该使用预编译语句。默认情况下，它被设置为`False`。
+-   `buffered`：布尔值（`True`或`False`），用来表示结果是否应该被缓冲。默认情况下，它被设置为`False`。
+-   `mycursor`表示方法返回的游标对象。
+
+需要说明的是，我们在每次完成数据库操作后，需要使用`close()`方法关闭游标对象。这是因为，当我们使用`cursor()`方法创建游标时，系统会分配必要的资源来维护与数据库的连接，并处理后续的交互操作。在使用完游标后关闭它，我们就可以释放这些系统资源。
+
+### `execute()`方法
+
+`execute()`方法主要是用来执行 SQL 语句，其语法如下所示：
+
+```python
+cursor.execute(operation, params=None, multi=False)
+```
+
+-   `operation`：此参数为必需，表示要执行的 SQL 查询或语句，例如，`INSERT`、`SELECT`、`UPDATE`或`DELETE`语句。
+-   `params`：此参数是可选的，允许我们以列表或元组形式传递值给查询。它用于参数化查询，以防止 SQL 注入攻击。
+-   `multi`：此参数是可选的，确定`execute()`函数是否应一次执行多个 SQL 语句。默认情况下，它设置为`False`。
+
+## 总结
+
+综上所述，在 Python 中操作 MySQL 数据库并不是一件困难的事情。通过使用类似`mysql-connector-python`的库，开发人员可以很方便地与 MySQL 数据库进行交互，执行各种 SQL 查询、插入、更新或者删除数据的操作。
+
+除此之外，开发人员还可以使用更高级的 ORM 库来操作 MySQL 数据库。这些内容，我们将在后续章节中进行讲解。

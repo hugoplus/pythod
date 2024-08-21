@@ -1,0 +1,186 @@
+---
+title: "JSON | File"
+description: "The article explains how to work with JSON files in Python, focusing on the standard json library and the third-party simplejson library for reading and writing data. It covers JSON's basic features like its syntax, which resembles Python dictionaries, and provides examples of handling JSON data in Python code. The guide also discusses JSON's role as a common data format for exchanging information between servers and web applications."
+---
+
+## 基本概念
+
+JSON（JavaScript 对象表示法）是一种广泛使用的数据交换格式，因为其易于人类阅读和编写，也很容易被计算机解析和生成。我们经常会在配置文件、或者服务器与 Web 应用程序之间的数据交换等场景中使用到 JSON。
+
+在本节中，我们将探讨 JSON 的基本概念，并学习如何在 Python 中操作 JSON 文件。
+
+### 理解 JSON
+
+**JSON 的历史**
+
+JSON 于 21 世纪初被引入到程序开发中，并迅速因其轻量级的数据交换特性而受到广泛欢迎。它源自 JavaScript，但与编程语言无关，适用于各种不同的编程语言。
+
+**JSON 的标准语法**
+
+JSON 数据以键值对的形式表示，类似于 Python 的字典。下面让我们梳理一下 JSON 语法的关键点：
+
+-   数据以键值对的形式组织，用花括号 `{}` 括起来。
+-   键必须是双引号括起来的字符串。
+-   值可以是字符串、数字、对象、数组、布尔值或 null。
+-   对象中的项目由逗号分隔。
+-   数组是由方括号 `[]` 括起来的有序值列表。
+
+让我们来看一个例子。
+
+```json
+{
+    "name": "John",
+    "age": 30,
+    "city": "New York",
+    "is_student": false,
+    "grades": [95, 88, 92],
+    "address": {
+        "street": "123 Main St",
+        "zip": "10001"
+    },
+    "languages": null
+}
+```
+
+上面这个 JSON 数据表示了一个人的个人信息，包括他的姓名、年龄、城市、学生状态、成绩、地址、使用的语言等等。在这个示例中：
+
+1. JSON 数据以键值对的形式组织，用花括号 `{}` 括起来。
+2. 键被双引号括起来。例如，`"name"`、`"age"` 和 `"city"` 都是键。
+3. 值可以是不同类型的数据：
+    - 字符串：`"John"`、`"New York"`、`"123 Main St"`。
+    - 数字：`30`、`95`、`88`、`92`。
+    - 布尔值：`true` 或 `false`（注意 JSON 使用小写表示布尔值）。
+    - 数组：`[95, 88, 92]` 是一个包含数字的数组。
+    - 对象：`"address"` 是一个包含 `"street"` 和 `"zip"` 的对象。
+    - 空值：`"languages"` 具有 `null` 值。
+
+同时，在上述对象的内部，不同项目由逗号分隔。
+
+当我们把上述 JSON 数据保存在一个文件中时，其就成为了 JSON 文件。通常，JSON 文件的后缀名是`.json`，当然，这不是必须的。
+
+这种 JSON 文件在程序进行数据交换时很常见，下面就让我们来学习如何在 Python 中操作此类的 JSON 文件。
+
+## 如何在 Python 中读取 JSON 文件
+
+Python 提供了两个主要的库用于处理 JSON：`json` 和 `simplejson`。`json` 库是 Python 标准库的一部分，通常用于大多数 JSON 操作。它提供了编码 Python 对象为 JSON 和解码 JSON 为 Python 对象的方法。
+
+### 打开和读取 JSON 文件
+
+要在 Python 中操作 JSON 文件，首先需要打开，然后使用`load()`方法读取内容。让我们来看一个例子：
+
+```python {1, 5}
+import json
+
+# 以读取模式打开JSON文件
+with open("data.json", "r") as file:
+    data = json.load(file)
+    print(data)
+```
+
+`json.load()` 方法用于从文件中读取和解析 JSON 数据。它以文件对象作为参数，并返回与文件中 JSON 数据对应的 Python 数据结构。其基本语法是：`json.load(file)`。
+
+使用`json.load()`后，JSON 数据将被转换为 Python 对象，如字典、列表、字符串、数字、布尔值和`None`（对应 JSON 中的`null`）。然后，我们就可以像处理任何其他 Python 数据一样处理这些数据了。
+
+### 将 JSON 数据写入文件
+
+要将数据写入 JSON 文件，可以使用 `dump()` 方法：
+
+```python {1, 7}
+import json
+
+data = {"name": "John", "age": 30, "city": "New York"}
+
+# 以写入模式打开JSON文件
+with open("output.json", "w") as file:
+    json.dump(data, file)
+```
+
+`json.dump()` 方法用于将 Python 数据写入 JSON 文件。它接受两个参数：要写入的 Python 数据以及要保存数据的文件对象。其基本语法是：`json.dump(data, file)`。
+
+使用`json.dump()`后，Python 数据将转换为 JSON 格式并写入文件。
+
+## 使用`simplejson`库
+
+除了 Python 内置的`json`库外，我们还可以使用第三方的`simplejson`库来操作 JSON 文件。`simplejson` 库提供了与 Python 内置的`json`库类似的功能，用于处理 JSON 数据。一般来说，如果我们需要更灵活地控制 JSON 序列化和反序列化时，或者在使用不支持`json`模块的较旧的 Python 版本时，可以使用它。
+
+### 安装 `simplejson`
+
+由于 `simplejson` 是外部库，因此，在使用前，我们首先需要安装它。我们可以使用 `pip` 进行安装：
+
+```bash
+pip install simplejson
+```
+
+安装后，我们可以将其导入到 Python 代码中：
+
+```python
+import simplejson as json
+```
+
+### 使用 `simplejson` 进行 JSON 序列化和反序列化
+
+下面是如何使用 `simplejson` 进行 JSON 序列化和反序列化的示例：
+
+**JSON 序列化（Python 转 JSON）**
+
+```python {1, 6}
+import simplejson as json
+
+data = {"name": "Alice", "age": 25, "city": "London"}
+
+# 将Python数据序列化为JSON字符串
+json_string = json.dumps(data, indent=4)  # 'indent'参数用于美化输出
+
+print(json_string)
+```
+
+在上面的代码中，我们使用 `json.dumps()` 将 Python 数据（`data`）序列化为 JSON 字符串。`indent` 参数用于美化输出，添加缩进以提高可读性。
+
+**JSON 反序列化（JSON 转 Python）**
+
+```python {1, 6}
+import simplejson as json
+
+json_string = '{"name": "Bob", "age": 28, "city": "New York"}'
+
+# 将JSON字符串反序列化为Python数据
+data = json.loads(json_string)
+
+print(data["name"])
+```
+
+这里，我们使用 `json.loads()` 将 JSON 字符串（`json_string`）反序列化为 Python 数据（`data`），可以像字典一样访问它。
+
+### 处理 JSON 文件
+
+我们还可以像使用内置的 `json` 库一样的方式，使用 `simplejson` 库来处理 JSON 文件：
+
+**从文件中读取 JSON**
+
+```python {1, 5}
+import simplejson as json
+
+# 以读取模式打开JSON文件
+with open("data.json", "r") as file:
+    data = json.load(file)
+```
+
+**将 JSON 写入文件**
+
+```python {1, 7}
+import simplejson as json
+
+data = {"name": "Charlie", "age": 35, "city": "Paris"}
+
+# 以写入模式打开JSON文件
+with open("output.json", "w") as file:
+    json.dump(data, file, indent=4)
+```
+
+`simplejson`的用法与`json`很类似，因此我们可以根据需要在代码中切换它们。如果我们需要更灵活地控制 JSON 序列化和反序列化，或者在使用较旧的 Python 版本时，可以使用`simplejson`。
+
+## 总结
+
+JSON 是一种多用途且广泛应用于各种应用中的数据格式，而 Python 提供了强大的工具来处理 JSON 文件。了解 JSON 的基本概念，如其语法和结构，在处理 JSON 数据时至关重要。
+
+在 Python 中，内置的`json` 库和第三方的`simplejson`库都提供了便捷的 JSON 文件操作方法，从而帮助开发人员能够无缝地加载和保存数据。

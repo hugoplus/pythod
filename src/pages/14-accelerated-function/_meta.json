@@ -1,0 +1,10 @@
+{
+    "1401-iteration": "14.1 迭代",
+    "1402-generator": "14.2 生成器",
+    "1403-recursion": "14.3 递归函数",
+    "1404-lambda": "14.4 Lambda函数",
+    "1405-map": "14.5 Map函数",
+    "1406-reduce": "14.6 Reduce函数",
+    "1407-filter": "14.7 Filter函数",
+    "1408-decorator": "14.8 装饰器"
+}

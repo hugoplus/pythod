@@ -1,0 +1,91 @@
+---
+title: "Lambda | Accelerated Function"
+description: "Lambda functions in Python are a concise method for creating simple, one-expression functions without names. They streamline code by eliminating the need for the traditional def keyword, making it easier to perform quick tasks directly within other functions or method calls. These functions are ideal for brief operations that can be described in a single line, reducing code verbosity and increasing readability."
+---
+
+## 基本概念
+
+在 Python 中，如果我们想定义一个函数，我们一般会遵循如下的语法：
+
+```python
+def some_function():
+    return a_value
+```
+
+这种写法没有任何问题；但是，一个函数有时候会非常简单，比如只有一条语句，那么如果依然沿用传统的语法，代码就会显得比较冗长。幸运的是，对于这种场景，Python 为我们提供了一种更加简洁的函数定义方法，就是我们将会在本节讲解的 Lambda 函数。
+
+所谓的 Lambda 函数，就是只有函数体，而没有名字的函数；因此，有时候也被称为匿名函数。
+
+这些函数没有名字，能够高效地执行简单任务，因此，我们经常可以在 Python 中见到 Lambda 函数的身影。
+
+## Lambda 函数在 Python 中的应用
+
+在 Python 中，定义 Lambda 函数的语法非常简单，如下所示：
+
+```python
+lambda arguments: expression
+```
+
+`arguments`部分表示 Lambda 函数的输入，`expression`部分定义将执行的计算。Lambda 函数会自动返回计算的结果。
+
+这里需要注意的是，在 Lambda 函数中，`expression`部分只能定义一行表达式，而不能包含多行指令。
+
+让我们来看几个例子。
+
+**示例 1：基本算术运算**
+
+```python
+sum = lambda x, y: x + y
+print(sum(5, 10))  # 输出：15
+```
+
+在这个示例中，我们定义了一个 Lambda 函数`sum`，它接受两个参数并返回它们的和。如果调用该函数，参数为`5`和`10`，那么输出结果为`15`。
+
+很简洁，是吧？
+
+在这种函数体只有一行代码的使用场景中，我们就不需要沿用如下这种传统的函数定义方式，从而让代码更加简洁高效。
+
+```python
+def sum(x, y):
+    return x + y
+```
+
+**示例 2：对元组列表进行排序**
+
+```python
+fruits = [('apple', 120), ('banana', 80), ('cherry', 150)]
+fruits.sort(key=lambda x: x[1])
+print(fruits)  # 输出：[('banana', 80), ('apple', 120), ('cherry', 150)]
+```
+
+在这个示例中，我们使用 Lambda 函数作为`sort()`方法中的`key`参数；这样，`sort()`方法就可以根据每个元组中第二个元素的值对列表进行排序。
+
+**示例 3：筛选列表**
+
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # 输出：[2, 4, 6, 8, 10]
+```
+
+在这个示例中，我们为`filter()`函数传递了一个筛选条件，而这个筛选条件就是一个 Lambda 函数；这样，结合了筛选条件的`filter()`函数，就可以对列表`numbers`进行筛选，以获取所有的偶数元素。
+
+通过以上几个例子，我们可以看到 Lambda 函数的几个优点：
+
+1. 简洁易读的代码：Lambda 函数允许开发人员编写非常简洁的代码。当我们需要对集合或者列表序列执行一次性操作时，这一点就特别有用。
+
+2. 无需单独定义函数：Lambda 函数不需要使用`def`关键字来定义单独的函数，从而允许内联创建，这也在一定程度上降低了代码的复杂性。
+
+3. 函数作为参数：Lambda 函数可以作为参数传递给其他函数。正如我们在上面几个例子中看到的，我们可以定义简单短小的函数而无需给它分配名称，还可以将其作为参数传递给其他函数。
+
+## 使用 Lambda 函数的最佳实践
+
+尽管 Lambda 函数有很多优点，但我们也不能滥用。遵循最佳实践规范，永远都很重要：
+
+-   确保 Lambda 函数的简短和简单。如果需要实现复杂的逻辑，那么我们应该尽量使用命名函数。
+-   尽量使用有意义的变量名以增强代码的可读性。
+-   避免将 Lambda 函数用于较大的操作或需要大量错误处理的任务。
+
+## 总结
+
+综上所述，Python 中的 Lambda 函数为开发人员提供了一种简明高效的执行简单任务的方式。它不需要定义单独函数，也不需要为函数命名，从而使代码更清晰。

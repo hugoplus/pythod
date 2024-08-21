@@ -1,5 +1,5 @@
 {
-    "index": "首页",
+    "index": "前言",
     "01-get-started": "1. Python概述",
     "02-python-install": "2. Python的安装与使用",
     "03-hello-world": "3. 第一个Python程序",
@@ -12,5 +12,9 @@
     "10-oop": "10. 面向对象编程",
     "11-module": "11. 模块",
     "12-exception": "12. 异常",
-    "13-magic-methods": "13. Python中的魔法方法"
+    "13-magic-methods": "13. Python中的魔法方法",
+    "14-accelerated-function": "14. 再谈函数的高级用法",
+    "15-file": "15. 文件",
+    "16-database": "16. 数据库支持",
+    "17-reference": "17. 参考"
 }

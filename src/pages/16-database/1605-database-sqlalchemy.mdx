@@ -1,0 +1,141 @@
+---
+title: "SQLAlchemy | Database"
+description: "The article explains SQLAlchemy, a Python library that uses Object Relational Mapping (ORM) to manage database operations more efficiently than traditional SQL. It guides through the steps of installing SQLAlchemy, connecting to databases, and mapping database tables to Python classes. The article also discusses the advantages of using ORM, such as simpler code, improved productivity, and easier maintenance across different database systems."
+---
+
+import { Steps } from "nextra/components";
+
+## 基本概念
+
+通过前面几节的学习，我们掌握了诸如`sqlite3`、`psycopg2`等模块的使用方法。我们可以使用这些模块，通过编写原始的 SQL 语句的方式，执行“增、删、改、查”等操作；同时，我们还需要手动处理连接和游标对象。这种方式虽然简单可行，但是会使代码变得复杂且难以维护，特别是在大型项目中更是如此。
+
+为此，我们需要引入对象关系映射（ORM）的概念。
+
+什么是对象关系映射（ORM）？简单来说，ORM 就是一种使用对象而不是编写传统 SQL 语句来与数据库交互的方式。
+
+通过 ORM，开发人员可以定义代表数据库表的类，并将这些类的属性映射到相应表中的列上。ORM 工具负责将这些类和对象上的操作转化为可执行于数据库的 SQL 查询。
+
+相比于传统的 SQL 语句交互方式，ORM 有以下几个好处：
+
+1. 抽象  
+   ORM 提供了对底层数据库的一层抽象。通过使用 ORM，开发人员可以处理对象及其关系，而不用担心数据库结构的具体细节或编写原始的 SQL 查询。
+2. 生产力  
+   ORM 通过提供更高级别的 API 来执行数据库操作，帮助开发人员提高生产力。这意味着开发人员可以专注于编写应用逻辑，而不需要处理低级别的数据库交互。
+3. 可移植性  
+   ORM 允许开发人员编写与数据库无关的代码。通过使用 ORM 定义数据库模式，开发人员可以轻松地在不同的数据库系统之间切换，而不需要对代码进行大量的修改。ORM 工具会根据配置的数据库生成适当的 SQL 语句。
+4. 可维护性  
+   使用 ORM 时，由于数据库模式和数据访问逻辑集中在一个地方，开发人员的代码就会变得更易维护。通过 ORM 配置，开发人员可以轻松地处理对数据库的任何更新或更改，而无需修改大部分代码库。
+
+在 Python 中流行的 ORM 库包括`SQLAlchemy`, `Django ORM`和`Peewee`。这些库都使用 ORM 方法来与数据库进行交互。在本节中，我们将探讨`SQLAlchemy`的基本概念，并学习如何在 Python 中使用它。
+
+## 在 Python 中使用 SQLAlchemy
+
+<Steps>
+### 安装
+
+    在开始使用`SQLAlchemy`之前，我们首先需要安装它。我们可以使用`pip`命令，如下所示：
+
+    ```bash
+    pip install SQLAlchemy
+    ```
+
+    安装完成后，我们就可以在 Python 程序中引用它。
+
+### 连接数据库
+
+    使用`SQLAlchemy`的第一步是建立与数据库的连接。我们可以使用`create_engine`方法来完成。该方法以数据库 URL 作为参数。
+
+    以下是连接到 SQLite 数据库的示例：
+
+    ```python
+    from sqlalchemy import create_engine
+
+    engine = create_engine('sqlite:///database.db')
+    ```
+
+    让我们再看一个连接到 PostgreSQL 数据库的例子。
+
+    ```python
+    from sqlalchemy import create_engine
+
+    db_url = 'postgresql://用户名:密码@localhost:5432/我的数据库'
+
+    engine = create_engine(db_url)
+    ```
+
+### 创建表和映射
+
+    一旦建立了连接，我们就可以使用`SQLAlchemy`的 ORM 功能来定义数据库模式。我们可以为数据库（`database`）中的某一个数据表（`table`），创建一个单独的 Python 类。这个类一般被称为“模型类”。在模型类中，我们能会将数据表中的列（`column`）定义为该类的属性，从而形成对象与数据表的映射关系。接下来，我们就可以使用面向对象的方式与数据库进行交互了。
+
+    让我们以一个简单的`users`数据表为例，看一下模型类的定义。我们假设`users`数据表包含`id`、`name`和`email`三个列：
+
+    ```python
+    from sqlalchemy import Column, Integer, String
+    from sqlalchemy.ext.declarative import declarative_base
+
+    Base = declarative_base()
+
+    class User(Base):
+        __tablename__ = 'users'
+
+        id = Column(Integer, primary_key=True)
+        name = Column(String)
+        email = Column(String)
+    ```
+
+    在这里，我们定义了一个名为`User`的类，以对应`users`数据表。这个类继承自`Base`，后者是`SQLAlchemy`提供的用于声明模型定义的基类。`__tablename__`属性指定了数据库中的表名。
+
+    既然是 ORM，那么我们就需要把数据表中的列映射为类属性。在这里，我们创建了`id`、`name`和`email`三个属性，以对应`users`数据表中的`id`、`name`和`email`三个列。`SQLAlchemy`提供了多种列类型，如`Integer`、`String`、`DateTime`等，用于处理不同的数据类型。
+
+    在创建完成后，我们就把一张数据库中的数据表（上例中的`users`表）映射成了 Python 中的数据类（上例中的`User`类）了。
+
+### 会话管理
+
+    要与数据库交互，我们还需要创建一个*会话*对象。在`SQLAlchemy`中，会话是管理数据库连接和执行数据库操作的重要部分，它以面向对象的方式提供了与数据库进行交互的高级接口，包括：查询、保存和删除记录的方法。
+
+    以下是创建会话的示例：
+
+    ```python
+    from sqlalchemy.orm import sessionmaker
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    ```
+
+    在这里，我们使用`sessionmaker`类创建一个会话对象，并通过`bind`参数将其绑定到我们之前创建的数据库引擎上。
+
+    在会话对象创建完成后，我们就可以在其上执行各种操作了。
+
+### 查询和修改记录
+
+    使用`SQLAlchemy`，从数据库中查询记录非常简单。我们可以使用会话的`query`方法以及模型类来获取记录。以下是一个示例：
+
+    ```python
+    users = session.query(User).all()
+    for user in users:
+        print(user.name, user.email)
+    ```
+
+    在此示例中，我们查询`User`表中的所有记录，并遍历它们以打印名称和电子邮件。
+
+    要插入或修改记录，我们创建模型类的新实例，修改其属性，并将其添加到会话中。以下是添加新用户的示例：
+
+    ```python
+    new_user = User(name='John Doe', email='john@example.com')
+    session.add(new_user)
+    session.commit()
+    ```
+
+    在此示例中，我们创建`User`类的新实例，设置名称和电子邮件属性，使用`add`方法将其添加到会话中，最后使用`commit`方法提交更改。
+
+</Steps>
+
+## 总结
+
+对于数据库操作而言，`SQLAlchemy`库应该算是 Python 中的最流行的第三方库之一。它不仅强大，而且易于上手。虽然`SQLAlchemy`库同时支持对象关系映射（ORM）和 SQL 表达式语言，但其核心优势主要体现在 ORM 方面。
+
+`SQLAlchemy`库提供了一个高度面向对象的接口，让开发人员可以使用更高级的面向对象方式与数据库进行交互，而不必编写复杂的 SQL 语句；并且将不同数据库的差异巧妙隐藏，使得开发人员可以聚焦在业务逻辑层面，而无需过于担心底层数据库的种类。
+
+此外，无论是数据库事务、连接池还是高级查询，`SQLAlchemy`库都能胜任。同时，`SQLAlchemy`库可以兼容多种主流数据库，包括：PostgreSQL、MySQL、SQLite、Oracle 等，这对于需要考虑高移植性的代码而言，是一个福音。
+
+简而言之，`SQLAlchemy`库为 Python 中的数据库操作提供了一站式解决方案。不管是 ORM 爱好者还是 SQL 达人，`SQLAlchemy`库都能为你提供一种既灵活又高效的交互方式，因此深受 Python 开发者的喜爱。

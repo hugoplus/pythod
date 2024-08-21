@@ -1,0 +1,187 @@
+---
+title: "Recursion | Accelerated Function"
+description: "Recursion in Python involves breaking down a problem into smaller, similar problems which a function then solves by calling itself. An example of this is calculating factorials, where 'n!' is computed as 'n * (n-1)!'. It's crucial to define a base condition in recursive functions to prevent infinite loops and stack overflow errors."
+---
+
+## 基本概念
+
+不管是在 Python 中，还是在其他编程语言中，**递归**（Recursion）都是一种很常见的编程技巧。递归这种概念的本质，就是将一个大问题分解成更小、自相似的子问题；然后通过解决所有这些自相似的子问题，来解决最初的大问题。
+
+递归的基础是一个问题可以被分解成更小、同时又自相似的子问题；这样，一个方法就可以通过不断地调用其自身，来解决问题。
+
+举个例子吧。数学中有个概念叫“阶乘”，`n`的阶乘的数学表达式是：`n!=1*2*3*...*(n-1)*n`。那么，如果要编写一个函数来计算阶乘，该如何编写？
+
+普通的方式是使用循环来计算阶乘：
+
+```python
+def factorial(n):
+     result = 1
+
+     # 使用循环的方式计算阶乘
+     for i in range(1, n + 1):
+         result *= i
+
+     return result
+
+print(factorial(5))  # 输出：120
+```
+
+除此之外，我们还可以使用递归的方式来计算。
+
+因为如果我们分析这个问题就会发现，`n!`实际上等于`n*(n-1)!`；类似的，`(n-1)!`又等于`(n-1)*(n-2)!`。换句话来说，就是一个数的阶乘等于这个数乘以比这个数字小一的那个数的阶乘。我们于是发现，计算阶乘的问题，可以被分解成一个更小的、同时又自相似的子问题。
+
+沿着这个思路，我们看一下使用递归的方式如何编写阶乘计算函数：
+
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+print(factorial(5))  # 输出：120
+```
+
+在函数内部，递归函数会检查输入的参数 `n` 是否为 `0`，如果是，则返回 `1`；如果不是，则调用自身并返回 `n` 乘以 `factorial(n-1)` 的结果。
+
+这样，我们就可以通过一个函数调用其自身的方式--也就是递归的方式，来完成阶乘的计算。
+
+通俗点说，递归就是指程序在执行过程中不断调用自身的执行过程。
+
+作为 Python 中一种常见的编程技巧，下面就让我们看看它的实际应用。
+
+## 如何在 Python 中使用递归函数
+
+要在 Python 中使用递归，我们需要定义一个调用自身的函数。如前所述，这种自引用的行为使函数能够重复解决较小的子问题，直到达到基本条件为止。
+
+### Python 中递归函数的语法
+
+下面是 Python 中递归函数的一般语法：
+
+```python
+def recursive_function(parameters):
+    if base_condition:
+        # 基本条件：返回值或停止递归
+        return something
+    else:
+        # 递归条件：使用修改后的参数调用函数
+        return recursive_function(modified_parameters)
+```
+
+注意：递归函数必须有一个基本条件，这个基本条件定义了递归在何时停止、并返回一个值。如果没有基本条件，那么函数将无限次地调用自身，这会导致堆栈溢出错误，也会导致程序崩溃。
+
+下面让我们来看两个递归函数的实际使用例子。
+
+### 遍历目录树
+
+我们不管是使用 Windows 电脑，还是 Linux 电脑，都会经常与其中的文件系统打交道。一个文件系统往往都是由若干层次的目录和文件构成，例如：
+
+```javascript
+file_system = {
+    root: {
+        folder1: {
+            "file1.txt": None,
+            "file2.txt": None,
+        },
+        folder2: {
+            subfolder: {
+                "file3.txt": None,
+            },
+            "file4.txt": None,
+        },
+        "file5.txt": None,
+    },
+};
+```
+
+我们用一个 JSON 结构来模拟实际的目录结构。那么，我们如果遍历这个目录结构呢？
+
+递归函数可以帮助我们。
+
+```python
+def traverse_tree(directory):
+     for key, value in directory.items():
+         print(key)  # 这里可以编写所需处理的任务
+
+         if isinstance(value, dict):
+             traverse_tree(value)
+
+# 遍历文件目录
+traverse_tree(file_system)
+```
+
+在这个例子中，递归函数`traverse_tree`会不断通过调用其自身的方式，遍历我们传给它的文件目录数据。在遍历的过程中，我们可以执行需要处理的任务。
+
+### 快速排序
+
+快速排序算法是一种我们经常会用到的排序算法。这种算法基于"分治法"的排序思想，首先从数组中选择一个基准元素，然后将数组中的其他元素与该基准进行比较，按照与基准的大小关系划分为两个子数组；最后，使用递归的方式，对子数组进行相同的操作，直到整个数组排序完毕。
+
+```python
+ def quick_sort(arr):
+     if len(arr) <= 1:
+         return arr
+
+     pivot = arr[-1]
+     smaller, equal, larger = [], [], []
+
+     for num in arr:
+         if num < pivot:
+             smaller.append(num)
+         elif num == pivot:
+             equal.append(num)
+         else:
+             larger.append(num)
+
+     return quick_sort(smaller) + equal + quick_sort(larger)
+```
+
+在这个示例中，`quick_sort`函数接受一个数组`arr`作为输入，然后使用递归的方式对其进行划分和排序。递归中止的基本条件是当数组包含 1 个或更少的元素的时候；此时，整个数组就已经排序好了。
+
+### 如何更好地使用递归函数
+
+如上所述，虽然递归在实际编程中很强大，但开发人员仍然需要遵循最佳实践以确保高效和正确的代码执行。
+
+1. 明确定义递归函数的目标。在开始编写递归函数之前，我们需要确定递归函数要解决的问题是什么，以及我们希望递归函数返回什么结果。
+2. 设置递归终止条件。递归函数需要设置终止条件，以防止递归过深。终止条件通常是函数的输入参数达到一定的条件，或者函数执行到一定的次数。
+3. 确定递归函数的输入和输出。递归函数的输入和输出应该是明确的，以便于调用和理解。
+4. 尽量减少递归次数。递归函数的执行次数越多，程序的性能就越差。因此，在设计递归函数时，应尽量减少递归次数。
+5. 使用尾递归优化。尾递归是指在递归函数的最后一步，直接调用自身而不做任何处理的递归。遗憾的是，Python 中并不支持尾递归优化，但是我们可以使用其他方法来模拟尾递归。
+6. 谨慎使用递归函数。递归函数的执行效率通常较低，因此在设计程序时应谨慎使用递归函数。如果可以使用迭代或其他方法解决问题，则应优先选择这些方法。
+
+上面我们提到了“尾递归”的概念，那我们就来看看如何在 Python 中模拟尾递归：
+
+1. 使用循环代替递归。通常来说，尾递归函数都可以使用循环代替递归实现。例如，我们可以使用以下代码模拟尾递归求阶乘：
+
+    ```python
+    def factorial_iter(n, result=1):
+    	while n > 0:
+            result *= n
+            n -= 1
+        return result
+
+    print(factorial_iter(5))  # 输出：120
+    ```
+
+    上面的代码使用了一个循环来模拟尾递归计算阶乘的过程。
+
+2. 使用堆栈。在 Python 中，我们还可以使用堆栈来模拟尾递归。我们仍然以阶乘计算来举例：
+
+    ```python
+    def factorial_stack(n, result=1):
+        if n == 0:
+            return result
+        else:
+            return factorial_stack(n - 1, n * result)
+
+    print(factorial_stack(5))  # 输出：120
+    ```
+
+    上面的代码使用了堆栈来模拟尾递归计算阶乘的过程。
+
+## 总结
+
+递归是一种通过将复杂问题分解成更小、自相似的部分来解决复杂问题的方式。在 Python 中，递归可以帮助我们编写出简洁优雅的代码。
+
+通过理解递归的基本原理并遵循最佳实践，开发者可以很容易以模块化的方式解决各种复杂问题。
+
+不过，在使用递归的时候，一定要谨记其自身的使用风险。

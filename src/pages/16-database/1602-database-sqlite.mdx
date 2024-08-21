@@ -1,0 +1,284 @@
+---
+title: "SQLite | Database"
+description: "SQLite is a lightweight, file-based database included in Python's standard library, making it easy to integrate database features into applications. The article discusses how to use SQLite in Python, including connecting to the database, executing SQL commands to manage tables and data, and using the sqlite3 module to handle database operations. It also covers essential functions like connect(), execute(), and commit() to perform and save changes in the database."
+---
+
+import { Steps } from "nextra/components";
+
+## 基本概念
+
+SQLite 是一种轻量级的、基于文件的数据库管理系统。正是由于它的简单性和低资源消耗，从而被广泛使用。SQLite 是 Python 标准库的一个重要组成部分，帮助开发人员能够方便地将数据库功能整合到自己的应用程序中。
+
+在本节中，我们将详细探究如何在 Python 中使用 SQLite。
+
+## 在 Python 中使用 SQLite
+
+在 Python 中使用 SQLite，我们可以参考如下步骤：
+
+<Steps>
+### 安装
+
+    虽然第一个步骤是安装，但是如前所述，SQLite 是 Python 的内置模块，因此不需要任何额外的安装步骤。我们只需要确保自己的系统上安装了合适版本的 Python 即可。
+
+### 连接与创建数据库
+
+    要在 Python 中连接一个 SQLite 数据库，我们首先需要导入 `sqlite3` 模块：
+
+    ```python
+    import sqlite3
+    ```
+
+    接下来，我们可以建立与数据库的连接并创建一个游标对象：
+
+    ```python
+    conn = sqlite3.connect('example.db')
+    cursor = conn.cursor()
+    ```
+
+    因为 SQLite 数据库是以文件形式存储数据的，因此，`connect()` 函数的参数就是数据库文件的名称。如果指定的文件不存在，那么`connect()` 函数就会自动创建该文件。
+
+### 创建数据表
+
+    一旦我们有了数据库连接和游标对象，我们就使用游标对象的 `execute()` 方法来执行 SQL 语句。下面让我们看一下如何在数据库中创建数据表：
+
+    ```python
+    cursor.execute('''
+        CREATE TABLE users
+        (id INT PRIMARY KEY NOT NULL,
+        name TEXT NOT NULL,
+        age INT NOT NULL);
+        ''')
+    ```
+
+    在此例中，我们创建了一个名为 `users` 的数据表，包含 `id`、`name` 和 `age` 三个列。其中的 SQL 语句`CREATE TABLE` 定义了列名和其数据类型。
+
+### 插入数据
+
+    我们同样可以使用游标对象的 `execute()` 方法，来在新创建的数据表上插入数据：
+
+    ```python
+    cursor.execute("INSERT INTO users (id, name, age) VALUES (?, ?, ?)", (1, 'John Doe', 25))
+    ```
+
+    在上面的示例中，我们向 `users` 数据表中插入一行新的用户数据。其中的问号 (`?`) 是实际值的占位符，实际值以元组形式在第二个参数中指定。
+
+### 检索数据
+
+    要在数据库中检索数据，我们可以使用 SQL 中的 `SELECT` 语句，并配合 `fetchone()` 或 `fetchall()` 方法来获取结果：
+
+    ```python
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+
+    for row in rows:
+        print(row)
+    ```
+
+    上述代码可以从 `users` 数据表中检索所有行，然后使用循环打印出来。
+
+### 提交更改与关闭连接
+
+    在执行所有必要的查询之后，重要的是要提交更改并关闭数据库连接：
+
+    ```python
+    conn.commit()
+    conn.close()
+    ```
+
+    通过调用 `commit()` 方法，我们将更改持久化到数据库中。最后，`close()` 方法释放与连接关联的资源。
+
+</Steps>
+
+## 语句详解
+
+### `connect()`方法
+
+`sqlite3`模块中的`connect()`方法用于在 Python 中建立与 SQLite 数据库文件的连接。它返回一个连接对象，该对象可用于与数据库进行交互。
+
+`connect()`方法的语法规则如下：
+
+```python
+connect(database [, timeout, detect_types, isolation_level, check_same_thread, factory, cached_statements, uri])
+```
+
+下面让我们来逐个解释一下`connect()`方法的每个参数：
+
+-   `database`：这是一个必需的参数，用于指定我们希望连接的 SQLite 数据库的文件名。如果文件位于相同目录中，则可以只写文件名。
+-   `timeout`：此参数指定连接等待的最长超时时间（以秒为单位）。默认情况下，设置为 5.0 秒。
+-   `detect_types`：此参数是一个标志，指示`sqlite3`模块是否应以更智能的方式解析和转换受支持的类型。将其设置为`sqlite3.PARSE_DECLTYPES`以启用类型检测和转换，或者设置为`sqlite3.PARSE_COLNAMES`以禁用它。
+-   `isolation_level`：此参数指定默认的事务隔离级别。可以将其设置为`None`（自动提交模式）、`'DEFERRED'`（默认）、`'IMMEDIATE'`或`'EXCLUSIVE'`。
+-   `check_same_thread`：一个布尔参数，指示是否检查连接是否在创建它的同一线程中使用。默认情况下，此值为`True`。
+-   `factory`：一个可选函数，用于创建自定义连接对象。如果提供了此函数，它应返回一个新的连接对象的实例。
+-   `cached_statements`：用于启用或禁用连接的语句缓存的可选参数。根据需要将其设置为`True`或`False`。
+-   `uri`：一个布尔参数，表示是否将`database`参数解释为 SQLite 连接 URI。如果将其设置为`True`，`connect()`方法就会将数据库参数解释为 URI。
+
+让我们来看一个示例：
+
+```python
+import sqlite3
+
+# 使用10秒的超时时间和立即隔离级别连接到SQLite数据库文件
+conn = sqlite3.connect('example.db', timeout=10, isolation_level='IMMEDIATE')
+
+# 使用连接对象与数据库进行交互
+
+# 完成后不要忘记关闭连接
+conn.close()
+```
+
+在此例中，我们通过`timeout`和`isolation_level`参数，创建了具有特定超时时间和隔离级别的连接。
+
+### `execute()` 方法
+
+`execute()`方法用于在 Python 程序中执行 SQL 查询或语句。其语法如下所示：
+
+```python
+cursor.execute(sql, parameters)
+```
+
+其中，
+
+-   `sql`：表示要执行的 SQL 语句。它可以包含参数的占位符。
+-   `parameters`（可选）：表示要替换占位符的参数或值。它们可以作为元组或字典传递，其使用取决于 SQL 语句中的占位符。
+
+让我们来看看使用`execute()`方法的例子：
+
+```python
+import sqlite3
+
+# 连接到数据库
+conn = sqlite3.connect('example.db')
+
+# 创建游标对象
+cursor = conn.cursor()
+
+# 执行UPDATE语句
+cursor.execute("UPDATE students SET age = ? WHERE name = ?", (21, 'John Doe'))
+
+# 执行DELETE语句
+cursor.execute("DELETE FROM students WHERE name = ?", ('John Doe',))
+
+# 提交更改到数据库
+conn.commit()
+
+# 关闭游标和连接
+cursor.close()
+conn.close()
+```
+
+在此例中，我们通过`execute()`方法执行了 SQL 中的更新（UPDATE）和删除（DELETE）语句。
+
+### `fetchone()` 方法和 `fetchall()` 方法
+
+-   `fetchone()` 方法
+
+    `fetchone()`方法类似于迭代器，它只会将结果集里面的一行作为元组检索返回。如果我们只期望返回一行结果或者希望在循环中逐一迭代数据，就可以使用该方法。
+
+    在没有更多可返回的行时，`fetchone()`方法会返回`None`。
+
+    让我们来看一个示例：
+
+    ```python
+    import sqlite3
+
+    # 创建到SQLite数据库的连接
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    # 执行SELECT查询
+    cursor.execute('SELECT * FROM users')
+
+    # 获取第一行
+    row = cursor.fetchone()
+    print(row)
+
+    # 获取下一行
+    row = cursor.fetchone()
+    print(row)
+
+    # 关闭连接
+    conn.close()
+    ```
+
+    在上面的示例中，我们通过多次调用`fetchone()`方法来逐一检索每一行。如果没有更多行，它将返回`None`。相对而言，这种方法在内存的使用效率上表现较好，因为它逐行检索，不会将整个结果集加载到内存中。
+
+-   `fetchall()` 方法
+
+    与`fetchone()`方法相反，`fetchall()`方法会将结果集里面的所有行作为元组列表检索返回。我们通常在需要一次性获取查询结果的所有行时，使用`fetchall()`方法。
+
+    让我们来看一个`fetchall()`方法的示例：
+
+    ```python
+    import sqlite3
+
+    # 创建到SQLite数据库的连接
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    # 执行SELECT查询
+    cursor.execute('SELECT * FROM users')
+
+    # 获取所有行
+    rows = cursor.fetchall()
+
+    # 遍历行并打印每一行
+    for row in rows:
+        print(row)
+
+    # 关闭连接
+    conn.close()
+    ```
+
+    在此示例中，我们使用`fetchall()`方法将结果集中的所有行一次性的获取到`rows`变量中。然后，我们以循环的形式，对列表`rows`进行迭代。
+
+    需要注意的是，因为`fetchall()`方法会将所有行都加载到内存中，所以如果结果集很大，那么该方法可能会消耗掉大量内存。
+
+### `commit()`方法
+
+`sqlite3` 模块中的 `commit()` 方法用于在数据库中保存对数据所做的任何未提交的更改。在 Python 中操作 SQLite 数据库时，对数据库的更改并不会被自动保存；因此，开发人员需要显式地调用`commit()`方法来保存这些更改。
+
+`commit()` 方法的语法很简单，如下所示：
+
+```python
+connection.commit()
+```
+
+其中，`connection` 是通过`sqlite3`模块的`connect()`方法所创建的连接对象。
+
+在上面的很多例子中，我们已经看到了如何使用 `commit()` 方法，在这里，我们需要强调一下：`commit()`函数用于保存自上次提交或建立数据库连接以来对数据库所做的所有更改，也就是说，我们可以在执行多条`execute()`方法后，通过一条`commit()` 方法，完成保存。
+
+来看一个例子：
+
+```python
+import sqlite3
+
+# 建立与数据库的连接
+conn = sqlite3.connect('mydatabase.db')
+
+# 创建游标对象以执行SQL语句
+cursor = conn.cursor()
+
+# 执行多个SQL语句
+cursor.execute("CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT)")
+cursor.execute("INSERT INTO employees (name) VALUES ('John')")
+cursor.execute("INSERT INTO employees (name) VALUES ('Alice')")
+
+# 提交更改
+conn.commit()
+
+# 关闭游标和连接
+cursor.close()
+conn.close()
+```
+
+在此例中，我们执行了 3 条`cursor.execute()`语句。第一条语句帮助我们创建了一个名为`employees`的表；而后两条语句帮助我们向表中插入了两行数据。
+
+在执行完所有的 SQL 语句后，我们调用一条`conn.commit()`将多有更改一次性提交到数据库中。
+
+另一点需要注意的是，`commit()`函数应该在连接对象（`conn`）上调用，而不是在游标对象（`cursor`）上调用。这是因为`execute()`所执行的 SQL 语句与游标相关，而与连接无关；相反，`commit()`方法则与连接相关，因为它在连接上将`execute()`方法所执行的所有更改永久化。
+
+## 总结
+
+由于采用文件的方式存储数据，因此 SQLite 不需要任何外部服务器或单独的安装。它可以帮助开发人员快速地创建、读取、更新和删除数据，而不像传统数据库系统那样复杂。
+
+Python 通过 `sqlite3` 模块，为开发人员提供了丰富的接口函数；通过这些函数，开发人员就可以快速地将 SQLite 集成到自己的程序中，从而构建出包含高效可靠的数据存储功能的强大应用。

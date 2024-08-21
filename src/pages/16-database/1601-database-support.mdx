@@ -1,0 +1,92 @@
+---
+title: "Database Support | Database"
+description: "Python supports many databases, letting developers work directly with systems like PostgreSQL, MySQL, and SQLite. Developers can connect to databases, execute SQL queries, and manage data by using specific Python libraries. This functionality is crucial for efficiently storing and retrieving data in modern software applications."
+---
+
+import { Steps } from "nextra/components";
+
+## 引子
+
+在软件开发中，数据库作为保存数据的一种重要形式，在存储、管理和检索数据方面都起着至关重要的作用。而 Python 作为一种强大的语言，当然也提供了很多数据库框架和库，帮助开发人员能够与数据库无缝地进行工作。
+
+虽然数据库不是本教程所涉及的内容，但在讲解 Python 对数据库的支持之前，我们还是先来简单了解一下数据库的概念。
+
+一般来说，**数据库**是一个可以存储、访问和管理的有组织数据集合。它作为一个结构化的存储库，用于存储和检索数据。数据库旨在高效处理大量信息，并提供数据完整性和安全性的机制。我们常见的数据库包括：SQLite、Oracle、MS SQL Server、MySQL、PostgreSQL、MongoDB 等。
+
+为了帮助用户更高效地访问数据库，数据库产品一般都会提供数据库管理系统，也就是 DBMS。
+
+**DBMS**是一种软件，控制对数据库的访问，处理数据组织，强制执行数据完整性规则，并确保数据的高效存储和检索。我们可以把 DBMS 理解为数据库和应用程序之间的中间件，它为用户提供了与数据库进行交互的接口，可以执行查询、获取数据以及执行各种操作，从而使得数据库的自定义创建、维护和操作成为可能。
+
+而我们想要在 Python 开发中对数据库进行操作，主要就是通过数据库自身的 DBMS 来完成的。
+
+Python 通过不同的数据库框架和库，提供了与各种 DBMS 进行交互并在数据库上执行操作的能力，从而帮助开发人员连接数据库、执行 SQL 查询、并完成各种数据处理的任务。
+
+## 理解 Python 中的数据库支持
+
+如果开发人员希望在 Python 中访问数据库，通常的步骤如下所示：
+
+<Steps>
+### 选择一个数据库
+
+Python 支持多种数据库管理系统，包括：
+
+    - PostgreSQL
+    - MySQL
+    - SQLite
+    - Oracle
+    - Microsoft SQL Server
+    - MongoDB
+
+    我们需要选择适合应用程序需求的数据库，然后安装相应的 Python 驱动程序或库。
+
+### 连接数据库
+
+开发人员可以通过使用适当的凭据和参数来与数据库建立连接。
+下面是使用`psycopg2`库连接到 PostgreSQL 数据库的示例：
+
+    ```python
+    import psycopg2
+
+    # 建立连接
+    conn = psycopg2.connect(
+        host="localhost",
+        port="5432",
+        database="mydatabase",
+        user="myuser",
+        password="mypassword"
+    )
+    ```
+
+### 执行 SQL 查询
+
+连接成功后，我们就可以使用 Python 来执行 SQL 查询了。
+下面是向 PostgreSQL 表中插入数据的示例：
+
+    ```python
+    # 创建游标
+    cur = conn.cursor()
+
+    # 执行SQL INSERT查询
+    cur.execute("INSERT INTO mytable (column1, column2) VALUES (%s, %s)", (value1, value2))
+
+    # 提交事务
+    conn.commit()
+
+    # 关闭游标和连接
+    cur.close()
+    conn.close()
+    ```
+
+### 处理异常
+
+数据库往往涉及数据的保存、更新、删除等操作，因此，任何错误或异常都有可能导致数据完整性的缺失。所以，开发人员在操作数据库时，一定要注意异常处理，以确保代码可以正确地处理错误和进行必要的恢复。
+
+    我们一般使用`try...except...finally`块来捕获与数据库相关的异常，然后进行必要的处理。
+
+</Steps>
+
+以上只是在 Python 中操作数据库的一般流程，我们会在后续的章节中详细讲解不同数据库的不同使用方式。
+
+## 总结
+
+在现代程序开发中，使用数据库是高效存储和检索数据的重要手段。Python 作为一种功能强大的编程语言，同样为开发人员提供了优秀的数据库支持，从而帮助开发人员能够将数据库无缝地集成到自己的应用程序中。

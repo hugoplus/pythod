@@ -1,0 +1,138 @@
+---
+title: "Reduce | Accelerated Function"
+description: "The article explains Python's reduce function, which applies an operation across a sequence's elements to reduce them to a single result. Unlike map, reduce doesn't return a new sequence but combines elements into one value using operations like addition or multiplication. It also offers tips on using reduce effectively, such as providing an initial value for empty sequences and ensuring the operation is associative and commutative to prevent unexpected outcomes."
+---
+
+## 基本概念
+
+在上一节讲解的`map`函数基础上，本节将介绍另一个 Python 内置的强大工具：`reduce`函数。
+
+通过上一节的学习，我们知道：`map`函数可以在一个序列中的每个元素上都执行相同的操作，最后返回操作完成后的结果；而这个结果，也是一个序列。返回的序列长度与原序列是一样的，只不过，序列中的每一个元素都经过了转换。
+
+`reduce`函数与此类似，它也是在一个序列中的每个元素上都执行相同的操作；但不同点是，`reduce`函数会将序列中的元素个数逐渐减少，直至减少为一个值。
+
+举个例子，假如我们有一个整数列表，而此时我们需要计算这个列表中所有整数的和。
+
+当然，我们依然可以使用传统的循环迭代的方式处理；不过，既然我们有了`reduce`函数，我们就可以写出更简洁的代码。
+
+```python
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5]
+
+sum = reduce(lambda x, y: x + y, numbers)
+print(sum)  # 输出：15
+```
+
+在此例中，我们使用了`reduce`函数对列表中的所有数字求和。`reduce`函数首先接受一个 Lambda 函数，这个 Lambda 函数有两个参数`x`和`y`，返回结果是它们的和。`reduce`函数将此 Lambda 函数应用于`numbers`列表中的所有元素，目标是得到最终的总和。
+
+具体的计算过程是：
+
+1. `reduce`函数从列表中取出前两个元素（`1`和`2`），并对它们应用 Lambda 函数（`1 + 2`）。
+2. 上一步得到的结果`3`成为新的`x`，而列表中的下一个元素`3`成为新的`y`，然后再次应用操作（`3 + 3 = 6`）。
+3. 这个过程一直持续，直到处理完列表中的所有元素。
+4. 最后，结果存储在返回值`sum`中。
+
+操作的顺序如下所示：
+
+-   1 + 2 = 3
+-   3 + 3 = 6
+-   6 + 4 = 10
+-   10 + 5 = 15
+
+这就是前面提到的：`reduce`函数会在一个序列中的每个元素上都执行相同的操作，同时，将序列中的元素个数逐渐减少，直至减少为一个值。这个值就是最终的结果。
+
+下面让我们来看看`reduce`函数的具体语法规则。
+
+## `reduce`函数的语法
+
+要在 Python 中使用`reduce`函数，我们首先需要从`functools`模块中导入它。下面是`reduce`函数的语法：
+
+```python
+from functools import reduce
+
+reduce(function, sequence, initial=None)
+```
+
+-   `function`：表示我们想要对每一个序列元素执行的操作函数。
+-   `sequence`：表示我们计划处理的元素序列。
+-   `initial`：这是一个可选的参数，用于指定初始值。如果提供了初始值，则将使用该初始值和序列的第一个元素执行`reduce`操作；如果未提供初始值，则将以序列的第一个元素作为初始值。
+
+需要注意的是，`reduce`函数要求序列中至少有两个元素才能正常工作。如果序列为空且未提供初始值，则会引发`TypeError`错误。
+
+下面让我们来看看`reduce`函数在 Python 中的具体使用。
+
+## `reduce`函数的使用
+
+**示例 1：计算一个数字列表的乘积**
+
+```python
+from functools import reduce
+
+numbers = [2, 3, 4, 5]
+
+product = reduce(lambda x, y: x * y, numbers)
+print(product)  # 输出：120
+```
+
+在此例中，我们使用`reduce`函数来计算一个数字列表的乘积。这个例子与前面的序列求和的例子很类似，只不过加法换成了乘法。
+
+**示例 2：查找最大值或最小值**
+
+`reduce`函数还可以用于查找序列中的最大值或最小值。
+
+```python
+from functools import reduce
+
+numbers = [5, 2, 8, 1, 9]
+
+max_value = reduce(lambda x, y: x if x > y else y, numbers)
+min_value = reduce(lambda x, y: x if x < y else y, numbers)
+```
+
+在这个例子中，Lambda 函数用于比较两个值，然后返回最大值或最小值；而`reduce`函数则将该 Lambda 函数应用在`numbers`列表的每一个元素上，不断进行比较，最后返回该列表的最大值或最小值。
+
+**示例 3：连接字符串**
+
+让我们看一个将`reduce`函数用于连接字符串的例子。
+
+```python
+from functools import reduce
+
+words = ["Hello", " ", "World", "!"]
+
+sentence = reduce(lambda x, y: x + y, words)
+```
+
+在这个例子中，通过使用 Lambda 函数（`lambda x, y: x + y`），`reduce`函数合并了`words`列表中的所有字符串，最终得到一个连接后的句子。
+
+**示例 4：阶乘计算**
+
+在前面几节中，我们介绍过使用循环或递归的方式来计算阶乘；现在，我们来看看如果使用`reduce`函数来计算一个数字的阶乘。
+
+```python
+from functools import reduce
+
+n = 5
+
+factorial = reduce(lambda x, y: x * y, range(1, n+1))
+```
+
+在此例中，`reduce`函数将 Lambda 函数（`lambda x, y: x * y`）应用在从`1`到`n`范围内的每一个元素上，从而计算出`n`的阶乘。
+
+看得出来，使用`reduce`函数计算阶乘比使用循环或递归的方式都要更加简洁。
+
+## `reduce`函数的最佳使用实践
+
+如同`map`函数一样，虽然`reduce`函数很强大，我们在使用时，依然尽量循序其最佳使用实践。
+
+-   当我们需要使用相同的公式计算序列中的每一个元素，最后合并为一个结果时，可以使用`reduce`函数。
+-   我们需要确保提供给`reduce`函数的具体操作函数是满足结合律和交换律的。结合律意味着操作的顺序无关紧要，交换律意味着元素的顺序无关紧要。不遵循这个规则可能导致意外的结果。
+-   我们需要考虑在需要处理空序列时提供一个初始值。
+-   `reduce`函数并不能取代传统的循环、迭代或列表推导；相反，在有些时候，传统的方式可能更加易读，也更加高效。
+
+## 总结
+
+综上所述，Python 中的`reduce`函数是一个很方便的工具。它简化了对序列中多个元素执行计算的过程，并最终将多个值聚合到一个结果中。
+
+理解`reduce`函数的概念并尽量遵循其最佳使用实践，我们就可以编写出更加简洁和高效的代码。
