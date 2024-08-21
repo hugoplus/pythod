@@ -10,7 +10,7 @@ export default {
         const { asPath, defaultLocale, locale } = useRouter();
         const { frontMatter } = useConfig();
         const url =
-            "https://pythod.com" +
+            "https://www.pythod.com" +
             (defaultLocale === locale ? asPath : `/${locale}${asPath}`);
 
         return (
@@ -65,7 +65,7 @@ export default {
     footer: {
         text: (
             <span>
-                <a href="https://pythod.com" target="_blank">
+                <a href="https://www.pythod.com" target="_blank">
                     Pythod
                 </a>{" "}
                 ©{` ${new Date().getFullYear()}. All rights reserved.`}
