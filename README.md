@@ -1,5 +1,15 @@
 # Pythod
 
-This is where you can learn fundamental knowledge about Python.
+欢迎学习 Python 编程。
 
-BTW, this website is based on [Nextra](https://nextra.site).
+Pythod 是为希望深入了解 Python 的用户准备的，从基础到进阶，我们将一步步探索。
+
+Python 是一种功能强大的编程语言，适用于多种编程任务。Pythod 从 Python 的安装和基本语法讲起，并逐步介绍面向对象编程、文件和数据库操作等关键技能。
+
+选择 Pythond，就是选择了一个充满挑战与发现的学习之路。希望它能够成为您值得信赖的指南，让您的编程旅程更加顺畅。
+
+感谢[Nextra](https://nextra.site)为内容创作者提供了一个简单易用的平台。
+
+祝编程愉快！
+
+~ Hugo P.
