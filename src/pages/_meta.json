@@ -14,7 +14,8 @@
     "12-exception": "12. 异常",
     "13-magic-methods": "13. Python中的魔法方法",
     "14-accelerated-function": "14. 再谈函数的高级用法",
-    "15-file": "15. 文件",
-    "16-database": "16. 数据库支持",
-    "17-reference": "17. 参考"
+    "15-built-in-modules": "15. 善用Python的内置模块",
+    "16-file": "16. 文件",
+    "17-database": "17. 数据库支持",
+    "18-reference": "18. 参考"
 }

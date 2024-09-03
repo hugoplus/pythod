@@ -1,7 +1,0 @@
-{
-    "1601-database-support": "16.1 Python中的数据库",
-    "1602-database-sqlite": "16.2 SQLite",
-    "1603-database-mysql": "16.3 MySQL",
-    "1604-database-postgresql": "16.4 PostgreSQL",
-    "1605-database-sqlalchemy": "16.5 SQLAlchemy"
-}

@@ -1,0 +1,518 @@
+---
+title: "Built-in Modules | Collections"
+description: "This article explains how to handle files in Python, detailing different file modes and methods to open, read, and write files. It recommends using the with statement for managing files efficiently and ensuring they close properly after use. The article also describes various methods like read(), readline(), and readlines() for reading file contents, each suited for specific needs."
+---
+
+## 基本概念
+
+我们在前面的章节中介绍了 Python 中的容器数据类型和它们的用法，例如：`list`、`tuple`、`dict`和`set`。这些内置的容器数据类型虽然功能强大，而且基本可以满足大部分的使用场景，但是在有些情况下，它们仍然会有一些缺陷和不足。为此，Python 提供了更为专业的`collections`模块，以弥补这些问题。
+
+Python 中的 `collections` 模块提供了与`list`、`tuple`、`dict`和`set`这些内置类型相对应的容器类型，并提供了访问和遍历其中对象的方式，包括：元组（Tuple）、列表（List）、字典（Dictionary）等。
+
+本文将介绍 `collections` 模块所提供的各种容器。
+
+## 容器类型详解
+
+### 计数器（Counter）
+
+计数器（Counter）是字典的一个子类。它用于以无序字典的形式记录可迭代对象中各元素的计数，其中键代表可迭代对象中的元素，值代表该元素在可迭代对象中的数量。
+
+基本语法如下所示：
+
+```python
+class collections.Counter([iterable-or-mapping])
+```
+
+我们可以使用 `counter()` 函数来初始化计数器对象，函数参数可以是列表、字典或关键字参数，如下所示：
+
+```python
+from collections import Counter
+
+# 由列表创建Counter对象
+print(Counter(['B','B','A','B','C','A','B', 'B','A','C'])) # Outputs: Counter({'B': 5, 'A': 3, 'C': 2})
+
+# 由字典创建Counter对象
+print(Counter({'A':3, 'B':5, 'C':2})) # Outputs: Counter({'B': 5, 'A': 3, 'C': 2})
+
+# 由关键字参数创建Counter对象
+print(Counter(A=3, B=5, C=2)) # Outputs: Counter({'B': 5, 'A': 3, 'C': 2})
+```
+
+### 有序字典（OrderedDict）
+
+有序字典（OrderedDict）也是字典的一个子类，但与普通字典不同的是，它会记住每一个键的创建顺序。
+
+基本语法如下所示：
+
+```python
+class collections.OrderDict()
+```
+
+我们可以通过如下代买来看一下有序字典的使用。
+
+```python
+from collections import OrderedDict
+
+print("\nThis is an Ordered Dict:\n")
+od = OrderedDict()
+od['a'] = 1
+od['b'] = 2
+od['c'] = 3
+od['d'] = 4
+
+for key, value in od.items():
+    print(key, value)
+```
+
+上述代码的输出为：
+
+```bash
+This is an Ordered Dict:
+
+a 1
+b 2
+c 3
+d 4
+```
+
+当我们删除某一个键，然后再重新插入相同的键时，有序字典会将该键移至最后，以保持插入顺序。
+
+```python
+from collections import OrderedDict
+
+od = OrderedDict()
+od['a'] = 1
+od['b'] = 2
+od['c'] = 3
+od['d'] = 4
+
+print('Before Deleting')
+for key, value in od.items():
+    print(key, value)
+
+# deleting element
+od.pop('a')
+
+# Re-inserting the same
+od['a'] = 1
+
+print('\nAfter re-inserting')
+for key, value in od.items():
+    print(key, value)
+```
+
+输出为：
+
+```bash
+Before Deleting
+a 1
+b 2
+c 3
+d 4
+
+After re-inserting
+b 2
+c 3
+d 4
+a 1
+```
+
+需要注意的是：从 Python 3.7 开始，内置的 `dict` 类型默认也会记住键的创建顺序。也就是说，当我们遍历字典的时候，字典的键会按照它们最初被添加到字典中的顺序进行迭代。所以，在使用 3.7 或更高版本的 Python 应用中，普通的 `dict` 就足以满足使用需求。但如果需要与旧版本的 Python 应用保持兼容，则 `OrderedDict` 就仍然是一个有用的工具。何况，`OrderedDict` 本身也提供了很多更便捷的方法，例如： `move_to_end()` 和 `popitem()`等等。
+
+```python
+from collections import OrderedDict
+
+ordered_dict = OrderedDict([('one', 1), ('two', 2), ('three', 3)])
+
+# Move 'one' to the end
+ordered_dict.move_to_end('one')
+
+# Pop the last item (LIFO order)
+last_item = ordered_dict.popitem()
+```
+
+### 默认字典（DefaultDict）
+
+默认字典（DefaultDict）也是字典的一个子类。它用于为不存在的键提供一些默认值，并且永远不会触发 `KeyError` 异常。
+
+基本语法如下所示：
+
+```python
+class collections.defaultdict(default_factory)
+```
+
+其中，`default_factory` 是一个函数对象，用来为创建的字典提供默认值。如果没有这个参数，将会引发 `KeyError`。
+
+举个例子，
+
+```python
+from collections import defaultdict
+
+# Defining the dict
+d = defaultdict(int)
+
+L = [1, 2, 3, 4, 2, 4, 1, 2]
+
+# Iterate through the list for keeping the count
+for i in L:
+    # The default value is 0, so there is no need to enter the key first
+    d[i] += 1
+
+print(d) # Outputs: defaultdict(<class 'int'>, {1: 2, 2: 3, 3: 1, 4: 2})
+
+# Defining a new dict
+e = defaultdict(list)
+
+for i in range(5):
+    e[i].append(i)
+
+print("Dictionary with values as list:")
+print(e) # Outputs: defaultdict(<class ‘list’>, {0: [0], 1: [1], 2: [2], 3: [3], 4: [4]})
+```
+
+### 链式映射（ChainMap）
+
+链式映射（ChainMap）可以将多个字典封装成一个单元，同时返回一个字典列表。
+
+基本语法如下所示：
+
+```python
+class collections.ChainMap(dict1, dict2)
+```
+
+具体使用案例如下所示：
+
+```python
+from collections import ChainMap
+
+d1 = {'a': 1, 'b': 2}
+d2 = {'c': 3, 'd': 4}
+d3 = {'e': 5, 'f': 6}
+
+# Defining the ChainMap
+c = ChainMap(d1, d2, d3)
+
+print(c) # Outputs: ChainMap({'a': 1, 'b': 2}, {'c': 3, 'd': 4}, {'e': 5, 'f': 6})
+```
+
+我们可以使用`maps[index]`方法来访问索引为`index`的字典对象。我们还可以使用键名访问 `ChainMap` 中的具体值；同时，也可以通过使用 `keys()` 和 `values()` 方法来访问所有的键和值。
+
+```python
+print(c.maps[0]) # Outputs: {'a': 1, 'b': 2}
+
+print(c['a']) # Outputs: 1
+
+print(c.values()) # Outputs: ValuesView(ChainMap({'a': 1, 'b': 2}, {'c': 3, 'd': 4}, {'e': 5, 'f': 6}))
+
+print(c.keys()) # Outputs: KeysView(ChainMap({‘a’: 1, ‘b’: 2}, {‘c’: 3, ‘d’: 4}, {‘e’: 5, ‘f’: 6}))
+
+# Outputs:
+# 5
+# 6
+# 3
+# 4
+# 1
+# 2
+for i in c.values():
+    print(i)
+```
+
+如果想要添加一个新的字典对象，我们可以使用`new_child()`方法。新添加的字典会被放在 `ChainMap` 的最前面。
+
+```python
+from collections import ChainMap
+
+d1 = {'a': 1, 'b': 2}
+d2 = {'c': 3, 'd': 4}
+d3 = {'e': 5, 'f': 6}
+
+# Defining the ChainMap
+chain1 = ChainMap(d1, d2)
+
+print(chain1) # Outputs: ChainMap({'a': 1, 'b': 2}, {'c': 3, 'd': 4})
+
+# using new_child() to add new dictionary
+chain2 = chain1.new_child(d3)
+
+print(chain2) # Outputs: ChainMap({'e': 5, 'f': 6}, {'a': 1, 'b': 2}, {'c': 3, 'd': 4})
+```
+
+### 命名元组（NamedTuple）
+
+Python 内置的`tuple`类型只是一个对象列表，并不像`dict`类型一样，为每个对象设置一个`key`。为了弥补这个缺陷，`collections`模块提供了命名元组（NamedTuple）类型。命名元组对象的每个位置都会有一个对应的名称。
+
+举个例子，假设有一个名为 `student` 的元组，其中第一个元素代表 `fname`，第二个元素代表 `lname`，第三个元素代表 `DOB`。假设要调用 `fname`，开发人员无需记住索引位置，而可以直接使用 `fname` 参数调用该元素，从而使访问元组元素变得非常容易。
+
+基本语法如下所示：
+
+```python
+class collections.namedtuple(typename, field_names)
+```
+
+具体使用方法如下所示：
+
+```python
+from collections import namedtuple
+
+# Declaring namedtuple()
+Student = namedtuple('Student',['name','age','DOB'])
+
+# Adding values
+S = Student('Nandini','19','2541997')
+
+# Access using index
+print (f"The Student age using index is : {S[1]}.") # Outputs: The Student age using index is : 19
+
+# Access using name
+print (f"The Student name using keyname is : {S.name}") # Outputs: The Student name using keyname is : Nandini
+```
+
+我们可以使用 `_make()` 方法将一个可迭代对象（例如列表或字典）转换为命名数组；也可以使用 `_asdict()` 方法将一个命名数组对象转换为 `OrdereDict()` 的对象。
+
+```python
+from collections import namedtuple
+
+# Declaring namedtuple()
+Student = namedtuple('Student',['name','age','DOB'])
+
+# Adding values
+S = Student('Nandini', '19', '2541997')
+
+# initializing iterable
+li = ['Manjeet', '19', '411997' ]
+
+# initializing dict
+di = { 'name' : "Nikhil", 'age' : 19 , 'DOB' : '1391997' }
+
+# using _make() to return namedtuple()
+print ("The namedtuple instance using iterable is  : ")
+print (Student._make(li)) # Outputs: Student(name='Manjeet', age='19', DOB='411997')
+
+# using _asdict() to return an OrderedDict()
+print ("The OrderedDict instance using namedtuple is  : ")
+print (S._asdict()) # Outputs: OrderedDict([('name', 'Nandini'), ('age', '19'), ('DOB', '2541997')])
+```
+
+### 双端队列（Deque，Doubly Ended Queue）
+
+双端队列（Deque）是一种经过优化的列表，从而可以更快地从容器的两端进行添加和弹出操作。与时间复杂度为 `O(n)` 的列表相比，双端队列的添加和弹出操作的时间复杂度是 `O(1)` 。
+
+基本语法如下所示：
+
+```python
+class collections.deque(list)
+```
+
+对于双端队列而言，元素可以分别从两端插入或删除。我们可以使用 `append()` 方法从右侧插入元素，使用 `appendleft()` 方法从左侧插入元素；使用 `pop()` 方法从右侧移除元素，使用 `popleft()` 方法从左侧移除元素。
+
+```python
+from collections import deque
+
+# initializing deque
+de = deque([1, 2, 3])
+
+# using append() to insert element at right end
+de.append(4)
+
+# printing modified deque
+print ("The deque after appending at right is : ")
+print (de) # Outputs: deque([1, 2, 3, 4])
+
+# using appendleft() to insert element at right end
+de.appendleft(6)
+
+# printing modified deque
+print ("The deque after appending at left is : ")
+print (de) # Outputs: deque([6, 1, 2, 3, 4])
+
+# using pop() to delete element from right end
+de.pop()
+
+# printing modified deque
+print ("The deque after deleting from right is : ")
+print (de) # Outputs: deque([6, 1, 2, 3])
+
+# using popleft() to delete element from left end
+de.popleft()
+
+# printing modified deque
+print ("The deque after deleting from left is : ")
+print (de) # Outputs: deque([1, 2, 3])
+```
+
+### 自定义字典（UserDict）
+
+UserDict 也是 `collections` 模块提供的一个类，是一个用于创建字典的基类。开发人员可以基于 UserDict 方便地定义自己的字典类，而不必从头开始实现所有字典的特性。
+
+基本语法如下所示：
+
+```python
+class collections.UserDict([initialdata])
+```
+
+让我们通过一个例子来看看如何使用 UserDict 创建自定义的字典类。
+
+```python
+from collections import UserDict
+
+class CountingDict(UserDict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # This internal dictionary will count accesses to keys
+        self.access_count = {}
+
+    def __getitem__(self, key):
+        # Increment the count for the accessed key
+        self.access_count[key] = self.access_count.get(key, 0) + 1
+        return super().__getitem__(key)
+
+    def get_access_count(self, key):
+        # Return the access count for a specific key
+        return self.access_count.get(key, 0)
+
+
+# Create an instance of the custom dictionary with some initial values
+cd = CountingDict({'apple': 2, 'banana': 3, 'cherry': 1})
+
+# Access some keys
+print(cd['apple'])   # Outputs: 2
+print(cd['banana'])  # Outputs: 3
+print(cd['apple'])   # Outputs: 2
+
+# Check access counts
+print(cd.get_access_count('apple'))   # Outputs: 2
+print(cd.get_access_count('banana'))  # Outputs: 1
+print(cd.get_access_count('cherry'))  # Outputs: 0
+```
+
+其中，
+
+-   使用 `__init__` 方法初始化内部字典并另外创建一个字典来跟踪键的访问次数。
+-   重写 `__getitem__` 方法用于在每次访问键时增加计数。使用 `super().__getitem__(key)` 保留了原方法的功能。
+-   创建 `get_access_count` 方法用来检索任何键的访问计数，如果键未被访问过，则提供默认值 `0`。
+
+### 自定义列表（UserList）
+
+与 UserDict 类似，UserList 是 `collections` 模块提供的用于创建列表的基类。开发人员可以基于 UserList 创建自己的列表类，而不必从头开始实现所有列表的特性。
+
+基本语法如下所示：
+
+```python
+class collections.UserList([list])
+```
+
+让我们同样通过示例代码来看一下 UserList 的使用方法。
+
+```python
+from collections import UserList
+
+class SortedUserList(UserList):
+    def __init__(self, initial_list=None):
+        super().__init__(sorted(initial_list) if initial_list is not None else [])
+
+    def append(self, item):
+        super().append(item)
+        self.data.sort()
+
+    def insert(self, i, item):
+        super().insert(i, item)
+        self.data.sort()
+
+    def extend(self, other):
+        super().extend(other)
+        self.data.sort()
+
+# Create an instance of the custom list with some initial values
+sul = SortedUserList([3, 1, 4])
+
+# Append new elements
+sul.append(2)
+print(sul)  # Outputs: [1, 2, 3, 4]
+
+# Insert a new element
+sul.insert(1, 5)
+print(sul)  # Outputs: [1, 2, 3, 4, 5]
+
+# Extend the list with more elements
+sul.extend([0, 6])
+print(sul)  # Outputs: [0, 1, 2, 3, 4, 5, 6]
+```
+
+其中，
+
+-   如果在创建实例时提供了初始列表，那么 `__init__` 方法会对其进行排序。
+-   我们重写 `append` 方法向列表添加一个新项，然后对列表进行排序。
+-   我们重写 `insert` 方法在指定索引处插入一个项目，然后对列表进行排序。
+-   我们重写 `extend` 方法将另一个可迭代对象添加到列表，然后对列表进行排序。
+
+### 自定义字符串（UserString）
+
+就像 UserDict 和 UserList 一样, UserString 是 `collections` 模块提供的一个类似字符串的容器，用于帮助开发人员创建自定义字符串类。
+
+基本语法如下所示：
+
+```python
+class collections.UserString(seq)
+```
+
+让我们同样通过示例代码来看一下 UserString 的使用方法。
+
+```python
+from collections import UserString
+
+class SortedAlphaString(UserString):
+    def __init__(self, sequence):
+        super().__init__(self._sorted_alpha(sequence))
+
+    def _sorted_alpha(self, sequence):
+        # Filter to keep only alphabetic characters and sort them
+        filtered = filter(str.isalpha, sequence)
+        return ''.join(sorted(filtered))
+
+    def __add__(self, other):
+        # Override addition to ensure result is sorted and cleaned
+        return SortedAlphaString(self.data + str(other))
+
+    def __mul__(self, other):
+        # Override multiplication to ensure result is sorted and cleaned
+        if isinstance(other, int):
+            return SortedAlphaString(self.data * other)
+        return NotImplemented
+
+    def __setitem__(self, key, value):
+        # Convert to list to support item assignment
+        temp = list(self.data)
+        temp[key] = value
+        self.data = self._sorted_alpha(''.join(temp))
+
+# Create an instance of the custom string
+sas = SortedAlphaString("hello3world2")
+
+# Print the sorted and cleaned string
+print(sas)  # Outputs: 'dehllloorw'
+
+# Add more characters
+sas += "123abc"
+print(sas)  # Outputs: 'aabcdehllloorw'
+
+# Multiply the string
+sas = sas * 2
+print(sas)  # Outputs: 'aabcdehllloorwaabcdehllloorw'
+
+# Modify the string through item assignment (this example is to demonstrate, won't work in Python since UserString does not support item assignment by default)
+try:
+    sas[0] = 'z'
+except TypeError as e:
+    print(e)  # Outputs: 'SortedAlphaString' object does not support item assignment
+```
+
+其中，
+
+-   我们使用 `__init__` 方法清理并排序初始输入。
+-   我们重写 `__add__` 方法确保任何连接的字符串都被清理并排序。
+-   我们重写 `__mul__` 方法用于展示字符串在乘法操作后的行为，确保结果仍然是清理并排序的。
+-   由于 Python 中的字符串是不可变的，因此这个类不直接支持字符串赋值。我们重写了 `__setitem__` 方法用于展示如果实现了类似可变的行为，可能会尝试如何修改字符串。
+
+## 总结
+
+Python 中的 `collections` 模块提供了若干专门的容器数据类型，用于增强和扩展了已有的标准容器（如：列表、字典和字符串）的功能。通过提供如 `OrderedDict`、`defaultdict`、`deque`、`Counter` 以及包装类 `UserDict`、`UserList` 和 `UserString` 等结构，开发者可以更加便捷地处理复杂数据，既可以优化性能，又能简化代码。`collections`模块不仅提高了代码效率和可读性，还确保开发者可以对数据结构行为进行精确控制，从而导致更健壮、可维护和更清洁的代码库。
