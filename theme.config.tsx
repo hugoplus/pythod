@@ -48,7 +48,7 @@ export default {
                 height={24}
             />
             <span style={{ marginLeft: ".4em", fontWeight: 600 }}>
-                Pythod | Python 百宝囊
+                Pythod | 循序渐进学 Python
             </span>
         </>
     ),

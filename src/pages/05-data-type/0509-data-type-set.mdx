@@ -186,7 +186,7 @@ set1 - set2
     ```python {3}
     >>> set1 = {1, 2, 3}
     >>> set2 = {3, 4, 5}
-    >>> intersection = set1.intersection(set2)
+    >>> intersection = set1.intersection(set2) # 同时在 set1 和 set2 中的元素
     >>> print(intersection)
     {3}
     ```
@@ -196,7 +196,7 @@ set1 - set2
     ```python {3}
     >>> set1 = {1, 2, 3}
     >>> set2 = {3, 4, 5}
-    >>> difference = set1.difference(set2)
+    >>> difference = set1.difference(set2) # 元素在 set1 中，但不在 set2 中
     >>> print(difference)
     {1, 2}
     ```
@@ -206,7 +206,7 @@ set1 - set2
     ```python {3}
     >>> set1 = {1, 2, 3}
     >>> set2 = {3, 4, 5}
-    >>> symmetric_difference = set1.symmetric_difference(set2)
+    >>> symmetric_difference = set1.symmetric_difference(set2) # 元素可以在 set1 中，也可以在 set2 中，但不能同时在 set1 和 set2 中
     >>> print(symmetric_difference)
     {1, 2, 4, 5}
     ```
