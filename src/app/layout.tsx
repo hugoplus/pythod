@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Pythod | 循序渐进学Python",
+    title: "Pythod | Python 之路",
     description: "A place for Python learners.",
 };
 
