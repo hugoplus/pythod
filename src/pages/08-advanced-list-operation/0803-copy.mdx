@@ -13,47 +13,50 @@ description: "In Python, you can copy lists and tuples using slicing, the list()
 
 在 Python 中，我们可以使用以下几种不同的方法来复制列表或元组：
 
--   方法 1：使用切片操作  
-     我们可以使用切片来复制列表或元组，如下所示：
+### 方法 1：使用切片操作
 
-    ```python
-    # 复制列表
-    original_list = [1, 2, 3, 4, 5]
-    new_list = original_list[:]
-    print(new_list)   # 输出：[1, 2, 3, 4, 5]
+我们可以使用切片来复制列表或元组，如下所示：
 
-    # 复制元组
-    original_tuple = (1, 2, 3, 4, 5)
-    new_tuple = original_tuple[:]
-    print(new_tuple)  # 输出：(1, 2, 3, 4, 5)
+````python
+# 复制列表
+original_list = [1, 2, 3, 4, 5]
+new_list = original_list[:]
+print(new_list)   # 输出：[1, 2, 3, 4, 5]
+
+# 复制元组
+original_tuple = (1, 2, 3, 4, 5)
+new_tuple = original_tuple[:]
+print(new_tuple)  # 输出：(1, 2, 3, 4, 5)
     ```
 
--   方法 2：使用 `list()` 或 `tuple()` 函数  
-     我们可以使用 Python 内置的 `list()` 或 `tuple()` 函数来复制列表或元组，如下所示：
+### 方法 2：使用 `list()` 或 `tuple()` 函数
 
-    ```python
-    # 复制列表
-    original_list = [1, 2, 3, 4, 5]
-    new_list = list(original_list)
-    print(new_list)   # 输出：[1, 2, 3, 4, 5]
+我们可以使用 Python 内置的 `list()` 或 `tuple()` 函数来复制列表或元组，如下所示：
 
-    # 复制元组
-    original_tuple = (1, 2, 3, 4, 5)
-    new_tuple = tuple(original_tuple)
-    print(new_tuple)  # 输出：(1, 2, 3, 4, 5)
-    ```
+```python
+# 复制列表
+original_list = [1, 2, 3, 4, 5]
+new_list = list(original_list)
+print(new_list)   # 输出：[1, 2, 3, 4, 5]
 
--   方法 3：使用 `copy()` 方法  
-     我们可以使用 Python 提供的 `copy()` 方法来复制列表，如下所示：
+# 复制元组
+original_tuple = (1, 2, 3, 4, 5)
+new_tuple = tuple(original_tuple)
+print(new_tuple)  # 输出：(1, 2, 3, 4, 5)
+````
 
-    ```python
-    # 复制列表
-    original_list = [1, 2, 3, 4, 5]
-    new_list = original_list.copy()
-    print(new_list)   # 输出：[1, 2, 3, 4, 5]
-    ```
+### 方法 3：使用 `copy()` 方法
 
-    需要注意的是，`copy()` 方法仅适用于列表，而不适用于元组；也就是说，我们无法使用 `copy()` 方法来复制一个元组。
+我们可以使用 Python 提供的 `copy()` 方法来复制列表，如下所示：
+
+```python
+# 复制列表
+original_list = [1, 2, 3, 4, 5]
+new_list = original_list.copy()
+print(new_list)   # 输出：[1, 2, 3, 4, 5]
+```
+
+需要注意的是，`copy()` 方法仅适用于列表，而不适用于元组；也就是说，我们无法使用 `copy()` 方法来复制一个元组。
 
 另外，我们必须要牢记：**上面列出的三种方法所提供的复制操作都是一种浅复制**，它并不会完整原始对象的全部内容；如果我们需要复制原始对象的全部内容，我们需要使用深复制方法 `deepcopy()`。
 
@@ -63,7 +66,7 @@ description: "In Python, you can copy lists and tuples using slicing, the list()
 
 当我们在代码中想要复制一个对象时，Python 为我们提供了两种模式：**浅复制**和**深复制**。它们的主要区别如下所示：
 
--   浅复制
+### 浅复制
 
 在 Python 中，浅复制创建一个新对象，但不是复制原始对象的整个内容，而是只创建对原始内存位置的引用。换句话说，新对象指向与原始对象相同的内存位置。
 
@@ -86,7 +89,7 @@ print(shallow_copy_3)      # 输出：[1, 2, [9, 4], 5]
 
 在上面的示例中，`original_list` 包含一个嵌套列表，即 `[3, 4]`。当我们使用前面介绍的三种方法对 `original_list` 进行复制时，新列表只包含了对该嵌套列表在同一内存中的引用，是一种浅复制。因此，当我们修改原始列表对象 `original_list` 中的嵌套列表时，所有的新列表 `shallow_copy_1` 、`shallow_copy_2` 和 `shallow_copy_3` 都会受到影响，因为它们都是引用了嵌套列表的相同内存位置。
 
--   深复制
+### 深复制
 
 与浅复制相反，深复制创建一个全新的对象，包括其所有内容。换句话说，它还会递归地复制原始对象中的所有嵌套对象，而不仅仅是创建对它们的引用。
 
